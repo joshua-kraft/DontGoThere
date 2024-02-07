@@ -13,6 +13,8 @@ struct ListView: View {
   @Query(sort: \Place.name) var places: [Place]
   @Environment(\.modelContext) var modelContext
   
+  @State private var showingAddSheet = false
+  
   var body: some View {
     NavigationStack {
       List {
@@ -43,6 +45,19 @@ struct ListView: View {
       .navigationDestination(for: Place.self) { place in
         DetailView(place: place)
       }
+      .toolbar {
+        ToolbarItem(placement: .topBarLeading) {
+          EditButton()
+        }
+        ToolbarItem(placement: .topBarTrailing) {
+          Button("Add Place", systemImage: "plus") {
+            showingAddSheet.toggle()
+          }
+        }
+      }
+      .sheet(isPresented: $showingAddSheet) {
+        AddPlaceView()
+      }
     }
   }
   
@@ -57,5 +72,5 @@ struct ListView: View {
 
 #Preview {
   ListView()
-    .modelContainer(Place.preview)
+    .modelContainer(Place.listPreview)
 }
