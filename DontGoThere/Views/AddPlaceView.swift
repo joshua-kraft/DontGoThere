@@ -8,11 +8,15 @@
 import SwiftUI
 
 struct AddPlaceView: View {
-    var body: some View {
-        Text("AddPlaceView for DontGoThere")
-    }
+  
+  @Environment(\.modelContext) var modelContext
+  @Environment(\.dismiss) var dismiss
+  
+  var body: some View {
+    Text("AddPlaceView for DontGoThere")
+  }
 }
 
 #Preview {
-    AddPlaceView()
+  AddPlaceView()
 }
