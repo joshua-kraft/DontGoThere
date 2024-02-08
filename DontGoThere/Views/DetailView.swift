@@ -11,74 +11,111 @@ import SwiftUI
 
 struct DetailView: View {
   
+  struct TextLabel: View {
+    let text: String
+    
+    var body: some View {
+      Text(text)
+        .font(.subheadline)
+        .foregroundStyle(.secondary)
+        .frame(width: 65)
+        .padding(.leading)
+    }
+    
+    init(_ text: String) {
+      self.text = text
+    }
+  }
+  
   @Environment(\.modelContext) var modelContext
-  @Environment(\.dismiss) var dismiss
   
   let place: Place
   
   var body: some View {
-    VStack {
-      Map(initialPosition: position(for: place), interactionModes: []) {
-        Marker(place.name, coordinate: CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude))
-      }
-      .frame(maxHeight: 225)
-      
-      VStack {
-        VStack {
-          Form {
-            Section("Details") {
-              HStack {
-                Text("Name:")
-                  .font(.headline)
-                  .foregroundStyle(.secondary)
-                TextField("", text: .constant(place.name))
-              }
-              HStack {
-                Text("Notes:")
-                  .font(.headline)
-                  .foregroundStyle(.secondary)
-                TextField("", text: .constant(place.notes))
-              }
-              HStack {
-                Text("Added:")
-                  .font(.headline)
-                  .foregroundStyle(.secondary)
-                Text(place.formattedAddDate)
-              }
-              HStack {
-                Text("Expires:")
-                  .font(.headline)
-                  .foregroundStyle(.secondary)
-                Text(place.formattedExpirationDate)
-              }
-              HStack {
-                Text("Review:")
-                  .font(.headline)
-                  .foregroundStyle(.secondary)
-                TextField("", text: .constant(place.review), axis: .vertical)
-              }
-            }
-          }
-          Text("IMAGES")
-            .font(.subheadline)
+    ScrollView(.vertical, showsIndicators: false) {
+      VStack(alignment: .leading) {
+        Map(initialPosition: position(for: place), interactionModes: []) {
+          Marker(place.name, coordinate: CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude))
         }
+        .frame(idealHeight: 225)
         
+        VStack(alignment: .leading) {
+          Text("Details")
+            .font(.title3)
+            .foregroundStyle(.secondary)
+            .padding(.leading)
+          
+          Divider()
+            .padding(.bottom, 4)
+          VStack(alignment: .leading) {
+            HStack(alignment: .center) {
+              TextLabel("NAME:")
+              TextField("Place Name", text: .constant(place.name))
+                .textFieldStyle(.roundedBorder)
+                .padding(.trailing)
+            }
+            .padding(.bottom, 4)
+            HStack {
+              TextLabel("NOTES:")
+              TextField("Place Notes", text: .constant(place.notes))
+                .textFieldStyle(.roundedBorder)
+                .padding(.trailing)
+            }
+            .padding(.bottom, 4)
+            HStack {
+              TextLabel("ADDED:")
+              DatePicker("Added Date", selection: .constant(place.addDate))
+                .labelsHidden()
+                .frame(maxWidth: .infinity)
+            }
+            .padding(.bottom, 4)
+            HStack {
+              TextLabel("EXPIRES:")
+              DatePicker("Expiry Date", selection: .constant(place.expirationDate))
+                .labelsHidden()
+                .frame(maxWidth: .infinity)
+            }
+            .padding(.bottom, 4)
+          }
+          
+          Divider()
+            .padding(.bottom, 4)
+          
+          Text("Images")
+            .font(.title3)
+            .foregroundStyle(.secondary)
+            .padding(.leading)
+          
           ScrollView(.horizontal, showsIndicators: false) {
             HStack {
               ForEach(place.imageNames, id: \.self) { imageName in
                 Image(imageName)
                   .resizable()
-                  .frame(maxWidth: 160, maxHeight: 160)
-                  .clipShape(.rect(cornerRadius: 10))
+                  .frame(width: 160, height: 160)
+                  .clipShape(.rect(cornerRadius: 5))
               }
             }
+            .padding([.leading, .trailing])
+            .padding(.bottom, 4)
           }
-          .padding([.leading, .trailing])
+          
+          Divider()
+            .padding(.bottom, 4)
+          
+          Text("Review")
+            .font(.title3)
+            .foregroundStyle(.secondary)
+            .padding(.leading)
+          
+          TextField("Review", text: .constant(place.review), axis: .vertical)
+            .textFieldStyle(.roundedBorder)
+            .padding([.leading, .trailing])
+        }
       }
+      .navigationTitle(place.name)
+      .navigationBarTitleDisplayMode(.inline)
+      .background(.thinMaterial)
     }
-    .background(.blue)
-    .navigationTitle(place.name)
-    .navigationBarTitleDisplayMode(.inline)
   }
   
   func position(for place: Place) -> MapCameraPosition {
