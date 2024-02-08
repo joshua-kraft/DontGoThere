@@ -15,61 +15,77 @@ struct DetailView: View {
   @Environment(\.dismiss) var dismiss
   
   let place: Place
-
+  
   var body: some View {
-    NavigationStack {
+    VStack {
+      Map(initialPosition: position(for: place), interactionModes: []) {
+        Marker(place.name, coordinate: CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude))
+      }
+      .frame(maxHeight: 225)
+      
       VStack {
-        Map(initialPosition: position(for: place), interactionModes: []) {
-          Marker(place.name, coordinate: CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude))
-        }
-        .frame(width: .infinity, height: 200)
-        
-        Form {
-          Section("Details") {
-            HStack {
-              Text("Name:")
-                .font(.headline)
-                .foregroundStyle(.secondary)
-              TextField("", text: .constant(place.name))
-            }
-            HStack {
-              Text("Notes:")
-                .font(.headline)
-                .foregroundStyle(.secondary)
-              TextField("", text: .constant(place.notes))
-            }
-            HStack(alignment: .top) {
-              Text("Review:")
-                .font(.headline)
-                .foregroundStyle(.secondary)
-              TextField("", text: .constant(place.review), axis: .vertical)
-            }
-            HStack {
-              Text("Added:")
-                .font(.headline)
-                .foregroundStyle(.secondary)
-              Text(place.formattedAddDate)
-            }
-            HStack {
-              Text("Expires:")
-                .font(.headline)
-                .foregroundStyle(.secondary)
-              Text(place.formattedExpirationDate)
+        VStack {
+          Form {
+            Section("Details") {
+              HStack {
+                Text("Name:")
+                  .font(.headline)
+                  .foregroundStyle(.secondary)
+                TextField("", text: .constant(place.name))
+              }
+              HStack {
+                Text("Notes:")
+                  .font(.headline)
+                  .foregroundStyle(.secondary)
+                TextField("", text: .constant(place.notes))
+              }
+              HStack {
+                Text("Added:")
+                  .font(.headline)
+                  .foregroundStyle(.secondary)
+                Text(place.formattedAddDate)
+              }
+              HStack {
+                Text("Expires:")
+                  .font(.headline)
+                  .foregroundStyle(.secondary)
+                Text(place.formattedExpirationDate)
+              }
+              HStack {
+                Text("Review:")
+                  .font(.headline)
+                  .foregroundStyle(.secondary)
+                TextField("", text: .constant(place.review), axis: .vertical)
+              }
             }
           }
+          Text("IMAGES")
+            .font(.subheadline)
         }
-    
+        
+          ScrollView(.horizontal, showsIndicators: false) {
+            HStack {
+              ForEach(place.imageNames, id: \.self) { imageName in
+                Image(imageName)
+                  .resizable()
+                  .frame(maxWidth: 160, maxHeight: 160)
+                  .clipShape(.rect(cornerRadius: 10))
+              }
+            }
+          }
+          .padding([.leading, .trailing])
       }
-      .navigationTitle(place.name)
-      .navigationBarTitleDisplayMode(.inline)
     }
+    .background(.blue)
+    .navigationTitle(place.name)
+    .navigationBarTitleDisplayMode(.inline)
   }
   
   func position(for place: Place) -> MapCameraPosition {
     MapCameraPosition.region(
-    MKCoordinateRegion(
-      center: CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude),
-      span: MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001))
+      MKCoordinateRegion(
+        center: CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude),
+        span: MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001))
     )
   }
 }
