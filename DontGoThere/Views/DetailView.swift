@@ -65,6 +65,7 @@ struct DetailView: View {
             HStack {
               TextLabel("ADDED:")
               DatePicker("Added Date", selection: .constant(place.addDate))
+                .disabled(true)
                 .labelsHidden()
                 .frame(maxWidth: .infinity)
             }
