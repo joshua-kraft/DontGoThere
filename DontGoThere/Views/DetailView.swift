@@ -29,7 +29,7 @@ struct DetailView: View {
   
   @Environment(\.modelContext) var modelContext
   
-  let place: Place
+  @Bindable var place: Place
   
   var body: some View {
     ScrollView(.vertical, showsIndicators: false) {
@@ -50,21 +50,21 @@ struct DetailView: View {
           VStack(alignment: .leading) {
             HStack(alignment: .center) {
               TextLabel("NAME:")
-              TextField("Place Name", text: .constant(place.name))
+              TextField("Place Name", text: $place.name)
                 .textFieldStyle(.roundedBorder)
                 .padding(.trailing)
             }
             .padding(.bottom, 4)
             HStack {
               TextLabel("NOTES:")
-              TextField("Place Notes", text: .constant(place.notes))
+              TextField("Place Notes", text: $place.notes)
                 .textFieldStyle(.roundedBorder)
                 .padding(.trailing)
             }
             .padding(.bottom, 4)
             HStack {
               TextLabel("ADDED:")
-              DatePicker("Added Date", selection: .constant(place.addDate))
+              DatePicker("Added Date", selection: $place.addDate)
                 .disabled(true)
                 .labelsHidden()
                 .frame(maxWidth: .infinity)
@@ -72,7 +72,7 @@ struct DetailView: View {
             .padding(.bottom, 4)
             HStack {
               TextLabel("EXPIRES:")
-              DatePicker("Expiry Date", selection: .constant(place.expirationDate))
+              DatePicker("Expiry Date", selection: $place.expirationDate)
                 .labelsHidden()
                 .frame(maxWidth: .infinity)
             }
