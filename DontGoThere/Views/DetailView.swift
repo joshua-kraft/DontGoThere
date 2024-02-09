@@ -117,7 +117,7 @@ struct DetailView: View {
                 Text("Auto")
               }
               .toggleStyle(CheckboxToggleStyle())
-              .padding(.leading)
+              .padding(.trailing)
               .onChange(of: shouldAutoCalcExpiry) { if !shouldAutoCalcExpiry { updateExpiryValue() } }
             }
             .padding(.bottom, 4)

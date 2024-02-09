@@ -12,9 +12,7 @@ struct ListView: View {
   
   @Query(sort: \Place.name) var places: [Place]
   @Environment(\.modelContext) var modelContext
-  
-  @State private var showingAddSheet = false
-  
+    
   var body: some View {
     NavigationStack {
       List {
@@ -51,12 +49,9 @@ struct ListView: View {
         }
         ToolbarItem(placement: .topBarTrailing) {
           Button("Add Place", systemImage: "plus") {
-            showingAddSheet.toggle()
+            
           }
         }
-      }
-      .sheet(isPresented: $showingAddSheet) {
-        AddPlaceView()
       }
     }
   }
