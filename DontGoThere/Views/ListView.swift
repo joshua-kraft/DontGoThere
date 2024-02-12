@@ -50,16 +50,16 @@ struct ListView: View {
           EditButton()
         }
         ToolbarItem(placement: .topBarTrailing) {
-          Button("Add Place", systemImage: "plus") {
-            // add a new place
-          }
+          Button("Add Place", systemImage: "plus", action: addPlace)
         }
       }
     }
   }
   
   func addPlace() {
-    
+    let place = Place(name: "", notes: "", review: "", latitude: 30.5532, longitude: -97.8422, addDate: Date.now, expirationDate: Date.now)
+    modelContext.insert(place)
+    path.append(place)
   }
   
   func deletePlaces(at offsets: IndexSet) {
