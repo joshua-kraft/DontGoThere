@@ -6,6 +6,7 @@
 //
 
 import MapKit
+import PhotosUI
 import SwiftData
 import SwiftUI
 
@@ -40,7 +41,7 @@ struct DetailView: View {
       .buttonStyle(.plain)
     }
   }
-
+  
   struct TimeUnit {
     enum tUnits { case days, weeks, months, years }
     var unit: tUnits
@@ -57,11 +58,13 @@ struct DetailView: View {
       }
     }
   }
-
+  
   @Environment(\.modelContext) var modelContext
   
   @Bindable var place: Place
   
+  
+  // Detail section state
   @State private var timeUnit = TimeUnit(unit: .months)
   @State private var shouldAutoCalcExpiry = true
   @State private var expiryValue = 3
@@ -69,7 +72,11 @@ struct DetailView: View {
   @State private var expiryIsInWeeks = false
   @State private var expiryIsInMonths = true
   @State private var expiryIsInYears = false
-
+  
+  // Photo picker state
+  @State private var isShowingPhotoPicker = false
+  @State private var selectedPhotoItems = [PhotosPickerItem]()
+  
   var body: some View {
     ScrollView(.vertical) {
       VStack(alignment: .leading) {
@@ -86,6 +93,8 @@ struct DetailView: View {
           
           Divider()
             .padding(.bottom, 4)
+          
+          // name, notes, times
           VStack(alignment: .leading) {
             HStack {
               TextLabel("NAME:")
@@ -179,49 +188,68 @@ struct DetailView: View {
               }
               .padding(.bottom, 4)
             }
-
+            
           }
           
           Divider()
             .padding(.bottom, 4)
           
-          HStack {
-            Text("Images")
-              .font(.title3)
-              .foregroundStyle(.secondary)
-            
-            Spacer()
-            
-            Button("Add Images", systemImage: "photo.badge.plus") {
-              // bring up a photo picker and save the images
-            }
-          }
-          .padding([.leading, .trailing])
-          
-          ScrollView(.horizontal, showsIndicators: false) {
-            HStack {
-              ForEach(place.imageNames, id: \.self) { imageName in
-                Image(imageName)
-                  .resizable()
-                  .frame(width: 160, height: 160)
-                  .clipShape(.rect(cornerRadius: 5))
+          // images
+          VStack {
+            HStack(alignment: .bottom) {
+              Text("Images")
+                .font(.title3)
+                .foregroundStyle(.secondary)
+              
+              Spacer()
+              
+              PhotosPicker(selection: $selectedPhotoItems, maxSelectionCount: 6, matching: .any(of: [.images, .not(.screenshots)])) {
+                Label("Add Images", systemImage: "photo.badge.plus")
               }
             }
             .padding([.leading, .trailing])
-            .padding(.bottom, 4)
+            .onChange(of: selectedPhotoItems) {
+              Task {
+                for item in selectedPhotoItems {
+                  if let imageData = try await item.loadTransferable(type: Data.self) {
+                    if !place.imageData.contains(imageData) {
+                      place.imageData.append(imageData)
+                    }
+                  }
+                }
+              }
+            }
+            
+            ScrollView(.horizontal, showsIndicators: false) {
+              HStack {
+                ForEach(place.imageData, id: \.self) { imageData in
+                  if let uiImg = UIImage(data: imageData) {
+                    Image(uiImage: uiImg)
+                      .resizable()
+                      .frame(width: 160, height: 160)
+                      .clipShape(.rect(cornerRadius: 5))
+                  }
+                }
+              }
+              .padding([.leading, .trailing])
+              .padding(.bottom, 4)
+            }
           }
           
           Divider()
             .padding(.bottom, 4)
           
-          Text("Review")
-            .font(.title3)
-            .foregroundStyle(.secondary)
-            .padding(.leading)
-          
-          TextField("Review", text: .constant(place.review), axis: .vertical)
-            .textFieldStyle(.roundedBorder)
-            .padding([.leading, .trailing])
+          // review
+          VStack(alignment: .leading) {
+            Text("Review")
+              .font(.title3)
+              .foregroundStyle(.secondary)
+              .padding(.leading)
+            
+            TextField("Review", text: $place.review, axis: .vertical)
+              .textFieldStyle(.roundedBorder)
+              .padding([.leading, .trailing])
+          }
         }
       }
       .navigationTitle(place.name)
@@ -241,7 +269,7 @@ struct DetailView: View {
   func updateExpiryValue() {
     place.expirationDate = place.addDate.addingTimeInterval(TimeInterval(expiryValue * timeUnit.expiryInterval))
   }
-
+  
   func daysChecked() {
     if expiryIsInDays {
       expiryIsInWeeks = false
@@ -261,7 +289,7 @@ struct DetailView: View {
       updateExpiryValue()
     }
   }
-
+  
   func monthsChecked() {
     if expiryIsInMonths {
       expiryIsInDays = false
@@ -271,7 +299,7 @@ struct DetailView: View {
       updateExpiryValue()
     }
   }
-
+  
   func yearsChecked() {
     if expiryIsInYears {
       expiryIsInDays = false

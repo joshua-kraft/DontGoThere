@@ -33,6 +33,8 @@ class Place {
   
   let imageNames: [String]
   
+  var imageData = [Data]()
+  
   init(name: String, notes: String, review: String, latitude: Double, longitude: Double, addDate: Date, expirationDate: Date, imageNames: [String]) {
     self.name = name
     self.notes = notes

@@ -12,9 +12,11 @@ struct ListView: View {
   
   @Query(sort: \Place.name) var places: [Place]
   @Environment(\.modelContext) var modelContext
+  
+  @State private var path = [Place]()
     
   var body: some View {
-    NavigationStack {
+    NavigationStack(path: $path) {
       List {
         ForEach(places) { place in
           NavigationLink(value: place) {
@@ -49,11 +51,15 @@ struct ListView: View {
         }
         ToolbarItem(placement: .topBarTrailing) {
           Button("Add Place", systemImage: "plus") {
-            
+            // add a new place
           }
         }
       }
     }
+  }
+  
+  func addPlace() {
+    
   }
   
   func deletePlaces(at offsets: IndexSet) {
