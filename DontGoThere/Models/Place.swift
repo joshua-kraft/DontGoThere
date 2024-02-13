@@ -5,6 +5,7 @@
 //  Created by Joshua Kraft on 2/7/24.
 //
 
+import CoreLocation
 import Foundation
 import SwiftData
 
@@ -18,6 +19,11 @@ class Place {
   // location of a place
   var latitude: Double
   var longitude: Double
+  
+  var coordinate: CLLocationCoordinate2D {
+    CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+  }
+  
   // TODO: add geofencing values
   
   var addDate: Date
