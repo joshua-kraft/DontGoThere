@@ -60,6 +60,9 @@ struct DetailView: View {
   }
   
   @Environment(\.modelContext) var modelContext
+  @Environment(\.dismiss) var dismiss
+  
+  @State private var isShowingDeleteAlert = false
   
   @Bindable var place: Place
   
@@ -255,7 +258,25 @@ struct DetailView: View {
       .navigationTitle(place.name)
       .navigationBarTitleDisplayMode(.inline)
       .background(.thinMaterial)
+      .alert("Delete place", isPresented: $isShowingDeleteAlert) {
+        Button("Delete", role: .destructive, action: deletePlace)
+        Button("Cancel", role: .cancel) { }
+      } message: {
+        Text("Are you sure?")
+      }
+      .toolbar {
+        ToolbarItem(placement: .topBarTrailing) {
+          Button("Delete Place", systemImage: "trash") {
+            isShowingDeleteAlert = true
+          }
+        }
+      }
     }
+  }
+  
+  func deletePlace() {
+    modelContext.delete(place)
+    dismiss()
   }
   
   func position(for place: Place) -> MapCameraPosition {
