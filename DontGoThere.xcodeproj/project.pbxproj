@@ -15,6 +15,7 @@
 		42560A1D2B74298F0013FCF4 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42560A1C2B74298F0013FCF4 /* ListView.swift */; };
 		42560A1F2B7429960013FCF4 /* EditPlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42560A1E2B7429960013FCF4 /* EditPlaceView.swift */; };
 		42560A212B74299A0013FCF4 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42560A202B74299A0013FCF4 /* MapView.swift */; };
+		42560A252B7D3D170013FCF4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42560A242B7D3D170013FCF4 /* SettingsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		42560A1C2B74298F0013FCF4 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		42560A1E2B7429960013FCF4 /* EditPlaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPlaceView.swift; sourceTree = "<group>"; };
 		42560A202B74299A0013FCF4 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		42560A242B7D3D170013FCF4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +93,7 @@
 				42560A1C2B74298F0013FCF4 /* ListView.swift */,
 				42560A1E2B7429960013FCF4 /* EditPlaceView.swift */,
 				42560A202B74299A0013FCF4 /* MapView.swift */,
+				42560A242B7D3D170013FCF4 /* SettingsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -165,6 +168,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42560A252B7D3D170013FCF4 /* SettingsView.swift in Sources */,
 				42560A1D2B74298F0013FCF4 /* ListView.swift in Sources */,
 				42560A212B74299A0013FCF4 /* MapView.swift in Sources */,
 				42560A1B2B7429410013FCF4 /* Place.swift in Sources */,

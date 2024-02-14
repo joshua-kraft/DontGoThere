@@ -66,7 +66,6 @@ struct EditPlaceView: View {
   
   @Bindable var place: Place
   
-  
   // Detail section state
   @State private var timeUnit = TimeUnit(unit: .months)
   @State private var shouldAutoCalcExpiry = true
@@ -134,6 +133,7 @@ struct EditPlaceView: View {
             }
             .padding(.bottom, 4)
             
+            // expiry time picker
             if !shouldAutoCalcExpiry {
               HStack {
                 Text("SET TO EXPIRE IN:")
