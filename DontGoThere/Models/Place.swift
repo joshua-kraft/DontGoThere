@@ -10,7 +10,7 @@ import Foundation
 import SwiftData
 
 @Model
-class Place {
+class Place: Identifiable {
   // details about a place
   var name: String
   var notes: String
