@@ -1,5 +1,5 @@
 //
-//  DetailView.swift
+//  EditPlaceView.swift
 //  DontGoThere
 //
 //  Created by Joshua Kraft on 2/7/24.
@@ -10,7 +10,7 @@ import PhotosUI
 import SwiftData
 import SwiftUI
 
-struct DetailView: View {
+struct EditPlaceView: View {
   
   struct TextLabel: View {
     let text: String
@@ -338,7 +338,7 @@ struct DetailView: View {
     let container = try ModelContainer(for: Place.self, configurations: config)
     let examplePlace = Place(name: "Example Place Name", notes: "Example Notes Text", review: "This is a longer sentence that is being used as the preview review for this example place in order to wrap the TextField inside the preview.", latitude: 30.5532, longitude: -97.8422, addDate: Date.now, expirationDate: Date.now.addingTimeInterval(7 * 86400))
     
-    return DetailView(place: examplePlace)
+    return EditPlaceView(place: examplePlace)
       .modelContainer(container)
   } catch {
     return Text("Failed to create preview: \(error.localizedDescription)")

@@ -13,7 +13,7 @@
 		42560A122B74292C0013FCF4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42560A112B74292C0013FCF4 /* Preview Assets.xcassets */; };
 		42560A1B2B7429410013FCF4 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42560A1A2B7429410013FCF4 /* Place.swift */; };
 		42560A1D2B74298F0013FCF4 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42560A1C2B74298F0013FCF4 /* ListView.swift */; };
-		42560A1F2B7429960013FCF4 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42560A1E2B7429960013FCF4 /* DetailView.swift */; };
+		42560A1F2B7429960013FCF4 /* EditPlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42560A1E2B7429960013FCF4 /* EditPlaceView.swift */; };
 		42560A212B74299A0013FCF4 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42560A202B74299A0013FCF4 /* MapView.swift */; };
 /* End PBXBuildFile section */
 
@@ -25,7 +25,7 @@
 		42560A112B74292C0013FCF4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		42560A1A2B7429410013FCF4 /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		42560A1C2B74298F0013FCF4 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
-		42560A1E2B7429960013FCF4 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		42560A1E2B7429960013FCF4 /* EditPlaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPlaceView.swift; sourceTree = "<group>"; };
 		42560A202B74299A0013FCF4 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -89,7 +89,7 @@
 			children = (
 				42560A0C2B74292B0013FCF4 /* ContentView.swift */,
 				42560A1C2B74298F0013FCF4 /* ListView.swift */,
-				42560A1E2B7429960013FCF4 /* DetailView.swift */,
+				42560A1E2B7429960013FCF4 /* EditPlaceView.swift */,
 				42560A202B74299A0013FCF4 /* MapView.swift */,
 			);
 			path = Views;
@@ -169,7 +169,7 @@
 				42560A212B74299A0013FCF4 /* MapView.swift in Sources */,
 				42560A1B2B7429410013FCF4 /* Place.swift in Sources */,
 				42560A0D2B74292B0013FCF4 /* ContentView.swift in Sources */,
-				42560A1F2B7429960013FCF4 /* DetailView.swift in Sources */,
+				42560A1F2B7429960013FCF4 /* EditPlaceView.swift in Sources */,
 				42560A0B2B74292B0013FCF4 /* DontGoThereApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

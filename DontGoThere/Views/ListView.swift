@@ -43,7 +43,7 @@ struct ListView: View {
       }
       .navigationTitle("DontGoThere")
       .navigationDestination(for: Place.self) { place in
-        DetailView(place: place)
+        EditPlaceView(place: place)
       }
       .toolbar {
         ToolbarItem(placement: .topBarLeading) {
@@ -57,9 +57,9 @@ struct ListView: View {
   }
   
   func addPlace() {
-    let place = Place(name: "", notes: "", review: "", latitude: 30.5532, longitude: -97.8422, addDate: Date.now, expirationDate: Date.now)
-    modelContext.insert(place)
-    path.append(place)
+    let newPlace = Place(name: "", notes: "", review: "", latitude: 30.5532, longitude: -97.8422, addDate: Date.now, expirationDate: Date.now)
+    modelContext.insert(newPlace)
+    path.append(newPlace)
   }
   
   func deletePlaces(at offsets: IndexSet) {

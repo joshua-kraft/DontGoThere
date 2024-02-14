@@ -83,7 +83,7 @@ struct MapView: View {
           }
           .navigationTitle("DontGoThere")
           .navigationDestination(for: Place.self) { place in
-            DetailView(place: place)
+            EditPlaceView(place: place)
           }
           .toolbar {
             ToolbarItem(placement: .topBarLeading) {
@@ -114,9 +114,9 @@ struct MapView: View {
   }
 
   func addPlace(at location: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 30.5788, longitude: -97.8531)) {
-    let place = Place(name: "", notes: "", review: "", latitude: location.latitude, longitude: location.longitude, addDate: Date.now, expirationDate: Date.now)
-    modelContext.insert(place)
-    path.append(place)
+    let newPlace = Place(name: "", notes: "", review: "", latitude: location.latitude, longitude: location.longitude, addDate: Date.now, expirationDate: Date.now)
+    modelContext.insert(newPlace)
+    path.append(newPlace)
   }
 }
 
