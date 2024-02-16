@@ -8,7 +8,7 @@
 import SwiftData
 import SwiftUI
 
-struct ListView: View {
+struct PlacesListView: View {
   
   @Query(sort: \Place.name) var places: [Place]
   @Environment(\.modelContext) var modelContext
@@ -72,6 +72,6 @@ struct ListView: View {
 }
 
 #Preview {
-  ListView()
+  PlacesListView()
     .modelContainer(Place.listPreview)
 }

@@ -13,13 +13,13 @@ struct ContentView: View {
   
   var body: some View {
     TabView {
-      ListView()
+      PlacesListView()
         .searchable(text: $listSearchText)
         .tabItem {
           Label("List", systemImage: "list.triangle")
         }
       
-      MapView()
+      PlacesMapView()
         .tabItem {
           Label("Map", systemImage: "map")
         }

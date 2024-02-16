@@ -9,7 +9,7 @@ import MapKit
 import SwiftData
 import SwiftUI
 
-struct MapView: View {
+struct PlacesMapView: View {
   
   struct DontGoThereAnnotation: View {
     
@@ -121,6 +121,6 @@ struct MapView: View {
 }
 
 #Preview {
-  MapView()
+  PlacesMapView()
     .modelContainer(Place.listPreview)
 }
