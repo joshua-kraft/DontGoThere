@@ -81,7 +81,7 @@ struct MapView: View {
               addPlace(at: coordinate)
             }
           }
-          .navigationTitle("DontGoThere")
+          .navigationTitle("PlaceMap")
           .navigationDestination(for: Place.self) { place in
             EditPlaceView(place: place)
           }

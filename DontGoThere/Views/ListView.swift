@@ -41,7 +41,7 @@ struct ListView: View {
         }
         .onDelete(perform: deletePlaces)
       }
-      .navigationTitle("DontGoThere")
+      .navigationTitle("Your Places")
       .navigationDestination(for: Place.self) { place in
         EditPlaceView(place: place)
       }
