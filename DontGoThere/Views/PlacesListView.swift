@@ -15,6 +15,17 @@ struct PlacesListView: View {
   
   @State private var path = [Place]()
     
+  init(filteredBy searchString: String = "") {
+    _places = Query(filter: #Predicate { place in
+      if searchString.isEmpty {
+        return true
+      } else {
+        return place.name.localizedStandardContains(searchString)
+        || place.notes.localizedStandardContains(searchString)
+      }
+    })
+  }
+  
   var body: some View {
     NavigationStack(path: $path) {
       List {

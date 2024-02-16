@@ -13,7 +13,7 @@ struct ContentView: View {
   
   var body: some View {
     TabView {
-      PlacesListView()
+      PlacesListView(filteredBy: listSearchText)
         .searchable(text: $listSearchText)
         .tabItem {
           Label("List", systemImage: "list.triangle")
