@@ -1,5 +1,5 @@
 //
-//  SearchableSortableListView.swift
+//  SortableListView.swift
 //  DontGoThere
 //
 //  Created by Joshua Kraft on 2/15/24.
@@ -8,7 +8,7 @@
 import SwiftData
 import SwiftUI
 
-struct SearchableSortableListView: View {
+struct SortableListView: View {
   
   @Environment(\.modelContext) var modelContext
   @Query(sort: \Place.name) var places: [Place]
@@ -60,5 +60,5 @@ struct SearchableSortableListView: View {
 }
 
 #Preview {
-  SearchableSortableListView()
+  SortableListView()
 }

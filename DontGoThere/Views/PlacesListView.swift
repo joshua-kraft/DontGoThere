@@ -17,7 +17,7 @@ struct PlacesListView: View {
   
   var body: some View {
     NavigationStack(path: $path) {
-      SearchableSortableListView(filteredBy: searchText)
+      SortableListView(filteredBy: searchText)
         .navigationTitle("Your Places")
         .navigationDestination(for: Place.self) { place in
           EditPlaceView(place: place)
