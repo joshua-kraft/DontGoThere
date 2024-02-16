@@ -1,5 +1,5 @@
 //
-//  MapView.swift
+//  PlacesMapView.swift
 //  DontGoThere
 //
 //  Created by Joshua Kraft on 2/7/24.
