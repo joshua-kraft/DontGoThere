@@ -35,5 +35,5 @@ struct ContentView: View {
 
 #Preview {
   ContentView()
-    .modelContainer(Place.listPreview)
+    .modelContainer(Place.previewPlaces)
 }

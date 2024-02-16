@@ -44,5 +44,5 @@ struct PlacesListView: View {
 
 #Preview {
   PlacesListView()
-    .modelContainer(Place.listPreview)
+    .modelContainer(Place.previewPlaces)
 }

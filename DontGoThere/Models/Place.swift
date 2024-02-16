@@ -60,7 +60,7 @@ class Place: Identifiable {
 
 extension Place {
   @MainActor
-  static var listPreview: ModelContainer {
+  static var previewPlaces: ModelContainer {
     let container = try! ModelContainer(for: Place.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
     let example1 = Place(name: "Bella Sera of Leander", notes: "Not good italian food", review: "", latitude: 30.5532, longitude: -97.8422, addDate: Date.now, expirationDate: Date.now.addingTimeInterval(7 * 86400))
     let example2 = Place(name: "Phonatic Cedar Park", notes: "Not good thai food", review: "", latitude: 30.5266, longitude: -97.8089, addDate: Date.now, expirationDate: Date.now.addingTimeInterval(7 * 86400))

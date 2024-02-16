@@ -122,5 +122,5 @@ struct PlacesMapView: View {
 
 #Preview {
   PlacesMapView()
-    .modelContainer(Place.listPreview)
+    .modelContainer(Place.previewPlaces)
 }

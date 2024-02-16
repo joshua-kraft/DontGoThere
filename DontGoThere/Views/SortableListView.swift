@@ -61,4 +61,5 @@ struct SortableListView: View {
 
 #Preview {
   SortableListView()
+    .modelContainer(Place.previewPlaces)
 }
