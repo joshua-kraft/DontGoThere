@@ -5,6 +5,7 @@
 //  Created by Joshua Kraft on 2/7/24.
 //
 
+import SwiftData
 import SwiftUI
 
 struct ContentView: View {
@@ -13,7 +14,7 @@ struct ContentView: View {
   
   var body: some View {
     TabView {
-      PlacesListView(filteredBy: listSearchText)
+      PlacesListView()
         .searchable(text: $listSearchText)
         .tabItem {
           Label("List", systemImage: "list.triangle")
