@@ -10,12 +10,9 @@ import SwiftUI
 
 struct ContentView: View {
   
-  @State private var listSearchText = ""
-  
   var body: some View {
     TabView {
       PlacesListView()
-        .searchable(text: $listSearchText)
         .tabItem {
           Label("List", systemImage: "list.triangle")
         }

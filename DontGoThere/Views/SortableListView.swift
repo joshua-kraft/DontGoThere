@@ -13,7 +13,7 @@ struct SortableListView: View {
   @Environment(\.modelContext) var modelContext
   @Query(sort: \Place.name) var places: [Place]
   
-  init(filteredBy searchString: String = "") {
+  init(filteredBy searchString: String = "", sortedBy sortOrder: [SortDescriptor<Place>] = []) {
     _places = Query(filter: #Predicate { place in
       if searchString.isEmpty {
         return true
@@ -21,7 +21,7 @@ struct SortableListView: View {
         return place.name.localizedStandardContains(searchString)
         || place.notes.localizedStandardContains(searchString)
       }
-    })
+    }, sort: sortOrder)
   }
 
   var body: some View {
