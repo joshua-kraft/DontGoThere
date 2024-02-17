@@ -97,7 +97,7 @@ struct SettingsView: View {
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
               Picker("Notification Limit", selection: $maxNotificationCount) {
-                ForEach(1...100, id: \.self) { value in
+                ForEach(1...30, id: \.self) { value in
                   Text(String(value))
                 }
               }
