@@ -88,7 +88,7 @@ struct PlacesMapView: View {
           Text("Tap on the map to add a place at that location. Tap and hold on a place to view details or more.")
             .padding()
             .font(.subheadline.bold())
-            .background(.thinMaterial.opacity(0.9))
+            .background(.thinMaterial.opacity(0.8))
             .multilineTextAlignment(.center)
         }
       }
