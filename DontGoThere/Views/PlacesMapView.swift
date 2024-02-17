@@ -132,6 +132,12 @@ struct PlacesMapView: View {
 }
 
 #Preview {
-  PlacesMapView()
-    .modelContainer(Place.previewPlaces)
+  do {
+    let previewer = try Previewer()
+    
+    return PlacesMapView()
+      .modelContainer(previewer.container)
+  } catch {
+    return Text("Could not create preview: \(error.localizedDescription)")
+  }
 }

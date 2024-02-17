@@ -345,12 +345,11 @@ struct EditPlaceView: View {
 
 #Preview {
   do {
-    let config = ModelConfiguration(isStoredInMemoryOnly: true)
-    let container = try ModelContainer(for: Place.self, configurations: config)
-    let examplePlace = Place(name: "Example Place Name", notes: "Example Notes Text", review: "This is a longer sentence that is being used as the preview review for this example place in order to wrap the TextField inside the preview.", latitude: 30.5532, longitude: -97.8422, addDate: Date.now, expirationDate: Date.now.addingTimeInterval(7 * 86400), imageData: [])
+    let previewer = try Previewer()
     
-    return EditPlaceView(place: examplePlace)
-      .modelContainer(container)
+    return EditPlaceView(place: previewer.place)
+      .modelContainer(previewer.container)
+    
   } catch {
     return Text("Failed to create preview: \(error.localizedDescription)")
   }

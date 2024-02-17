@@ -60,6 +60,11 @@ struct SortableListView: View {
 }
 
 #Preview {
-  SortableListView()
-    .modelContainer(Place.previewPlaces)
+  do {
+    let previewer = try Previewer()
+    return SortableListView()
+      .modelContainer(previewer.container)
+  } catch {
+    return Text("Failed to create preview: \(error.localizedDescription)")
+  }
 }
