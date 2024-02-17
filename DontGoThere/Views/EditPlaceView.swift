@@ -80,189 +80,192 @@ struct EditPlaceView: View {
   @State private var selectedPhotoItems = [PhotosPickerItem]()
   
   var body: some View {
-    ScrollView(.vertical) {
-      VStack(alignment: .leading) {
-        Map(initialPosition: position(for: place), interactionModes: []) {
-          Marker(place.name, coordinate: CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude))
-        }
-        .frame(idealHeight: 225)
-        
+    GeometryReader { proxy in
+      ScrollView(.vertical) {
         VStack(alignment: .leading) {
-          Text("Details")
-            .font(.title3)
-            .foregroundStyle(.secondary)
-            .padding(.leading)
-          
-          Divider()
-            .padding(.bottom, 4)
-          
-          // name, notes, times
-          VStack(alignment: .leading) {
-            HStack {
-              TextLabel("NAME:")
-              TextField("Place Name", text: $place.name)
-                .textFieldStyle(.roundedBorder)
-                .padding(.trailing)
-            }
-            .padding(.bottom, 4)
-            HStack {
-              TextLabel("NOTES:")
-              TextField("Place Notes", text: $place.notes)
-                .textFieldStyle(.roundedBorder)
-                .padding(.trailing)
-            }
-            .padding(.bottom, 4)
-            HStack {
-              TextLabel("ADDED:")
-              DatePicker("Added Date", selection: $place.addDate)
-                .disabled(true)
-                .labelsHidden()
-            }
-            .padding(.bottom, 4)
-            HStack {
-              TextLabel("EXPIRES: ")
-              DatePicker("Expires", selection: $place.expirationDate)
-                .labelsHidden()
-                .disabled(shouldAutoCalcExpiry)
-              Toggle(isOn: $shouldAutoCalcExpiry) {
-                Text("Auto")
-              }
-              .toggleStyle(CheckboxToggleStyle())
-              .padding(.trailing)
-              .onChange(of: shouldAutoCalcExpiry) { if !shouldAutoCalcExpiry { updateExpiryValue() } }
-            }
-            .padding(.bottom, 4)
-            
-            // expiry time picker
-            if !shouldAutoCalcExpiry {
-              HStack {
-                Text("SET TO EXPIRE IN:")
-                  .font(.subheadline)
-                  .foregroundStyle(.secondary)
-                  .padding(.leading)
-                
-                Picker("Expiry", selection: $expiryValue) {
-                  ForEach(1...100, id: \.self) { value in
-                    Text(String(value))
-                  }
-                }
-                .labelsHidden()
-                .pickerStyle(.wheel)
-                .frame(height: 85)
-                .onChange(of: expiryValue) {
-                  updateExpiryValue()
-                }
-                
-                VStack(alignment: .leading) {
-                  
-                  Toggle(isOn: $expiryIsInDays) {
-                    Text("Days")
-                  }
-                  .toggleStyle(CheckboxToggleStyle())
-                  .onChange(of: expiryIsInDays) {
-                    daysChecked()
-                  }
-                  
-                  Toggle(isOn: $expiryIsInWeeks) {
-                    Text("Weeks")
-                  }
-                  .toggleStyle(CheckboxToggleStyle())
-                  .onChange(of: expiryIsInWeeks) {
-                    weeksChecked()
-                  }
-                  
-                  Toggle(isOn: $expiryIsInMonths) {
-                    Text("Months")
-                  }
-                  .toggleStyle(CheckboxToggleStyle())
-                  .onChange(of: expiryIsInMonths) {
-                    monthsChecked()
-                  }
-                  
-                  Toggle(isOn: $expiryIsInYears) {
-                    Text("Years")
-                  }
-                  .toggleStyle(CheckboxToggleStyle())
-                  .onChange(of: expiryIsInYears) {
-                    yearsChecked()
-                  }
-                }
-                .padding(.trailing)
-              }
-              .padding(.bottom, 4)
-            }
-            
+          Map(initialPosition: position(for: place), interactionModes: []) {
+            Marker(place.name, coordinate: CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude))
           }
+          .frame(height: proxy.size.height * 0.30)
           
-          Divider()
-            .padding(.bottom, 4)
-          
-          // images
-          VStack {
-            HStack(alignment: .bottom) {
-              Text("Images")
-                .font(.title3)
-                .foregroundStyle(.secondary)
-              
-              Spacer()
-              
-              PhotosPicker(selection: $selectedPhotoItems, maxSelectionCount: 6, matching: .any(of: [.images, .not(.screenshots)])) {
-                Label("Add Photos", systemImage: "photo.badge.plus")
-              }
-            }
-            .padding([.leading, .trailing])
-            .onChange(of: selectedPhotoItems) {
-              loadPhotos()
-            }
-            
-            ScrollView(.horizontal, showsIndicators: false) {
-              HStack {
-                if let imageData = place.imageData {
-                  ForEach(imageData, id: \.self) { imageData in
-                    if let uiImage = UIImage(data: imageData) {
-                      Image(uiImage: uiImage)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 180, height: 180)
-                        .clipShape(.rect(cornerRadius: 5))
-                    }
-                  }
-                }
-              }
-              .padding([.leading, .trailing])
-              .padding(.bottom, 4)
-            }
-          }
-          
-          Divider()
-            .padding(.bottom, 4)
-          
-          // review
           VStack(alignment: .leading) {
-            Text("Review")
+            Text("Details")
               .font(.title3)
               .foregroundStyle(.secondary)
               .padding(.leading)
             
-            TextField("Review", text: $place.review, axis: .vertical)
-              .textFieldStyle(.roundedBorder)
+            Divider()
+              .padding(.bottom, 4)
+            
+            // name, notes, times
+            VStack(alignment: .leading) {
+              HStack {
+                TextLabel("NAME:")
+                TextField("Place Name", text: $place.name)
+                  .textFieldStyle(.roundedBorder)
+                  .padding(.trailing)
+              }
+              .padding(.bottom, 4)
+              HStack {
+                TextLabel("NOTES:")
+                TextField("Place Notes", text: $place.notes)
+                  .textFieldStyle(.roundedBorder)
+                  .padding(.trailing)
+              }
+              .padding(.bottom, 4)
+              HStack {
+                TextLabel("ADDED:")
+                DatePicker("Added Date", selection: $place.addDate)
+                  .disabled(true)
+                  .labelsHidden()
+              }
+              .padding(.bottom, 4)
+              HStack {
+                TextLabel("EXPIRES: ")
+                DatePicker("Expires", selection: $place.expirationDate)
+                  .labelsHidden()
+                  .disabled(shouldAutoCalcExpiry)
+                Toggle(isOn: $shouldAutoCalcExpiry) {
+                  Text("Auto")
+                }
+                .toggleStyle(CheckboxToggleStyle())
+                .padding(.trailing)
+                .onChange(of: shouldAutoCalcExpiry) { if !shouldAutoCalcExpiry { updateExpiryValue() } }
+              }
+              .padding(.bottom, 4)
+              
+              // expiry time picker
+              if !shouldAutoCalcExpiry {
+                HStack {
+                  Text("SET TO EXPIRE IN:")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                    .padding(.leading)
+                  
+                  Picker("Expiry", selection: $expiryValue) {
+                    ForEach(1...100, id: \.self) { value in
+                      Text(String(value))
+                    }
+                  }
+                  .labelsHidden()
+                  .pickerStyle(.wheel)
+                  .frame(height: 85)
+                  .onChange(of: expiryValue) {
+                    updateExpiryValue()
+                  }
+                  
+                  VStack(alignment: .leading) {
+                    
+                    Toggle(isOn: $expiryIsInDays) {
+                      Text("Days")
+                    }
+                    .toggleStyle(CheckboxToggleStyle())
+                    .onChange(of: expiryIsInDays) {
+                      daysChecked()
+                    }
+                    
+                    Toggle(isOn: $expiryIsInWeeks) {
+                      Text("Weeks")
+                    }
+                    .toggleStyle(CheckboxToggleStyle())
+                    .onChange(of: expiryIsInWeeks) {
+                      weeksChecked()
+                    }
+                    
+                    Toggle(isOn: $expiryIsInMonths) {
+                      Text("Months")
+                    }
+                    .toggleStyle(CheckboxToggleStyle())
+                    .onChange(of: expiryIsInMonths) {
+                      monthsChecked()
+                    }
+                    
+                    Toggle(isOn: $expiryIsInYears) {
+                      Text("Years")
+                    }
+                    .toggleStyle(CheckboxToggleStyle())
+                    .onChange(of: expiryIsInYears) {
+                      yearsChecked()
+                    }
+                  }
+                  .padding(.trailing)
+                }
+                .padding(.bottom, 4)
+              }
+              
+            }
+            
+            Divider()
+              .padding(.bottom, 4)
+            
+            // images
+            VStack {
+              HStack(alignment: .bottom) {
+                Text("Images")
+                  .font(.title3)
+                  .foregroundStyle(.secondary)
+                
+                Spacer()
+                
+                PhotosPicker(selection: $selectedPhotoItems, maxSelectionCount: 6, matching: .any(of: [.images, .not(.screenshots)])) {
+                  Label("Add Photos", systemImage: "photo.badge.plus")
+                }
+              }
               .padding([.leading, .trailing])
+              .onChange(of: selectedPhotoItems) {
+                loadPhotos()
+              }
+              
+              ScrollView(.horizontal, showsIndicators: false) {
+                HStack {
+                  if let imageData = place.imageData {
+                    ForEach(imageData, id: \.self) { imageData in
+                      if let uiImage = UIImage(data: imageData) {
+                        Image(uiImage: uiImage)
+                          .resizable()
+                          .scaledToFill()
+                          .frame(width: proxy.size.width * 0.35, height: proxy.size.height * 0.20)
+                          .clipShape(.rect(cornerRadius: 5))
+                      }
+                    }
+                  }
+                }
+                .padding([.leading, .trailing])
+                .padding(.bottom, 4)
+              }
+            }
+            
+            Divider()
+              .padding(.bottom, 4)
+            
+            // review
+            VStack(alignment: .leading) {
+              Text("Review")
+                .font(.title3)
+                .foregroundStyle(.secondary)
+                .padding(.leading)
+              
+              TextField("Review", text: $place.review, axis: .vertical)
+                .textFieldStyle(.roundedBorder)
+                .padding()
+            }
           }
         }
-      }
-      .navigationTitle(place.name)
-      .navigationBarTitleDisplayMode(.inline)
-      .background(.thinMaterial)
-      .alert("Delete place", isPresented: $isShowingDeleteAlert) {
-        Button("Delete", role: .destructive, action: deletePlace)
-        Button("Cancel", role: .cancel) { }
-      } message: {
-        Text("Are you sure?")
-      }
-      .toolbar {
-        ToolbarItem(placement: .topBarTrailing) {
-          Button("Delete Place", systemImage: "trash") {
-            isShowingDeleteAlert = true
+        .frame(minHeight: proxy.size.height)
+        .navigationTitle(place.name)
+        .navigationBarTitleDisplayMode(.inline)
+        .background(.thinMaterial)
+        .alert("Delete place", isPresented: $isShowingDeleteAlert) {
+          Button("Delete", role: .destructive, action: deletePlace)
+          Button("Cancel", role: .cancel) { }
+        } message: {
+          Text("Are you sure?")
+        }
+        .toolbar {
+          ToolbarItem(placement: .topBarTrailing) {
+            Button("Delete Place", systemImage: "trash") {
+              isShowingDeleteAlert = true
+            }
           }
         }
       }
