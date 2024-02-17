@@ -59,57 +59,68 @@ struct PlacesMapView: View {
   var body: some View {
     NavigationStack(path: $path) {
       VStack {
-        MapReader { proxy in
-          Map(initialPosition: startPosition) {
-            if showExistingPlaces {
-              ForEach(places) { place in
-                Annotation(place.name, coordinate: place.coordinate) {
-                  DontGoThereAnnotation()
-                    .contextMenu {
-                      Button("Show Details", systemImage: "list.dash") { path.append(place) }
-                      Button("Delete", systemImage: "trash", role: .destructive) {
-                        deletedPlace = place
-                        isShowingDeleteAlert = true
+        ZStack(alignment: .top) {
+          
+          MapReader { proxy in
+            Map(initialPosition: startPosition) {
+              if showExistingPlaces {
+                ForEach(places) { place in
+                  Annotation(place.name, coordinate: place.coordinate) {
+                    DontGoThereAnnotation()
+                      .contextMenu {
+                        Button("Show Details", systemImage: "list.dash") { path.append(place) }
+                        Button("Delete", systemImage: "trash", role: .destructive) {
+                          deletedPlace = place
+                          isShowingDeleteAlert = true
+                        }
                       }
-                    }
+                  }
                 }
               }
             }
-          }
-          .onTapGesture { position in
-            if let coordinate = proxy.convert(position, from: .local) {
-              addPlace(at: coordinate)
-            }
-          }
-          .navigationTitle("PlaceMap")
-          .navigationDestination(for: Place.self) { place in
-            EditPlaceView(place: place)
-          }
-          .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-              Button(showExistingPlaces ? "Hide Existing" : "Show Existing") {
-                showExistingPlaces.toggle()
-              }
-            }
-            
-            ToolbarItem(placement: .topBarTrailing) {
-              Button("Add Place", systemImage: "plus") {
-                addPlace()
+            .onTapGesture { position in
+              if let coordinate = proxy.convert(position, from: .local) {
+                addPlace(at: coordinate)
               }
             }
           }
-          .alert("Delete place", isPresented: $isShowingDeleteAlert) {
-            Button("Delete", role: .destructive) {
-              if let deletedPlace {
-                modelContext.delete(deletedPlace)
-              }
-            }
-            Button("Cancel", role: .cancel) { }
-          } message: {
-            Text("Are you sure?")
+          
+          Text("Tap on the map to add a place at that location. Tap and hold on a place to view details or more.")
+            .padding()
+            .font(.subheadline.bold())
+            .background(.thinMaterial.opacity(0.9))
+            .multilineTextAlignment(.center)
+        }
+      }
+      .navigationTitle("PlaceMap")
+      .navigationDestination(for: Place.self) { place in
+        EditPlaceView(place: place)
+      }
+      .toolbar {
+        ToolbarItem(placement: .topBarLeading) {
+          Button(showExistingPlaces ? "Hide Existing" : "Show Existing") {
+            showExistingPlaces.toggle()
+          }
+        }
+        
+        ToolbarItem(placement: .topBarTrailing) {
+          Button("Add Place", systemImage: "plus") {
+            addPlace()
           }
         }
       }
+      .alert("Delete place", isPresented: $isShowingDeleteAlert) {
+        Button("Delete", role: .destructive) {
+          if let deletedPlace {
+            modelContext.delete(deletedPlace)
+          }
+        }
+        Button("Cancel", role: .cancel) { }
+      } message: {
+        Text("Are you sure?")
+      }
+
+
     }
   }
 
