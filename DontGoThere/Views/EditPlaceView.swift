@@ -201,7 +201,7 @@ struct EditPlaceView: View {
             // images
             VStack {
               HStack(alignment: .bottom) {
-                Text("Images")
+                Text("Photos")
                   .font(.title3)
                   .foregroundStyle(.secondary)
                 
@@ -225,7 +225,7 @@ struct EditPlaceView: View {
                           Image(uiImage: uiImage)
                             .resizable()
                             .scaledToFill()
-                            .frame(width: proxy.size.width * 0.35, height: proxy.size.height * 0.20)
+                            .frame(width: proxy.size.width * 0.34, height: proxy.size.height * 0.17)
                             .clipShape(.rect(cornerRadius: 5))
                         }
                       }
@@ -233,6 +233,11 @@ struct EditPlaceView: View {
                     .padding([.leading, .trailing])
                     .padding(.bottom, 4)
                   }
+
+                } else {
+                  Text("No Photos")
+                    .foregroundStyle(.secondary)
+                    .frame(height: proxy.size.height * 0.17)
                 }
               }
             }
