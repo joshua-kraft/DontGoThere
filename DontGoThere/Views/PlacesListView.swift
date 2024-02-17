@@ -59,7 +59,7 @@ struct PlacesListView: View {
   }
   
   func addPlace() {
-    let newPlace = Place(name: "", notes: "", review: "", latitude: 30.5532, longitude: -97.8422, addDate: Date.now, expirationDate: Date.now)
+    let newPlace = Place(name: "", notes: "", review: "", latitude: 30.5532, longitude: -97.8422, addDate: Date.now, expirationDate: Date.now, imageData: [])
     modelContext.insert(newPlace)
     path.append(newPlace)
   }

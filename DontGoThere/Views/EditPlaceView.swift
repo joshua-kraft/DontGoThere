@@ -207,30 +207,25 @@ struct EditPlaceView: View {
               Spacer()
               
               PhotosPicker(selection: $selectedPhotoItems, maxSelectionCount: 6, matching: .any(of: [.images, .not(.screenshots)])) {
-                Label("Add Images", systemImage: "photo.badge.plus")
+                Label("Add Photos", systemImage: "photo.badge.plus")
               }
             }
             .padding([.leading, .trailing])
             .onChange(of: selectedPhotoItems) {
-              Task {
-                for item in selectedPhotoItems {
-                  if let imageData = try await item.loadTransferable(type: Data.self) {
-                    if !place.imageData.contains(imageData) {
-                      place.imageData.append(imageData)
-                    }
-                  }
-                }
-              }
+              loadPhotos()
             }
             
             ScrollView(.horizontal, showsIndicators: false) {
               HStack {
-                ForEach(place.imageData, id: \.self) { imageData in
-                  if let uiImg = UIImage(data: imageData) {
-                    Image(uiImage: uiImg)
-                      .resizable()
-                      .frame(width: 160, height: 160)
-                      .clipShape(.rect(cornerRadius: 5))
+                if let imageData = place.imageData {
+                  ForEach(imageData, id: \.self) { imageData in
+                    if let uiImage = UIImage(data: imageData) {
+                      Image(uiImage: uiImage)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 180, height: 180)
+                        .clipShape(.rect(cornerRadius: 5))
+                    }
                   }
                 }
               }
@@ -269,6 +264,17 @@ struct EditPlaceView: View {
           Button("Delete Place", systemImage: "trash") {
             isShowingDeleteAlert = true
           }
+        }
+      }
+    }
+  }
+  
+  func loadPhotos() {
+    Task { @MainActor in
+      for selectedItem in selectedPhotoItems {
+        let imageDatum = try await selectedItem.loadTransferable(type: Data.self)
+        if let data = imageDatum {
+          place.imageData?.append(data)
         }
       }
     }
@@ -336,7 +342,7 @@ struct EditPlaceView: View {
   do {
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
     let container = try ModelContainer(for: Place.self, configurations: config)
-    let examplePlace = Place(name: "Example Place Name", notes: "Example Notes Text", review: "This is a longer sentence that is being used as the preview review for this example place in order to wrap the TextField inside the preview.", latitude: 30.5532, longitude: -97.8422, addDate: Date.now, expirationDate: Date.now.addingTimeInterval(7 * 86400))
+    let examplePlace = Place(name: "Example Place Name", notes: "Example Notes Text", review: "This is a longer sentence that is being used as the preview review for this example place in order to wrap the TextField inside the preview.", latitude: 30.5532, longitude: -97.8422, addDate: Date.now, expirationDate: Date.now.addingTimeInterval(7 * 86400), imageData: [])
     
     return EditPlaceView(place: examplePlace)
       .modelContainer(container)
