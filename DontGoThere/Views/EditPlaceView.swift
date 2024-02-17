@@ -216,22 +216,24 @@ struct EditPlaceView: View {
                 loadPhotos()
               }
               
-              ScrollView(.horizontal, showsIndicators: false) {
-                HStack {
-                  if let imageData = place.imageData {
-                    ForEach(imageData, id: \.self) { imageData in
-                      if let uiImage = UIImage(data: imageData) {
-                        Image(uiImage: uiImage)
-                          .resizable()
-                          .scaledToFill()
-                          .frame(width: proxy.size.width * 0.35, height: proxy.size.height * 0.20)
-                          .clipShape(.rect(cornerRadius: 5))
+              if let imageData = place.imageData {
+                if !imageData.isEmpty {
+                  ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                      ForEach(imageData, id: \.self) { imageData in
+                        if let uiImage = UIImage(data: imageData) {
+                          Image(uiImage: uiImage)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: proxy.size.width * 0.35, height: proxy.size.height * 0.20)
+                            .clipShape(.rect(cornerRadius: 5))
+                        }
                       }
                     }
+                    .padding([.leading, .trailing])
+                    .padding(.bottom, 4)
                   }
                 }
-                .padding([.leading, .trailing])
-                .padding(.bottom, 4)
               }
             }
             
