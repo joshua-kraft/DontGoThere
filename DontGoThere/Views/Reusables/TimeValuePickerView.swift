@@ -54,9 +54,6 @@ struct TimeValuePickerView: View {
       }
     }
     .padding(.bottom, 4)
-    .onAppear {
-      updateExpiryValue()
-    }
   }
     
   func updateExpiryValue() {

@@ -19,18 +19,18 @@ class AppSettings: ObservableObject, Codable {
   
   static let defaultSettings = AppSettings(neverExpire: false, autoExpiryValue: 1, autoExpiryUnit: .months, autoExpiryInterval: 30.0 * 86400, neverDelete: false, autoDeletionValue: 1, autoDeletionUnit: .months, autoDeletionInterval: 30.0 * 86400, noNotificationLimit: false, maxNotificationCount: 10)
   
-  @Published var neverExpire: Bool
-  @Published var autoExpiryValue: Int
-  @Published var autoExpiryUnit: TimeUnit
-  @Published var autoExpiryInterval: Double
+  @Published var neverExpire: Bool { didSet { saveSettings() } }
+  @Published var autoExpiryValue: Int { didSet { saveSettings() } }
+  @Published var autoExpiryUnit: TimeUnit { didSet { saveSettings() } }
+  @Published var autoExpiryInterval: Double { didSet { saveSettings() } }
   
-  @Published var neverDelete: Bool
-  @Published var autoDeletionValue: Int
-  @Published var autoDeletionUnit: TimeUnit
-  @Published var autoDeletionInterval: Double
+  @Published var neverDelete: Bool { didSet { saveSettings() } }
+  @Published var autoDeletionValue: Int { didSet { saveSettings() } }
+  @Published var autoDeletionUnit: TimeUnit { didSet { saveSettings() } }
+  @Published var autoDeletionInterval: Double { didSet { saveSettings() } }
   
-  @Published var noNotificationLimit: Bool
-  @Published var maxNotificationCount: Int
+  @Published var noNotificationLimit: Bool { didSet { saveSettings() } }
+  @Published var maxNotificationCount: Int { didSet { saveSettings() } }
   
     
   init(neverExpire: Bool, autoExpiryValue: Int, autoExpiryUnit: TimeUnit, autoExpiryInterval: Double, neverDelete: Bool, autoDeletionValue: Int, autoDeletionUnit: TimeUnit, autoDeletionInterval: Double, noNotificationLimit: Bool, maxNotificationCount: Int) {

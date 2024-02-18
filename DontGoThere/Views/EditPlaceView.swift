@@ -109,6 +109,9 @@ struct EditPlaceView: View {
                   .onChange(of: expiryInterval) {
                     updateExpiryValue()
                   }
+                  .onAppear {
+                    updateExpiryValue(initial: true)
+                  }
               }
               
             }
@@ -224,8 +227,10 @@ struct EditPlaceView: View {
     )
   }
   
-  func updateExpiryValue() {
-    if shouldAutoCalcExpiry {
+  func updateExpiryValue(initial: Bool = false) {
+    if initial {
+      place.expirationDate = place.addDate.addingTimeInterval(30 * 86400)
+    } else if shouldAutoCalcExpiry {
       place.expirationDate = place.addDate.addingTimeInterval(appSettings.autoExpiryInterval)
     } else {
       place.expirationDate = place.addDate.addingTimeInterval(expiryInterval)
