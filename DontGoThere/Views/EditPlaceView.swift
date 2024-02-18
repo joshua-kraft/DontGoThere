@@ -12,6 +12,20 @@ import SwiftUI
 
 struct EditPlaceView: View {
   
+  struct DetailLabel: View {
+    let text: String
+    
+    var body: some View {
+      Text(text)
+        .font(.subheadline)
+        .foregroundStyle(.secondary)
+    }
+    
+    init(_ text: String) {
+      self.text = text
+    }
+  }
+
   @Environment(\.modelContext) var modelContext
   @Environment(\.dismiss) var dismiss
   @EnvironmentObject var appSettings: AppSettings
@@ -52,6 +66,7 @@ struct EditPlaceView: View {
             VStack(alignment: .leading) {
               HStack {
                 DetailLabel("NAME:")
+                  .frame(width: proxy.size.width * 0.20, alignment: .trailing)
                 TextField("Place Name", text: $place.name)
                   .textFieldStyle(.roundedBorder)
                   .padding(.trailing)
@@ -59,6 +74,7 @@ struct EditPlaceView: View {
               .padding(.bottom, 4)
               HStack {
                 DetailLabel("NOTES:")
+                  .frame(width: proxy.size.width * 0.20, alignment: .trailing)
                 TextField("Place Notes", text: $place.notes)
                   .textFieldStyle(.roundedBorder)
                   .padding(.trailing)
@@ -66,6 +82,7 @@ struct EditPlaceView: View {
               .padding(.bottom, 4)
               HStack {
                 DetailLabel("ADDED:")
+                  .frame(width: proxy.size.width * 0.20, alignment: .trailing)
                 DatePicker("Added Date", selection: $place.addDate, displayedComponents: .date)
                   .disabled(true)
                   .labelsHidden()
@@ -76,14 +93,16 @@ struct EditPlaceView: View {
                 
                 HStack {
                   DetailLabel("EXPIRES: ")
+                    .frame(width: proxy.size.width * 0.20, alignment: .trailing)
                   DatePicker("Expires", selection: $place.expirationDate, displayedComponents: .date)
                     .labelsHidden()
                     .disabled(shouldAutoCalcExpiry)
                   Spacer()
-                  Toggle(isOn: $shouldAutoCalcExpiry) {
-                    Text("Auto")
+                  Toggle(isOn: $shouldAutoCalcExpiry.animation()) {
+                    DetailLabel("AUTO:")
+                      .frame(maxWidth: .infinity, alignment: .trailing)
                   }
-                  .toggleStyle(CheckboxToggleStyle())
+                  
                   .padding(.trailing)
                   .onChange(of: shouldAutoCalcExpiry) {
                     updateExpiryValue()
@@ -94,9 +113,7 @@ struct EditPlaceView: View {
                 // time value picker
                 if !shouldAutoCalcExpiry {
                   HStack {
-                    Text("SET TO EXPIRE IN:")
-                      .font(.subheadline)
-                      .foregroundStyle(.secondary)
+                    DetailLabel("EXPIRE IN:")
                       .padding(.leading)
                     
                     Spacer()
@@ -153,8 +170,7 @@ struct EditPlaceView: View {
               
               if let imageData = place.imageData {
                 if imageData.isEmpty {
-                  Text("No Photos")
-                    .foregroundStyle(.secondary)
+                  DetailLabel("NO PHOTOS")
                     .frame(height: proxy.size.height * 0.17)
                 } else {
                   ScrollView(.horizontal, showsIndicators: false) {
@@ -262,40 +278,6 @@ struct EditPlaceView: View {
     }
   }
 
-}
-
-extension EditPlaceView {
-  struct DetailLabel: View {
-    let text: String
-    
-    var body: some View {
-      Text(text)
-        .font(.subheadline)
-        .foregroundStyle(.secondary)
-        .frame(width: 65)
-        .padding(.leading)
-    }
-    
-    init(_ text: String) {
-      self.text = text
-    }
-  }
-  
-  struct CheckboxToggleStyle: ToggleStyle {
-    func makeBody(configuration: Configuration) -> some View {
-      Button(action: {
-        withAnimation {
-          configuration.isOn.toggle()
-        }
-      }, label: {
-        HStack {
-          Image(systemName: configuration.isOn ? "checkmark.square" : "square")
-          configuration.label
-        }
-      })
-      .buttonStyle(.plain)
-    }
-  }
 }
 
 #Preview {

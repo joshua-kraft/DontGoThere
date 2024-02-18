@@ -43,7 +43,7 @@ struct SettingsView: View {
             Text("Never Expire:")
               .font(appSettings.neverExpire ? .subheadline.bold() : .subheadline)
             Spacer()
-            Toggle("Never Expire:", isOn: $appSettings.neverExpire)
+            Toggle("Never Expire:", isOn: $appSettings.neverExpire.animation())
               .labelsHidden()
           }
           
@@ -98,7 +98,7 @@ struct SettingsView: View {
             Text("Never Delete:")
               .font(appSettings.neverDelete ? .subheadline.bold() : .subheadline)
             Spacer()
-            Toggle("Never Delete:", isOn: $appSettings.neverDelete)
+            Toggle("Never Delete:", isOn: $appSettings.neverDelete.animation())
               .labelsHidden()
           }
           
@@ -152,7 +152,7 @@ struct SettingsView: View {
             Text("No Limit:")
               .font(appSettings.noNotificationLimit ? .subheadline.bold() : .subheadline)
             Spacer()
-            Toggle("No Limit:", isOn: $appSettings.noNotificationLimit)
+            Toggle("No Limit:", isOn: $appSettings.noNotificationLimit.animation())
               .labelsHidden()
           }
           
@@ -180,11 +180,33 @@ struct SettingsView: View {
   }
   
   func updateExpiryInterval() {
-    
+    appSettings.autoExpiryInterval = {
+      switch appSettings.autoExpiryUnit {
+      case .days:
+        1 * 86400 * Double(appSettings.autoExpiryValue)
+      case .weeks:
+        7 * 86400 * Double(appSettings.autoExpiryValue)
+      case .months:
+        30 * 86400 * Double(appSettings.autoExpiryValue)
+      case .years:
+        365 * 86400 * Double(appSettings.autoExpiryValue)
+      }
+    }()
   }
   
   func updateDeletionInterval() {
-    
+    appSettings.autoDeletionInterval = {
+      switch appSettings.autoDeletionUnit {
+      case .days:
+        1 * 86400 * Double(appSettings.autoDeletionValue)
+      case .weeks:
+        7 * 86400 * Double(appSettings.autoDeletionValue)
+      case .months:
+        30 * 86400 * Double(appSettings.autoDeletionValue)
+      case .years:
+        365 * 86400 * Double(appSettings.autoDeletionValue)
+      }
+    }()
   }
   
 }
