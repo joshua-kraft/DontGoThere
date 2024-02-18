@@ -37,7 +37,7 @@ struct EditPlaceView: View {
   
   // Detail section state
   @State private var shouldAutoCalcExpiry = true
-  @State private var expiryInterval = 0
+  @State private var expiryInterval = 0.0
   
   // Photo picker state
   @State private var isShowingPhotoPicker = false

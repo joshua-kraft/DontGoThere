@@ -31,9 +31,9 @@ struct SettingsView: View {
     }
   }
   
-  @AppStorage("autoExpireInterval") var autoExpireInterval = 0
+  @AppStorage("autoExpireInterval") var autoExpireInterval = 0.0
   @AppStorage("neverExpirePlaces") var neverExpire = false
-  @AppStorage("autoDeleteInterval") var autoDeleteInterval = 0
+  @AppStorage("autoDeleteInterval") var autoDeleteInterval = 0.0
   @AppStorage("neverDeletePlaces") var neverDelete = false
   @AppStorage("maxNotificationCount") var maxNotificationCount = 10
   @AppStorage("noNotificationLimit") var noNotificationLimit = false
