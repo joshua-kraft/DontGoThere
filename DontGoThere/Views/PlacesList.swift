@@ -13,13 +13,17 @@ struct PlacesList: View {
   @Environment(\.modelContext) var modelContext
   @Query(sort: \Place.name) var places: [Place]
   
-  init(filteredBy searchString: String = "", sortedBy sortOrder: [SortDescriptor<Place>] = []) {
+  init(filteredBy searchString: String = "", sortedBy sortOrder: [SortDescriptor<Place>] = [], archived: Bool = false) {
     _places = Query(filter: #Predicate { place in
-      if searchString.isEmpty {
-        return true
+      if archived == place.isArchived {
+        if searchString.isEmpty {
+          return true
+        } else {
+          return place.name.localizedStandardContains(searchString)
+          || place.notes.localizedStandardContains(searchString)
+        }
       } else {
-        return place.name.localizedStandardContains(searchString)
-        || place.notes.localizedStandardContains(searchString)
+        return false
       }
     }, sort: sortOrder)
   }

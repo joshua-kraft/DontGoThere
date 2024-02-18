@@ -298,7 +298,7 @@ extension EditPlaceView {
   do {
     let previewer = try Previewer()
     
-    return EditPlaceView(place: previewer.place)
+    return EditPlaceView(place: previewer.activePlace)
       .modelContainer(previewer.container)
       .environmentObject(AppSettings.defaultSettings)
     

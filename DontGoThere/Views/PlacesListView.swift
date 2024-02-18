@@ -38,12 +38,8 @@ struct PlacesListView: View {
           PlacesList(filteredBy: searchText, sortedBy: sortOrder)
             .searchable(text: $searchText)
         case .archived:
-          List {
-            ForEach(1...5, id: \.self) {
-              Text("Expired place \(String($0))")
-            }
-          }
-          .searchable(text: $searchText)
+          PlacesList(filteredBy: searchText, sortedBy: sortOrder, archived: true)
+            .searchable(text: $searchText)
         }
       }
       .navigationTitle("Your Places")
