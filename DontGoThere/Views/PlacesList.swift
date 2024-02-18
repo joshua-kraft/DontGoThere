@@ -1,5 +1,5 @@
 //
-//  SortableListView.swift
+//  PlacesList.swift
 //  DontGoThere
 //
 //  Created by Joshua Kraft on 2/15/24.
@@ -8,7 +8,7 @@
 import SwiftData
 import SwiftUI
 
-struct SortableListView: View {
+struct PlacesList: View {
   
   @Environment(\.modelContext) var modelContext
   @Query(sort: \Place.name) var places: [Place]
@@ -62,7 +62,7 @@ struct SortableListView: View {
 #Preview {
   do {
     let previewer = try Previewer()
-    return SortableListView()
+    return PlacesList()
       .modelContainer(previewer.container)
   } catch {
     return Text("Failed to create preview: \(error.localizedDescription)")

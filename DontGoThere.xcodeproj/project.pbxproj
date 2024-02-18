@@ -16,7 +16,7 @@
 		42560A1F2B7429960013FCF4 /* EditPlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42560A1E2B7429960013FCF4 /* EditPlaceView.swift */; };
 		42560A212B74299A0013FCF4 /* PlacesMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42560A202B74299A0013FCF4 /* PlacesMapView.swift */; };
 		42560A252B7D3D170013FCF4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42560A242B7D3D170013FCF4 /* SettingsView.swift */; };
-		42560A272B7F1F210013FCF4 /* SortableListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42560A262B7F1F210013FCF4 /* SortableListView.swift */; };
+		42560A272B7F1F210013FCF4 /* PlacesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42560A262B7F1F210013FCF4 /* PlacesList.swift */; };
 		42560A292B8078500013FCF4 /* Previewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42560A282B8078500013FCF4 /* Previewer.swift */; };
 		42560A362B81843F0013FCF4 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42560A352B81843F0013FCF4 /* AppSettings.swift */; };
 /* End PBXBuildFile section */
@@ -32,7 +32,7 @@
 		42560A1E2B7429960013FCF4 /* EditPlaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPlaceView.swift; sourceTree = "<group>"; };
 		42560A202B74299A0013FCF4 /* PlacesMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesMapView.swift; sourceTree = "<group>"; };
 		42560A242B7D3D170013FCF4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		42560A262B7F1F210013FCF4 /* SortableListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortableListView.swift; sourceTree = "<group>"; };
+		42560A262B7F1F210013FCF4 /* PlacesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesList.swift; sourceTree = "<group>"; };
 		42560A282B8078500013FCF4 /* Previewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Previewer.swift; sourceTree = "<group>"; };
 		42560A352B81843F0013FCF4 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -99,7 +99,7 @@
 			children = (
 				42560A0C2B74292B0013FCF4 /* ContentView.swift */,
 				42560A1C2B74298F0013FCF4 /* PlacesListView.swift */,
-				42560A262B7F1F210013FCF4 /* SortableListView.swift */,
+				42560A262B7F1F210013FCF4 /* PlacesList.swift */,
 				42560A1E2B7429960013FCF4 /* EditPlaceView.swift */,
 				42560A202B74299A0013FCF4 /* PlacesMapView.swift */,
 				42560A242B7D3D170013FCF4 /* SettingsView.swift */,
@@ -178,7 +178,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				42560A362B81843F0013FCF4 /* AppSettings.swift in Sources */,
-				42560A272B7F1F210013FCF4 /* SortableListView.swift in Sources */,
+				42560A272B7F1F210013FCF4 /* PlacesList.swift in Sources */,
 				42560A252B7D3D170013FCF4 /* SettingsView.swift in Sources */,
 				42560A1D2B74298F0013FCF4 /* PlacesListView.swift in Sources */,
 				42560A212B74299A0013FCF4 /* PlacesMapView.swift in Sources */,

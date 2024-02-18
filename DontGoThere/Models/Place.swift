@@ -39,7 +39,9 @@ class Place: Identifiable {
   
   @Attribute(.externalStorage) var imageData: [Data]?
   
-  init(name: String, notes: String, review: String, latitude: Double, longitude: Double, addDate: Date, expirationDate: Date, imageData: [Data]? = nil) {
+  var isExpired: Bool
+  
+  init(name: String, notes: String, review: String, latitude: Double, longitude: Double, addDate: Date, expirationDate: Date, imageData: [Data]? = nil, isExpired: Bool = false) {
     self.name = name
     self.notes = notes
     self.review = review
@@ -48,6 +50,7 @@ class Place: Identifiable {
     self.addDate = addDate
     self.expirationDate = expirationDate
     self.imageData = imageData
+    self.isExpired = isExpired
   }
   
   func formattedDate(_ date: Date) -> String {
