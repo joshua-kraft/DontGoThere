@@ -28,6 +28,7 @@ class Place: Identifiable {
   
   var addDate: Date
   var expirationDate: Date
+  var neverExpires: Bool
   
   var formattedAddDate: String {
     formattedDate(addDate)
@@ -41,7 +42,7 @@ class Place: Identifiable {
   
   var isArchived: Bool
   
-  init(name: String, notes: String, review: String, latitude: Double, longitude: Double, addDate: Date, expirationDate: Date, imageData: [Data]? = nil, isArchived: Bool = false) {
+  init(name: String, notes: String, review: String, latitude: Double, longitude: Double, addDate: Date, expirationDate: Date, imageData: [Data]? = nil, isArchived: Bool = false, neverExpires: Bool = false) {
     self.name = name
     self.notes = notes
     self.review = review
@@ -51,6 +52,7 @@ class Place: Identifiable {
     self.expirationDate = expirationDate
     self.imageData = imageData
     self.isArchived = isArchived
+    self.neverExpires = neverExpires
   }
   
   func formattedDate(_ date: Date) -> String {
