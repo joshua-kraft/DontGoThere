@@ -87,7 +87,7 @@ struct SettingsView: View {
           SettingsHeader(headerTitle: "Expiration Settings", headerNote: "Set the default times to archive places from your active list.")
         } footer: {
           if appSettings.neverExpire {
-            Text("Note: never expiring your active places may cause app data usage to increase over time.")
+            Text("Note: never expiring your active places may cause app storage usage to increase over time.")
               .font(.headline)
           }
         }
@@ -141,7 +141,7 @@ struct SettingsView: View {
           SettingsHeader(headerTitle: "Deletion Settings", headerNote: "Set the default time before archived places are automatically deleted.")
         } footer: {
           if appSettings.neverDelete {
-            Text("Note: never deleting your archived places may cause app data usage to increase over time.")
+            Text("Note: never deleting your archived places may cause app storage usage to increase over time.")
               .font(.headline)
           }
         }
