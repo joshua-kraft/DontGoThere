@@ -10,6 +10,8 @@ import SwiftUI
 
 struct ContentView: View {
   
+  @StateObject var appSettings = AppSettings.loadSettings()
+  
   var body: some View {
     TabView {
       PlacesListView()
@@ -27,6 +29,7 @@ struct ContentView: View {
           Label("Settings", systemImage: "gearshape.2")
         }
     }
+    .environmentObject(appSettings)
   }
 }
 
