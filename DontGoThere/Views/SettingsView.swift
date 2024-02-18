@@ -48,7 +48,39 @@ struct SettingsView: View {
           }
           
           if !appSettings.neverExpire {
-            TimeValuePickerView(timeValue: $appSettings.autoExpiryValue, timeUnit: $appSettings.autoExpiryUnit, timeInterval: $appSettings.autoExpiryInterval, labelText: "SET TO EXPIRE IN:", pickerTitle: "Expiry Value")
+            HStack {
+              Text("SET TO EXPIRE IN:")
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+                .padding(.leading)
+              
+              Spacer()
+              
+              Picker("Expiry Value", selection: $appSettings.autoExpiryValue) {
+                ForEach(1...100, id: \.self) { value in
+                  Text(String(value))
+                }
+              }
+              .labelsHidden()
+              .pickerStyle(.wheel)
+              .frame(height: 85)
+              .onChange(of: appSettings.autoExpiryValue) {
+                updateExpiryInterval()
+              }
+              
+              Spacer()
+              
+              Picker("Expiry Unit", selection: $appSettings.autoExpiryUnit) {
+                ForEach(TimeUnit.allCases, id: \.self) { unit in
+                  Text(unit.rawValue)
+                }
+              }
+              .labelsHidden()
+              .onChange(of: appSettings.autoExpiryUnit) {
+                updateExpiryInterval()
+              }
+            }
+            .padding(.bottom, 4)
           }
           
         } header: {
@@ -63,7 +95,7 @@ struct SettingsView: View {
         // Deletion Settings
         Section {
           HStack {
-            Text("Never Delete")
+            Text("Never Delete:")
               .font(appSettings.neverDelete ? .subheadline.bold() : .subheadline)
             Spacer()
             Toggle("Never Delete:", isOn: $appSettings.neverDelete)
@@ -71,7 +103,39 @@ struct SettingsView: View {
           }
           
           if !appSettings.neverDelete {
-            TimeValuePickerView(timeValue: $appSettings.autoDeletionValue, timeUnit: $appSettings.autoDeletionUnit, timeInterval: $appSettings.autoDeletionInterval, labelText: "SET TO DELETE IN:", pickerTitle: "Deletion Value")
+            HStack {
+              Text("SET TO DELETE IN:")
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+                .padding(.leading)
+              
+              Spacer()
+              
+              Picker("Deletion Value", selection: $appSettings.autoDeletionValue) {
+                ForEach(1...100, id: \.self) { value in
+                  Text(String(value))
+                }
+              }
+              .labelsHidden()
+              .pickerStyle(.wheel)
+              .frame(height: 85)
+              .onChange(of: appSettings.autoDeletionValue) {
+                updateDeletionInterval()
+              }
+              
+              Spacer()
+              
+              Picker("Deletion Unit", selection: $appSettings.autoDeletionUnit) {
+                ForEach(TimeUnit.allCases, id: \.self) { unit in
+                  Text(unit.rawValue)
+                }
+              }
+              .labelsHidden()
+              .onChange(of: appSettings.autoDeletionUnit) {
+                updateDeletionInterval()
+              }
+            }
+            .padding(.bottom, 4)
           }
         } header: {
           SettingsHeader(headerTitle: "Deletion Settings", headerNote: "Set the default time before archived places are automatically deleted.")
@@ -85,10 +149,10 @@ struct SettingsView: View {
         // Notification Settings
         Section {
           HStack {
-            Text("No Limit")
+            Text("No Limit:")
               .font(appSettings.noNotificationLimit ? .subheadline.bold() : .subheadline)
             Spacer()
-            Toggle("No Limit", isOn: $appSettings.noNotificationLimit)
+            Toggle("No Limit:", isOn: $appSettings.noNotificationLimit)
               .labelsHidden()
           }
           
@@ -97,7 +161,7 @@ struct SettingsView: View {
               Text("NOTIFICATION LIMIT:")
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
-              Picker("Notification Limit", selection: $appSettings.maxNotificationCount) {
+              Picker("Notification Limit:", selection: $appSettings.maxNotificationCount) {
                 ForEach(1...30, id: \.self) { value in
                   Text(String(value))
                 }
@@ -114,6 +178,15 @@ struct SettingsView: View {
       .navigationTitle("DontGoThere Settings")
     }
   }
+  
+  func updateExpiryInterval() {
+    
+  }
+  
+  func updateDeletionInterval() {
+    
+  }
+  
 }
 
 #Preview {

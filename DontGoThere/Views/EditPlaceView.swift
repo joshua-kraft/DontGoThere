@@ -12,22 +12,6 @@ import SwiftUI
 
 struct EditPlaceView: View {
   
-  struct DetailLabel: View {
-    let text: String
-    
-    var body: some View {
-      Text(text)
-        .font(.subheadline)
-        .foregroundStyle(.secondary)
-        .frame(width: 65)
-        .padding(.leading)
-    }
-    
-    init(_ text: String) {
-      self.text = text
-    }
-  }
-  
   @Environment(\.modelContext) var modelContext
   @Environment(\.dismiss) var dismiss
   @EnvironmentObject var appSettings: AppSettings
@@ -38,7 +22,7 @@ struct EditPlaceView: View {
   
   // Detail section state
   @State private var shouldAutoCalcExpiry = true
-  @State private var expiryValue = 1
+  @State private var expiryValue = 3
   @State private var expiryUnit = TimeUnit.months
   @State private var expiryInterval = 0.0
   
@@ -104,16 +88,42 @@ struct EditPlaceView: View {
               }
               .padding(.bottom, 4)
               
+              // time value picker
               if !shouldAutoCalcExpiry {
-                TimeValuePickerView(timeValue: $expiryValue, timeUnit: $expiryUnit, timeInterval: $expiryInterval, labelText: "SET TO EXPIRE IN:", pickerTitle: "Expiry Value")
-                  .onChange(of: expiryInterval) {
+                HStack {
+                  Text("SET TO EXPIRE IN:")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                    .padding(.leading)
+                  
+                  Spacer()
+                  
+                  Picker("Expiry Value", selection: $expiryValue) {
+                    ForEach(1...100, id: \.self) { value in
+                      Text(String(value))
+                    }
+                  }
+                  .labelsHidden()
+                  .pickerStyle(.wheel)
+                  .frame(height: 85)
+                  .onChange(of: expiryValue) {
                     updateExpiryValue()
                   }
-                  .onAppear {
-                    updateExpiryValue(initial: true)
+                  
+                  Spacer()
+                  
+                  Picker("Expiry Unit", selection: $expiryUnit) {
+                    ForEach(TimeUnit.allCases, id: \.self) { unit in
+                      Text(unit.rawValue)
+                    }
                   }
+                  .labelsHidden()
+                  .onChange(of: expiryUnit) {
+                    updateExpiryValue()
+                  }
+                }
+                .padding(.bottom, 4)
               }
-              
             }
             
             Divider()
@@ -227,16 +237,61 @@ struct EditPlaceView: View {
     )
   }
   
-  func updateExpiryValue(initial: Bool = false) {
-    if initial {
-      place.expirationDate = place.addDate.addingTimeInterval(30 * 86400)
-    } else if shouldAutoCalcExpiry {
+  func updateExpiryValue() {
+    expiryInterval = {
+      switch expiryUnit {
+      case .days:
+        return 1 * 86400 * Double(expiryValue)
+      case .weeks:
+        return 7 * 86400 * Double(expiryValue)
+      case .months:
+        return 30 * 86400 * Double(expiryValue)
+      case .years:
+        return 365 * 86400 * Double(expiryValue)
+      }
+    }()
+    
+    if shouldAutoCalcExpiry {
       place.expirationDate = place.addDate.addingTimeInterval(appSettings.autoExpiryInterval)
     } else {
       place.expirationDate = place.addDate.addingTimeInterval(expiryInterval)
     }
   }
 
+}
+
+extension EditPlaceView {
+  struct DetailLabel: View {
+    let text: String
+    
+    var body: some View {
+      Text(text)
+        .font(.subheadline)
+        .foregroundStyle(.secondary)
+        .frame(width: 65)
+        .padding(.leading)
+    }
+    
+    init(_ text: String) {
+      self.text = text
+    }
+  }
+  
+  struct CheckboxToggleStyle: ToggleStyle {
+    func makeBody(configuration: Configuration) -> some View {
+      Button(action: {
+        withAnimation {
+          configuration.isOn.toggle()
+        }
+      }, label: {
+        HStack {
+          Image(systemName: configuration.isOn ? "checkmark.square" : "square")
+          configuration.label
+        }
+      })
+      .buttonStyle(.plain)
+    }
+  }
 }
 
 #Preview {
