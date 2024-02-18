@@ -65,7 +65,7 @@ struct PlacesMapView: View {
           MapReader { proxy in
             Map(initialPosition: startPosition) {
               if showExistingPlaces {
-                ForEach(places) { place in
+                ForEach(places.filter { !$0.isArchived }) { place in
                   Annotation(place.name, coordinate: place.coordinate) {
                     DontGoThereAnnotation()
                       .contextMenu {
