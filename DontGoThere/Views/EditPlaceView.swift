@@ -30,6 +30,7 @@ struct EditPlaceView: View {
   
   @Environment(\.modelContext) var modelContext
   @Environment(\.dismiss) var dismiss
+  @EnvironmentObject var appSettings: AppSettings
   
   @State private var isShowingDeleteAlert = false
   
@@ -98,9 +99,7 @@ struct EditPlaceView: View {
                 .toggleStyle(CheckboxToggleStyle())
                 .padding(.trailing)
                 .onChange(of: shouldAutoCalcExpiry) { 
-                  if !shouldAutoCalcExpiry {
                     updateExpiryValue()
-                  }
                 }
               }
               .padding(.bottom, 4)
@@ -226,7 +225,11 @@ struct EditPlaceView: View {
   }
   
   func updateExpiryValue() {
-    place.expirationDate = place.addDate.addingTimeInterval(TimeInterval(expiryInterval))
+    if shouldAutoCalcExpiry {
+      place.expirationDate = place.addDate.addingTimeInterval(appSettings.autoExpiryInterval)
+    } else {
+      place.expirationDate = place.addDate.addingTimeInterval(expiryInterval)
+    }
   }
 
 }
@@ -237,6 +240,7 @@ struct EditPlaceView: View {
     
     return EditPlaceView(place: previewer.place)
       .modelContainer(previewer.container)
+      .environmentObject(AppSettings.defaultSettings)
     
   } catch {
     return Text("Failed to create preview: \(error.localizedDescription)")

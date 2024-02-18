@@ -31,69 +31,73 @@ struct SettingsView: View {
     }
   }
   
-  @EnvironmentObject var settings: AppSettings
+  @EnvironmentObject var appSettings: AppSettings
   
   var body: some View {
     NavigationStack {
       Form {
+        
+         // Expiration Settings
         Section {
           HStack {
             Text("Never Expire:")
-              .font(settings.neverExpire ? .subheadline.bold() : .subheadline)
+              .font(appSettings.neverExpire ? .subheadline.bold() : .subheadline)
             Spacer()
-            Toggle("Never Expire:", isOn: $settings.neverExpire)
+            Toggle("Never Expire:", isOn: $appSettings.neverExpire)
               .labelsHidden()
           }
           
-          if !settings.neverExpire {
-            TimeValuePickerView(timeValue: $settings.autoExpiryValue, timeUnit: $settings.autoExpiryUnit, timeInterval: $settings.autoExpiryInterval, labelText: "SET TO EXPIRE IN:", pickerTitle: "Expiry Value")
+          if !appSettings.neverExpire {
+            TimeValuePickerView(timeValue: $appSettings.autoExpiryValue, timeUnit: $appSettings.autoExpiryUnit, timeInterval: $appSettings.autoExpiryInterval, labelText: "SET TO EXPIRE IN:", pickerTitle: "Expiry Value")
           }
           
         } header: {
           SettingsHeader(headerTitle: "Expiration Settings", headerNote: "Set the default times to archive places from your active list.")
         } footer: {
-          if settings.neverExpire {
+          if appSettings.neverExpire {
             Text("Note: never expiring your active places may cause app data usage to increase over time.")
               .font(.headline)
           }
         }
         
+        // Deletion Settings
         Section {
           HStack {
             Text("Never Delete")
-              .font(settings.neverDelete ? .subheadline.bold() : .subheadline)
+              .font(appSettings.neverDelete ? .subheadline.bold() : .subheadline)
             Spacer()
-            Toggle("Never Delete:", isOn: $settings.neverDelete)
+            Toggle("Never Delete:", isOn: $appSettings.neverDelete)
               .labelsHidden()
           }
           
-          if !settings.neverDelete {
-            TimeValuePickerView(timeValue: $settings.autoDeletionValue, timeUnit: $settings.autoDeletionUnit, timeInterval: $settings.autoDeletionInterval, labelText: "SET TO DELETE IN:", pickerTitle: "Deletion Value")
+          if !appSettings.neverDelete {
+            TimeValuePickerView(timeValue: $appSettings.autoDeletionValue, timeUnit: $appSettings.autoDeletionUnit, timeInterval: $appSettings.autoDeletionInterval, labelText: "SET TO DELETE IN:", pickerTitle: "Deletion Value")
           }
         } header: {
           SettingsHeader(headerTitle: "Deletion Settings", headerNote: "Set the default time before archived places are automatically deleted.")
         } footer: {
-          if settings.neverDelete {
+          if appSettings.neverDelete {
             Text("Note: never deleting your archived places may cause app data usage to increase over time.")
               .font(.headline)
           }
         }
         
+        // Notification Settings
         Section {
           HStack {
             Text("No Limit")
-              .font(settings.noNotificationLimit ? .subheadline.bold() : .subheadline)
+              .font(appSettings.noNotificationLimit ? .subheadline.bold() : .subheadline)
             Spacer()
-            Toggle("No Limit", isOn: $settings.noNotificationLimit)
+            Toggle("No Limit", isOn: $appSettings.noNotificationLimit)
               .labelsHidden()
           }
           
-          if !settings.noNotificationLimit {
+          if !appSettings.noNotificationLimit {
             HStack {
               Text("NOTIFICATION LIMIT:")
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
-              Picker("Notification Limit", selection: $settings.maxNotificationCount) {
+              Picker("Notification Limit", selection: $appSettings.maxNotificationCount) {
                 ForEach(1...30, id: \.self) { value in
                   Text(String(value))
                 }

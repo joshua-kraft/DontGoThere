@@ -11,6 +11,7 @@ import SwiftUI
 struct PlacesListView: View {
   
   @Environment(\.modelContext) var modelContext
+  @EnvironmentObject var appSettings: AppSettings
   
   @State private var path = [Place]()
   @State private var searchText = ""
@@ -59,7 +60,7 @@ struct PlacesListView: View {
   }
   
   func addPlace() {
-    let newPlace = Place(name: "", notes: "", review: "", latitude: 30.5532, longitude: -97.8422, addDate: Date.now, expirationDate: Date.now, imageData: [])
+    let newPlace = Place(name: "", notes: "", review: "", latitude: 30.5532, longitude: -97.8422, addDate: Date.now, expirationDate: Date.now.addingTimeInterval(appSettings.autoExpiryInterval), imageData: [])
     modelContext.insert(newPlace)
     path.append(newPlace)
   }
@@ -72,6 +73,7 @@ struct PlacesListView: View {
     
     return PlacesListView()
       .modelContainer(previewer.container)
+      .environmentObject(AppSettings.defaultSettings)
   } catch {
     return Text("Failed to create preview: \(error.localizedDescription)")
   }

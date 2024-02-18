@@ -114,5 +114,5 @@ class AppSettings: ObservableObject, Codable {
     try container.encode(noNotificationLimit, forKey: .noNotificationLimit)
     try container.encode(maxNotificationCount, forKey: .maxNotificationCount)
   }
-
+  
 }

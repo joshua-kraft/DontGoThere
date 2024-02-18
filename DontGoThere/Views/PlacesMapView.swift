@@ -44,7 +44,8 @@ struct PlacesMapView: View {
   
   @Query var places: [Place]
   @Environment(\.modelContext) var modelContext
-    
+  @EnvironmentObject var appSettings: AppSettings
+  
   @State private var showExistingPlaces = true
   @State private var path = [Place]()
   
@@ -125,7 +126,7 @@ struct PlacesMapView: View {
   }
 
   func addPlace(at location: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 30.5788, longitude: -97.8531)) {
-    let newPlace = Place(name: "", notes: "", review: "", latitude: location.latitude, longitude: location.longitude, addDate: Date.now, expirationDate: Date.now, imageData: [])
+    let newPlace = Place(name: "", notes: "", review: "", latitude: location.latitude, longitude: location.longitude, addDate: Date.now, expirationDate: Date.now.addingTimeInterval(appSettings.autoExpiryInterval), imageData: [])
     modelContext.insert(newPlace)
     path.append(newPlace)
   }
@@ -137,6 +138,7 @@ struct PlacesMapView: View {
     
     return PlacesMapView()
       .modelContainer(previewer.container)
+      .environmentObject(AppSettings.defaultSettings)
   } catch {
     return Text("Could not create preview: \(error.localizedDescription)")
   }
