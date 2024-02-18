@@ -30,18 +30,8 @@ struct SettingsView: View {
       }
     }
   }
-  @State private var neverExpire = false
-  @State private var autoExpiryValue = 1
-  @State private var autoExpiryUnit = TimeUnit.months
-  @State private var autoExpiryInterval = 0.0
   
-  @State private var neverDelete = false
-  @State private var autoDeletionValue = 1
-  @State private var autoDeletionUnit = TimeUnit.months
-  @State private var autoDeletionInterval = 0.0
-  
-  @State private var maxNotificationCount = 10
-  @State private var noNotificationLimit = false
+  @EnvironmentObject var settings: AppSettings
   
   var body: some View {
     NavigationStack {
@@ -49,51 +39,61 @@ struct SettingsView: View {
         Section {
           HStack {
             Text("Never Expire:")
-              .font(neverExpire ? .subheadline.bold() : .subheadline)
+              .font(settings.neverExpire ? .subheadline.bold() : .subheadline)
             Spacer()
-            Toggle("Never Expire:", isOn: $neverExpire)
+            Toggle("Never Expire:", isOn: $settings.neverExpire)
               .labelsHidden()
           }
           
-          if !neverExpire {
-            TimeValuePickerView(timeValue: $autoExpiryValue, timeUnit: $autoExpiryUnit, timeInterval: $autoExpiryInterval, labelText: "SET TO EXPIRE IN:", pickerTitle: "Expiry Value")
+          if !settings.neverExpire {
+            TimeValuePickerView(timeValue: $settings.autoExpiryValue, timeUnit: $settings.autoExpiryUnit, timeInterval: $settings.autoExpiryInterval, labelText: "SET TO EXPIRE IN:", pickerTitle: "Expiry Value")
           }
           
         } header: {
           SettingsHeader(headerTitle: "Expiration Settings", headerNote: "Set the default times to archive places from your active list.")
+        } footer: {
+          if settings.neverExpire {
+            Text("Note: never expiring your active places may cause app data usage to increase over time.")
+              .font(.headline)
+          }
         }
         
         Section {
           HStack {
             Text("Never Delete")
-              .font(neverDelete ? .subheadline.bold() : .subheadline)
+              .font(settings.neverDelete ? .subheadline.bold() : .subheadline)
             Spacer()
-            Toggle("Never Delete:", isOn: $neverDelete)
+            Toggle("Never Delete:", isOn: $settings.neverDelete)
               .labelsHidden()
           }
           
-          if !neverDelete {
-            TimeValuePickerView(timeValue: $autoDeletionValue, timeUnit: $autoDeletionUnit, timeInterval: $autoDeletionInterval, labelText: "SET TO DELETE IN:", pickerTitle: "Deletion Value")
+          if !settings.neverDelete {
+            TimeValuePickerView(timeValue: $settings.autoDeletionValue, timeUnit: $settings.autoDeletionUnit, timeInterval: $settings.autoDeletionInterval, labelText: "SET TO DELETE IN:", pickerTitle: "Deletion Value")
           }
         } header: {
           SettingsHeader(headerTitle: "Deletion Settings", headerNote: "Set the default time before archived places are automatically deleted.")
+        } footer: {
+          if settings.neverDelete {
+            Text("Note: never deleting your archived places may cause app data usage to increase over time.")
+              .font(.headline)
+          }
         }
         
         Section {
           HStack {
             Text("No Limit")
-              .font(noNotificationLimit ? .subheadline.bold() : .subheadline)
+              .font(settings.noNotificationLimit ? .subheadline.bold() : .subheadline)
             Spacer()
-            Toggle("No Limit", isOn: $noNotificationLimit)
+            Toggle("No Limit", isOn: $settings.noNotificationLimit)
               .labelsHidden()
           }
           
-          if !noNotificationLimit {
+          if !settings.noNotificationLimit {
             HStack {
               Text("NOTIFICATION LIMIT:")
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
-              Picker("Notification Limit", selection: $maxNotificationCount) {
+              Picker("Notification Limit", selection: $settings.maxNotificationCount) {
                 ForEach(1...30, id: \.self) { value in
                   Text(String(value))
                 }
@@ -114,4 +114,5 @@ struct SettingsView: View {
 
 #Preview {
   SettingsView()
+    .environmentObject(AppSettings.defaultSettings)
 }

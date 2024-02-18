@@ -72,6 +72,7 @@
 			isa = PBXGroup;
 			children = (
 				42560A0A2B74292B0013FCF4 /* DontGoThereApp.swift */,
+				42560A352B81843F0013FCF4 /* AppSettings.swift */,
 				42560A192B7429340013FCF4 /* Views */,
 				42560A182B7429300013FCF4 /* Models */,
 				42560A0E2B74292C0013FCF4 /* Assets.xcassets */,
@@ -91,7 +92,6 @@
 		42560A182B7429300013FCF4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				42560A352B81843F0013FCF4 /* AppSettings.swift */,
 				42560A1A2B7429410013FCF4 /* Place.swift */,
 				42560A282B8078500013FCF4 /* Previewer.swift */,
 			);

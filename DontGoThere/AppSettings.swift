@@ -60,6 +60,12 @@ class AppSettings: ObservableObject, Codable {
     }
   }
   
+  func saveSettings() {
+    if let encodedData = try? JSONEncoder().encode(self) {
+      UserDefaults.standard.setValue(encodedData, forKey: "DontGoThereSettings")
+    }
+  }
+  
   // MARK: - Codable conformance
   
   enum CodingKeys: CodingKey {
