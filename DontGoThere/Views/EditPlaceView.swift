@@ -37,6 +37,8 @@ struct EditPlaceView: View {
   
   // Detail section state
   @State private var shouldAutoCalcExpiry = true
+  @State private var expiryValue = 1
+  @State private var expiryUnit = TimeUnit.months
   @State private var expiryInterval = 0.0
   
   // Photo picker state
@@ -104,7 +106,7 @@ struct EditPlaceView: View {
               .padding(.bottom, 4)
               
               if !shouldAutoCalcExpiry {
-                TimeValuePickerView(timeIntervalValue: $expiryInterval, labelText: "SET TO EXPIRE IN:", pickerTitle: "Expiry Value")
+                TimeValuePickerView(timeValue: $expiryValue, timeUnit: $expiryUnit, timeInterval: $expiryInterval, labelText: "SET TO EXPIRE IN:", pickerTitle: "Expiry Value")
                   .onChange(of: expiryInterval) {
                     updateExpiryValue()
                   }

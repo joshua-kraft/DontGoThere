@@ -9,21 +9,12 @@ import SwiftUI
 
 struct TimeValuePickerView: View {
   
-  enum TimeUnit: String, CaseIterable {
-    case days = "Day(s)"
-    case weeks = "Week(s)"
-    case months = "Month(s)"
-    case years = "Year(s)"
-  }
-
   @State private var expiryValue = 1
   @State private var expiryUnit = TimeUnit.months
-  @State private var expiryIsInDays = false
-  @State private var expiryIsInWeeks = false
-  @State private var expiryIsInMonths = true
-  @State private var expiryIsInYears = false
-  
-  @Binding var timeIntervalValue: Double
+
+  @Binding var timeValue: Int
+  @Binding var timeUnit: TimeUnit
+  @Binding var timeInterval: Double
   
   let labelText: String
   let pickerTitle: String
@@ -69,7 +60,9 @@ struct TimeValuePickerView: View {
   }
     
   func updateExpiryValue() {
-    timeIntervalValue = {
+    timeUnit = expiryUnit
+    timeValue = expiryValue
+    timeInterval = {
       switch expiryUnit {
       case .days:
         return 1 * 86400 * Double(expiryValue)
@@ -87,6 +80,6 @@ struct TimeValuePickerView: View {
 }
 
 #Preview {
-  TimeValuePickerView(timeIntervalValue: .constant(0), labelText: "LABEL", pickerTitle: "VALUE")
+  TimeValuePickerView(timeValue: .constant(1), timeUnit: .constant(.months), timeInterval: .constant(0), labelText: "LABEL", pickerTitle: "PICKER")
 }
 

@@ -30,18 +30,22 @@ struct SettingsView: View {
       }
     }
   }
+  @State private var neverExpire = false
+  @State private var autoExpiryValue = 1
+  @State private var autoExpiryUnit = TimeUnit.months
+  @State private var autoExpiryInterval = 0.0
   
-  @AppStorage("autoExpireInterval") var autoExpireInterval = 0.0
-  @AppStorage("neverExpirePlaces") var neverExpire = false
-  @AppStorage("autoDeleteInterval") var autoDeleteInterval = 0.0
-  @AppStorage("neverDeletePlaces") var neverDelete = false
-  @AppStorage("maxNotificationCount") var maxNotificationCount = 10
-  @AppStorage("noNotificationLimit") var noNotificationLimit = false
+  @State private var neverDelete = false
+  @State private var autoDeletionValue = 1
+  @State private var autoDeletionUnit = TimeUnit.months
+  @State private var autoDeletionInterval = 0.0
+  
+  @State private var maxNotificationCount = 10
+  @State private var noNotificationLimit = false
   
   var body: some View {
     NavigationStack {
       Form {
-        
         Section {
           HStack {
             Text("Never Expire:")
@@ -52,14 +56,12 @@ struct SettingsView: View {
           }
           
           if !neverExpire {
-            TimeValuePickerView(timeIntervalValue: $autoExpireInterval, labelText: "SET TO EXPIRE IN:", pickerTitle: "Expiry Time")
+            TimeValuePickerView(timeValue: $autoExpiryValue, timeUnit: $autoExpiryUnit, timeInterval: $autoExpiryInterval, labelText: "SET TO EXPIRE IN:", pickerTitle: "Expiry Value")
           }
           
         } header: {
           SettingsHeader(headerTitle: "Expiration Settings", headerNote: "Set the default times to archive places from your active list.")
         }
-        
-        
         
         Section {
           HStack {
@@ -71,12 +73,11 @@ struct SettingsView: View {
           }
           
           if !neverDelete {
-            TimeValuePickerView(timeIntervalValue: $autoDeleteInterval, labelText: "SET TO DELETE IN:", pickerTitle: "Deletion Time")
+            TimeValuePickerView(timeValue: $autoDeletionValue, timeUnit: $autoDeletionUnit, timeInterval: $autoDeletionInterval, labelText: "SET TO DELETE IN:", pickerTitle: "Deletion Value")
           }
         } header: {
           SettingsHeader(headerTitle: "Deletion Settings", headerNote: "Set the default time before archived places are automatically deleted.")
         }
-        
         
         Section {
           HStack {
@@ -98,7 +99,6 @@ struct SettingsView: View {
                 }
               }
               .pickerStyle(.wheel)
-              .listRowInsets(EdgeInsets())
               .frame(height: 85)
             }
           }
