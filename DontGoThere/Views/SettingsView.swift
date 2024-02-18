@@ -53,8 +53,6 @@ struct SettingsView: View {
           
           if !neverExpire {
             TimeValuePickerView(timeIntervalValue: $autoExpireInterval, labelText: "SET TO EXPIRE IN:", pickerTitle: "Expiry Time")
-              .listRowInsets(EdgeInsets())
-              .padding([.top, .bottom])
           }
           
         } header: {
@@ -74,8 +72,6 @@ struct SettingsView: View {
           
           if !neverDelete {
             TimeValuePickerView(timeIntervalValue: $autoDeleteInterval, labelText: "SET TO DELETE IN:", pickerTitle: "Deletion Time")
-              .listRowInsets(EdgeInsets())
-              .padding([.top, .bottom])
           }
         } header: {
           SettingsHeader(headerTitle: "Deletion Settings", headerNote: "Set the default time before archived places are automatically deleted.")
@@ -102,6 +98,7 @@ struct SettingsView: View {
                 }
               }
               .pickerStyle(.wheel)
+              .listRowInsets(EdgeInsets())
               .frame(height: 85)
             }
           }

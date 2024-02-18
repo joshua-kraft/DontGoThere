@@ -57,6 +57,7 @@ struct TimeValuePickerView: View {
           Text(unit.rawValue)
         }
       }
+      .labelsHidden()
       .onChange(of: expiryUnit) {
         updateExpiryValue()
       }
