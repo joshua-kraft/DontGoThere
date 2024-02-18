@@ -83,7 +83,17 @@ struct PlacesListView: View {
   }
   
   func addPlace() {
-    let newPlace = Place(name: "", notes: "", review: "", latitude: 30.5532, longitude: -97.8422, addDate: Date.now, expirationDate: Date.now.addingTimeInterval(appSettings.autoExpiryInterval), imageData: [])
+    let newPlace = Place(
+      name: "",
+      notes: "",
+      review: "",
+      latitude: 30.5532,
+      longitude: -97.8422,
+      addDate: Date.now,
+      expirationDate: appSettings.neverExpire ? Date.distantFuture : Date.now.addingTimeInterval(appSettings.autoExpiryInterval),
+      imageData: [],
+      neverExpires: appSettings.neverExpire
+    )
     modelContext.insert(newPlace)
     path.append(newPlace)
   }

@@ -71,58 +71,62 @@ struct EditPlaceView: View {
                   .labelsHidden()
               }
               .padding(.bottom, 4)
-              HStack {
-                DetailLabel("EXPIRES: ")
-                DatePicker("Expires", selection: $place.expirationDate, displayedComponents: .date)
-                  .labelsHidden()
-                  .disabled(shouldAutoCalcExpiry)
-                Spacer()
-                Toggle(isOn: $shouldAutoCalcExpiry) {
-                  Text("Auto")
-                }
-                .toggleStyle(CheckboxToggleStyle())
-                .padding(.trailing)
-                .onChange(of: shouldAutoCalcExpiry) { 
-                    updateExpiryValue()
-                }
-              }
-              .padding(.bottom, 4)
               
-              // time value picker
-              if !shouldAutoCalcExpiry {
+              if place.neverExpires == false {
+                
                 HStack {
-                  Text("SET TO EXPIRE IN:")
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-                    .padding(.leading)
-                  
+                  DetailLabel("EXPIRES: ")
+                  DatePicker("Expires", selection: $place.expirationDate, displayedComponents: .date)
+                    .labelsHidden()
+                    .disabled(shouldAutoCalcExpiry)
                   Spacer()
-                  
-                  Picker("Expiry Value", selection: $expiryValue) {
-                    ForEach(1...100, id: \.self) { value in
-                      Text(String(value))
-                    }
+                  Toggle(isOn: $shouldAutoCalcExpiry) {
+                    Text("Auto")
                   }
-                  .labelsHidden()
-                  .pickerStyle(.wheel)
-                  .frame(height: 85)
-                  .onChange(of: expiryValue) {
-                    updateExpiryValue()
-                  }
-                  
-                  Spacer()
-                  
-                  Picker("Expiry Unit", selection: $expiryUnit) {
-                    ForEach(TimeUnit.allCases, id: \.self) { unit in
-                      Text(unit.rawValue)
-                    }
-                  }
-                  .labelsHidden()
-                  .onChange(of: expiryUnit) {
+                  .toggleStyle(CheckboxToggleStyle())
+                  .padding(.trailing)
+                  .onChange(of: shouldAutoCalcExpiry) {
                     updateExpiryValue()
                   }
                 }
                 .padding(.bottom, 4)
+                
+                // time value picker
+                if !shouldAutoCalcExpiry {
+                  HStack {
+                    Text("SET TO EXPIRE IN:")
+                      .font(.subheadline)
+                      .foregroundStyle(.secondary)
+                      .padding(.leading)
+                    
+                    Spacer()
+                    
+                    Picker("Expiry Value", selection: $expiryValue) {
+                      ForEach(1...100, id: \.self) { value in
+                        Text(String(value))
+                      }
+                    }
+                    .labelsHidden()
+                    .pickerStyle(.wheel)
+                    .frame(height: 85)
+                    .onChange(of: expiryValue) {
+                      updateExpiryValue()
+                    }
+                    
+                    Spacer()
+                    
+                    Picker("Expiry Unit", selection: $expiryUnit) {
+                      ForEach(TimeUnit.allCases, id: \.self) { unit in
+                        Text(unit.rawValue)
+                      }
+                    }
+                    .labelsHidden()
+                    .onChange(of: expiryUnit) {
+                      updateExpiryValue()
+                    }
+                  }
+                  .padding(.bottom, 4)
+                }
               }
             }
             

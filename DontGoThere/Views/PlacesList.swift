@@ -30,7 +30,7 @@ struct PlacesList: View {
             VStack(alignment: .trailing) {
               Text("Added: \(place.formattedAddDate)")
                 .font(.footnote)
-              Text("Expires: \(place.formattedExpirationDate)")
+              Text("Expires: \(place.neverExpires ? "Never" : place.formattedExpirationDate)")
                 .font(.footnote)
             }
           }
