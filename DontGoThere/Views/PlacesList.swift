@@ -13,21 +13,6 @@ struct PlacesList: View {
   @Environment(\.modelContext) var modelContext
   @Query(sort: \Place.name) var places: [Place]
   
-  init(filteredBy searchString: String = "", sortedBy sortOrder: [SortDescriptor<Place>] = [], archived: Bool = false) {
-    _places = Query(filter: #Predicate { place in
-      if archived == place.isArchived {
-        if searchString.isEmpty {
-          return true
-        } else {
-          return place.name.localizedStandardContains(searchString)
-          || place.notes.localizedStandardContains(searchString)
-        }
-      } else {
-        return false
-      }
-    }, sort: sortOrder)
-  }
-
   var body: some View {
     List {
       ForEach(places) { place in
@@ -50,6 +35,31 @@ struct PlacesList: View {
             }
           }
         }
+        .swipeActions() {
+          if place.isArchived {
+            Button("Delete", systemImage: "trash", role: .destructive) {
+              modelContext.delete(place)
+            }
+            Button("Unarchive", systemImage: "archivebox", role: .destructive) {
+              withAnimation {
+                place.isArchived.toggle()
+              }
+            }
+            .tint(.green)
+          } else {
+            Button("Archive", systemImage: "archivebox", role: .destructive) {
+              withAnimation {
+                place.isArchived.toggle()
+              }
+            }
+            .tint(.orange)
+            
+            Button("Delete", systemImage: "trash", role: .destructive) {
+              modelContext.delete(place)
+            }
+          }
+        }
+        .tag(place)
       }
       .onDelete(perform: deletePlaces)
     }
@@ -60,6 +70,21 @@ struct PlacesList: View {
       let place = places[offset]
       modelContext.delete(place)
     }
+  }
+  
+  init(filteredBy searchString: String = "", sortedBy sortOrder: [SortDescriptor<Place>] = [], archived: Bool = false) {
+    _places = Query(filter: #Predicate { place in
+      if archived == place.isArchived {
+        if searchString.isEmpty {
+          return true
+        } else {
+          return place.name.localizedStandardContains(searchString)
+          || place.notes.localizedStandardContains(searchString)
+        }
+      } else {
+        return false
+      }
+    }, sort: sortOrder)
   }
 }
 
