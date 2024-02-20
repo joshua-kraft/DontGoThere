@@ -19,15 +19,15 @@ class AppSettings: ObservableObject, Codable {
   
   static let defaultSettings = AppSettings(neverExpire: false, autoExpiryValue: 3, autoExpiryUnit: .months, autoExpiryInterval: 90.0 * 86400, neverDelete: false, autoDeletionValue: 1, autoDeletionUnit: .months, autoDeletionInterval: 30.0 * 86400, noNotificationLimit: false, maxNotificationCount: 10)
   
+  let calendar = Calendar.autoupdatingCurrent
+  
   @Published var neverExpire: Bool { didSet { saveSettings() } }
   @Published var autoExpiryValue: Int { didSet { saveSettings() } }
   @Published var autoExpiryUnit: TimeUnit { didSet { saveSettings() } }
-  @Published var autoExpiryInterval: Double { didSet { saveSettings() } }
   
   @Published var neverDelete: Bool { didSet { saveSettings() } }
   @Published var autoDeletionValue: Int { didSet { saveSettings() } }
   @Published var autoDeletionUnit: TimeUnit { didSet { saveSettings() } }
-  @Published var autoDeletionInterval: Double { didSet { saveSettings() } }
   
   @Published var noNotificationLimit: Bool { didSet { saveSettings() } }
   @Published var maxNotificationCount: Int { didSet { saveSettings() } }
@@ -37,11 +37,9 @@ class AppSettings: ObservableObject, Codable {
     self.neverExpire = neverExpire
     self.autoExpiryValue = autoExpiryValue
     self.autoExpiryUnit = autoExpiryUnit
-    self.autoExpiryInterval = autoExpiryInterval
     self.neverDelete = neverDelete
     self.autoDeletionValue = autoDeletionValue
     self.autoDeletionUnit = autoDeletionUnit
-    self.autoDeletionInterval = autoDeletionInterval
     self.noNotificationLimit = noNotificationLimit
     self.maxNotificationCount = maxNotificationCount
   }
@@ -66,6 +64,19 @@ class AppSettings: ObservableObject, Codable {
     }
   }
   
+  func getExpiryDate(from addDate: Date) -> Date {
+    switch autoExpiryUnit {
+    case .days:
+      calendar.date(byAdding: .day, value: autoExpiryValue, to: addDate) ?? addDate
+    case .weeks:
+      calendar.date(byAdding: .weekOfYear, value: autoExpiryValue, to: addDate) ?? addDate
+    case .months:
+      calendar.date(byAdding: .month, value: autoExpiryValue, to: addDate) ?? addDate
+    case .years:
+      calendar.date(byAdding: .year, value: autoExpiryValue, to: addDate) ?? addDate
+    }
+  }
+  
   // MARK: - Codable conformance
   
   enum CodingKeys: CodingKey {
@@ -87,12 +98,10 @@ class AppSettings: ObservableObject, Codable {
     neverExpire = try container.decode(Bool.self, forKey: .neverExpire)
     autoExpiryValue = try container.decode(Int.self, forKey: .autoExpiryValue)
     autoExpiryUnit = try container.decode(TimeUnit.self, forKey: .autoExpiryUnit)
-    autoExpiryInterval = try container.decode(Double.self, forKey: .autoExpiryInterval)
     
     neverDelete = try container.decode(Bool.self, forKey: .neverDelete)
     autoDeletionValue = try container.decode(Int.self, forKey: .autoDeletionValue)
     autoDeletionUnit = try container.decode(TimeUnit.self, forKey: .autoDeletionUnit)
-    autoDeletionInterval = try container.decode(Double.self, forKey: .autoDeletionInterval)
     
     noNotificationLimit = try container.decode(Bool.self, forKey: .noNotificationLimit)
     maxNotificationCount = try container.decode(Int.self, forKey: .maxNotificationCount)
@@ -104,12 +113,10 @@ class AppSettings: ObservableObject, Codable {
     try container.encode(neverExpire, forKey: .neverExpire)
     try container.encode(autoExpiryValue, forKey: .autoExpiryValue)
     try container.encode(autoExpiryUnit, forKey: .autoExpiryUnit)
-    try container.encode(autoExpiryInterval, forKey: .autoExpiryInterval)
 
     try container.encode(neverDelete, forKey: .neverDelete)
     try container.encode(autoDeletionValue, forKey: .autoDeletionValue)
     try container.encode(autoDeletionUnit, forKey: .autoDeletionUnit)
-    try container.encode(autoDeletionInterval, forKey: .autoDeletionInterval)
 
     try container.encode(noNotificationLimit, forKey: .noNotificationLimit)
     try container.encode(maxNotificationCount, forKey: .maxNotificationCount)

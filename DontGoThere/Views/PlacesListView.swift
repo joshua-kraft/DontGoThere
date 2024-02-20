@@ -90,7 +90,7 @@ struct PlacesListView: View {
       latitude: 30.5532,
       longitude: -97.8422,
       addDate: Date.now,
-      expirationDate: appSettings.neverExpire ? Date.distantFuture : Date.now.addingTimeInterval(appSettings.autoExpiryInterval),
+      expirationDate: appSettings.neverExpire ? Date.distantFuture : appSettings.getExpiryDate(from: Date.now),
       imageData: [],
       shouldExpire: !appSettings.neverExpire
     )

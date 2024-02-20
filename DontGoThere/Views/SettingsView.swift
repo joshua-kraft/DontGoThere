@@ -64,9 +64,6 @@ struct SettingsView: View {
               .labelsHidden()
               .pickerStyle(.wheel)
               .frame(height: 85)
-              .onChange(of: appSettings.autoExpiryValue) {
-                updateExpiryInterval()
-              }
               
               Spacer()
               
@@ -76,9 +73,6 @@ struct SettingsView: View {
                 }
               }
               .labelsHidden()
-              .onChange(of: appSettings.autoExpiryUnit) {
-                updateExpiryInterval()
-              }
             }
             .padding(.bottom, 4)
           }
@@ -119,9 +113,6 @@ struct SettingsView: View {
               .labelsHidden()
               .pickerStyle(.wheel)
               .frame(height: 85)
-              .onChange(of: appSettings.autoDeletionValue) {
-                updateDeletionInterval()
-              }
               
               Spacer()
               
@@ -131,9 +122,6 @@ struct SettingsView: View {
                 }
               }
               .labelsHidden()
-              .onChange(of: appSettings.autoDeletionUnit) {
-                updateDeletionInterval()
-              }
             }
             .padding(.bottom, 4)
           }
@@ -178,37 +166,6 @@ struct SettingsView: View {
       .navigationTitle("DontGoThere Settings")
     }
   }
-  
-  func updateExpiryInterval() {
-    appSettings.autoExpiryInterval = {
-      switch appSettings.autoExpiryUnit {
-      case .days:
-        1 * 86400 * Double(appSettings.autoExpiryValue)
-      case .weeks:
-        7 * 86400 * Double(appSettings.autoExpiryValue)
-      case .months:
-        30 * 86400 * Double(appSettings.autoExpiryValue)
-      case .years:
-        365 * 86400 * Double(appSettings.autoExpiryValue)
-      }
-    }()
-  }
-  
-  func updateDeletionInterval() {
-    appSettings.autoDeletionInterval = {
-      switch appSettings.autoDeletionUnit {
-      case .days:
-        1 * 86400 * Double(appSettings.autoDeletionValue)
-      case .weeks:
-        7 * 86400 * Double(appSettings.autoDeletionValue)
-      case .months:
-        30 * 86400 * Double(appSettings.autoDeletionValue)
-      case .years:
-        365 * 86400 * Double(appSettings.autoDeletionValue)
-      }
-    }()
-  }
-  
 }
 
 #Preview {

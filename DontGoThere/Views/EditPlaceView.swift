@@ -85,7 +85,7 @@ struct EditPlaceView: View {
                   .labelsHidden()
                   .padding(.trailing)
                   .onChange(of: place.shouldExpire) {
-                    place.expirationDate = place.shouldExpire ? Date.distantFuture : place.addDate.addingTimeInterval(appSettings.autoExpiryInterval)
+                    place.expirationDate = place.shouldExpire ? Date.distantFuture : appSettings.getExpiryDate(from: place.addDate)
                   }
               }
               .padding(.bottom, 4)

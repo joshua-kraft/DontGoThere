@@ -133,7 +133,7 @@ struct PlacesMapView: View {
       latitude: location.latitude,
       longitude: location.longitude,
       addDate: Date.now,
-      expirationDate: appSettings.neverExpire ? Date.distantFuture : Date.now.addingTimeInterval(appSettings.autoExpiryInterval),
+      expirationDate: appSettings.neverExpire ? Date.distantFuture : appSettings.getExpiryDate(from: Date.now),
       imageData: [],
       shouldExpire: !appSettings.neverExpire
     )
