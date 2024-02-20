@@ -25,15 +25,15 @@ struct EditPlaceView: View {
       self.text = text
     }
   }
-
+  
   @Environment(\.modelContext) var modelContext
   @Environment(\.dismiss) var dismiss
   @EnvironmentObject var appSettings: AppSettings
   
   @Bindable var place: Place
-
+  
   @State private var isShowingDeleteAlert = false
-      
+  
   @State private var isShowingPhotoPicker = false
   @State private var selectedPhotoItems = [PhotosPickerItem]()
   
@@ -55,27 +55,19 @@ struct EditPlaceView: View {
             Divider()
               .padding(.bottom, 4)
             
-            // name, notes, times
+            // name, times
             VStack(alignment: .leading) {
               HStack {
                 DetailLabel("Name:")
-                  .frame(width: proxy.size.width * 0.25, alignment: .trailing)
+                  .frame(width: proxy.size.width * 0.20, alignment: .trailing)
                 TextField("Place Name", text: $place.name)
                   .textFieldStyle(.roundedBorder)
                   .padding(.trailing)
               }
               .padding(.bottom, 4)
               HStack {
-                DetailLabel("NOTES:")
-                  .frame(width: proxy.size.width * 0.25, alignment: .trailing)
-                TextField("Place Notes", text: $place.notes)
-                  .textFieldStyle(.roundedBorder)
-                  .padding(.trailing)
-              }
-              .padding(.bottom, 4)
-              HStack {
-                DetailLabel("Add Date:")
-                  .frame(width: proxy.size.width * 0.25, alignment: .trailing)
+                DetailLabel("Added:")
+                  .frame(width: proxy.size.width * 0.20, alignment: .trailing)
                 DatePicker("Added Date", selection: $place.addDate, displayedComponents: .date)
                   .disabled(true)
                   .labelsHidden()
@@ -93,14 +85,29 @@ struct EditPlaceView: View {
               if place.shouldExpire {
                 
                 HStack {
-                  DetailLabel("Expiry Date:")
-                    .frame(width: proxy.size.width * 0.25, alignment: .trailing)
+                  DetailLabel("Expires:")
+                    .frame(width: proxy.size.width * 0.20, alignment: .trailing)
                   DatePicker("Expires", selection: $place.expirationDate, displayedComponents: .date)
                     .labelsHidden()
                 }
                 .padding(.bottom, 4)
                 
               }
+            }
+            
+            Divider()
+              .padding(.bottom, 4)
+            
+            // review
+            VStack(alignment: .leading) {
+              Text("Review")
+                .font(.title3)
+                .foregroundStyle(.secondary)
+                .padding(.leading)
+              
+              TextField("Why do you want to avoid this place?", text: $place.review, axis: .vertical)
+                .textFieldStyle(.roundedBorder)
+                .padding([.leading, .trailing, .bottom])
             }
             
             Divider()
@@ -125,46 +132,28 @@ struct EditPlaceView: View {
               }
               
               if let imageData = place.imageData {
-                if imageData.isEmpty {
-                  DetailLabel("NO PHOTOS")
-                    .frame(height: proxy.size.height * 0.17)
-                } else {
-                  ScrollView(.horizontal, showsIndicators: false) {
-                    HStack {
-                      ForEach(imageData, id: \.self) { imageData in
-                        if let uiImage = UIImage(data: imageData) {
-                          Image(uiImage: uiImage)
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: proxy.size.width * 0.34, height: proxy.size.height * 0.17)
-                            .clipShape(.rect(cornerRadius: 5))
-                        }
+                ScrollView(.horizontal, showsIndicators: false) {
+                  HStack {
+                    ForEach(imageData, id: \.self) { imageData in
+                      if let uiImage = UIImage(data: imageData) {
+                        Image(uiImage: uiImage)
+                          .resizable()
+                          .scaledToFill()
+                          .frame(width: proxy.size.width * 0.34, height: proxy.size.height * 0.17)
+                          .clipShape(.rect(cornerRadius: 5))
                       }
                     }
-                    .padding([.leading, .trailing])
-                    .padding(.bottom, 4)
                   }
+                  .padding([.leading, .trailing])
+                  .padding(.bottom, 4)
                 }
+                
               }
             }
-            
-            Divider()
-              .padding(.bottom, 4)
-            
-            // review
-            VStack(alignment: .leading) {
-              Text("Review")
-                .font(.title3)
-                .foregroundStyle(.secondary)
-                .padding(.leading)
-              
-              TextField("Review", text: $place.review, axis: .vertical)
-                .textFieldStyle(.roundedBorder)
-                .padding()
-            }
+            .padding(.bottom)
           }
         }
-        .frame(minHeight: proxy.size.height, maxHeight: .infinity)
+        .frame(minHeight: proxy.size.height)
         .navigationTitle(place.name)
         .navigationBarTitleDisplayMode(.inline)
         .background(.thinMaterial)
@@ -212,7 +201,7 @@ struct EditPlaceView: View {
         span: MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001))
     )
   }
-
+  
 }
 
 #Preview {

@@ -128,14 +128,13 @@ struct PlacesMapView: View {
   func addPlace(at location: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 30.5788, longitude: -97.8531)) {
     let newPlace = Place(
       name: "",
-      notes: "",
       review: "",
       latitude: location.latitude,
       longitude: location.longitude,
       addDate: Date.now,
       expirationDate: appSettings.neverExpire ? Date.distantFuture : appSettings.getExpiryDate(from: Date.now),
-      imageData: [],
-      shouldExpire: !appSettings.neverExpire
+      shouldExpire: !appSettings.neverExpire,
+      imageData: []
     )
     modelContext.insert(newPlace)
     path.append(newPlace)

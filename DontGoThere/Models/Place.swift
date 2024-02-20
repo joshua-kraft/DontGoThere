@@ -13,9 +13,18 @@ import SwiftData
 class Place: Identifiable {
   // details about a place
   var name: String
-  var notes: String
   var review: String
-
+  
+  var displayNotes: String {
+    if review.count < 25 {
+      return review
+    } else {
+      let endIndex = review.index(review.startIndex, offsetBy: 25)
+      let range: Range<String.Index> = review.startIndex..<endIndex
+      return String(review[range]).trimmingCharacters(in: .whitespacesAndNewlines) + "..."
+    }
+  }
+  
   // location of a place
   var latitude: Double
   var longitude: Double
@@ -42,17 +51,16 @@ class Place: Identifiable {
   
   var isArchived: Bool
   
-  init(name: String, notes: String, review: String, latitude: Double, longitude: Double, addDate: Date, expirationDate: Date, imageData: [Data]? = nil, isArchived: Bool = false, shouldExpire: Bool = true) {
+  init(name: String, review: String, latitude: Double, longitude: Double, addDate: Date, expirationDate: Date, shouldExpire: Bool = true, imageData: [Data]? = nil, isArchived: Bool = false) {
     self.name = name
-    self.notes = notes
     self.review = review
     self.latitude = latitude
     self.longitude = longitude
     self.addDate = addDate
     self.expirationDate = expirationDate
+    self.shouldExpire = shouldExpire
     self.imageData = imageData
     self.isArchived = isArchived
-    self.shouldExpire = shouldExpire
   }
   
   func formattedDate(_ date: Date) -> String {

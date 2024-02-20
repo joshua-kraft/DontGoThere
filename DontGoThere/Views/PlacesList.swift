@@ -21,7 +21,7 @@ struct PlacesList: View {
             VStack(alignment: .leading) {
               Text(place.name)
                 .font(.headline)
-              Text(place.notes)
+              Text(place.displayNotes)
                 .font(.subheadline)
             }
             
@@ -79,7 +79,7 @@ struct PlacesList: View {
           return true
         } else {
           return place.name.localizedStandardContains(searchString)
-          || place.notes.localizedStandardContains(searchString)
+          || place.review.localizedStandardContains(searchString)
         }
       } else {
         return false
