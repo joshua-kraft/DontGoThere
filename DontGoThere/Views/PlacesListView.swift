@@ -92,7 +92,7 @@ struct PlacesListView: View {
       addDate: Date.now,
       expirationDate: appSettings.neverExpire ? Date.distantFuture : Date.now.addingTimeInterval(appSettings.autoExpiryInterval),
       imageData: [],
-      neverExpires: appSettings.neverExpire
+      shouldExpire: !appSettings.neverExpire
     )
     modelContext.insert(newPlace)
     path.append(newPlace)

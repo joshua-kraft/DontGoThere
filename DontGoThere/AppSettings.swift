@@ -17,7 +17,7 @@ enum TimeUnit: String, CaseIterable, Codable {
 
 class AppSettings: ObservableObject, Codable {
   
-  static let defaultSettings = AppSettings(neverExpire: false, autoExpiryValue: 1, autoExpiryUnit: .months, autoExpiryInterval: 30.0 * 86400, neverDelete: false, autoDeletionValue: 1, autoDeletionUnit: .months, autoDeletionInterval: 30.0 * 86400, noNotificationLimit: false, maxNotificationCount: 10)
+  static let defaultSettings = AppSettings(neverExpire: false, autoExpiryValue: 3, autoExpiryUnit: .months, autoExpiryInterval: 90.0 * 86400, neverDelete: false, autoDeletionValue: 1, autoDeletionUnit: .months, autoDeletionInterval: 30.0 * 86400, noNotificationLimit: false, maxNotificationCount: 10)
   
   @Published var neverExpire: Bool { didSet { saveSettings() } }
   @Published var autoExpiryValue: Int { didSet { saveSettings() } }

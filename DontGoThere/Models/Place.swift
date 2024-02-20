@@ -28,21 +28,21 @@ class Place: Identifiable {
   
   var addDate: Date
   var expirationDate: Date
-  var neverExpires: Bool
+  var shouldExpire: Bool
   
   var formattedAddDate: String {
     formattedDate(addDate)
   }
   
   var formattedExpirationDate: String {
-    formattedDate(expirationDate)
+    shouldExpire ? formattedDate(expirationDate) : "Never"
   }
   
   @Attribute(.externalStorage) var imageData: [Data]?
   
   var isArchived: Bool
   
-  init(name: String, notes: String, review: String, latitude: Double, longitude: Double, addDate: Date, expirationDate: Date, imageData: [Data]? = nil, isArchived: Bool = false, neverExpires: Bool = false) {
+  init(name: String, notes: String, review: String, latitude: Double, longitude: Double, addDate: Date, expirationDate: Date, imageData: [Data]? = nil, isArchived: Bool = false, shouldExpire: Bool = true) {
     self.name = name
     self.notes = notes
     self.review = review
@@ -52,7 +52,7 @@ class Place: Identifiable {
     self.expirationDate = expirationDate
     self.imageData = imageData
     self.isArchived = isArchived
-    self.neverExpires = neverExpires
+    self.shouldExpire = shouldExpire
   }
   
   func formattedDate(_ date: Date) -> String {

@@ -30,17 +30,10 @@ struct EditPlaceView: View {
   @Environment(\.dismiss) var dismiss
   @EnvironmentObject var appSettings: AppSettings
   
-  @State private var isShowingDeleteAlert = false
-  
   @Bindable var place: Place
-  
-  // Detail section state
-  @State private var shouldAutoCalcExpiry = true
-  @State private var expiryValue = 3
-  @State private var expiryUnit = TimeUnit.months
-  @State private var expiryInterval = 0.0
-  
-  // Photo picker state
+
+  @State private var isShowingDeleteAlert = false
+      
   @State private var isShowingPhotoPicker = false
   @State private var selectedPhotoItems = [PhotosPickerItem]()
   
@@ -65,8 +58,8 @@ struct EditPlaceView: View {
             // name, notes, times
             VStack(alignment: .leading) {
               HStack {
-                DetailLabel("NAME:")
-                  .frame(width: proxy.size.width * 0.20, alignment: .trailing)
+                DetailLabel("Name:")
+                  .frame(width: proxy.size.width * 0.25, alignment: .trailing)
                 TextField("Place Name", text: $place.name)
                   .textFieldStyle(.roundedBorder)
                   .padding(.trailing)
@@ -74,76 +67,39 @@ struct EditPlaceView: View {
               .padding(.bottom, 4)
               HStack {
                 DetailLabel("NOTES:")
-                  .frame(width: proxy.size.width * 0.20, alignment: .trailing)
+                  .frame(width: proxy.size.width * 0.25, alignment: .trailing)
                 TextField("Place Notes", text: $place.notes)
                   .textFieldStyle(.roundedBorder)
                   .padding(.trailing)
               }
               .padding(.bottom, 4)
               HStack {
-                DetailLabel("ADDED:")
-                  .frame(width: proxy.size.width * 0.20, alignment: .trailing)
+                DetailLabel("Add Date:")
+                  .frame(width: proxy.size.width * 0.25, alignment: .trailing)
                 DatePicker("Added Date", selection: $place.addDate, displayedComponents: .date)
                   .disabled(true)
                   .labelsHidden()
+                Spacer()
+                DetailLabel("Expires?")
+                Toggle("Expires?", isOn: $place.shouldExpire.animation())
+                  .labelsHidden()
+                  .padding(.trailing)
+                  .onChange(of: place.shouldExpire) {
+                    place.expirationDate = place.shouldExpire ? Date.distantFuture : place.addDate.addingTimeInterval(appSettings.autoExpiryInterval)
+                  }
               }
               .padding(.bottom, 4)
               
-              if place.neverExpires == false {
+              if place.shouldExpire {
                 
                 HStack {
-                  DetailLabel("EXPIRES: ")
-                    .frame(width: proxy.size.width * 0.20, alignment: .trailing)
+                  DetailLabel("Expiry Date:")
+                    .frame(width: proxy.size.width * 0.25, alignment: .trailing)
                   DatePicker("Expires", selection: $place.expirationDate, displayedComponents: .date)
                     .labelsHidden()
-                    .disabled(shouldAutoCalcExpiry)
-                  Spacer()
-                  Toggle(isOn: $shouldAutoCalcExpiry.animation()) {
-                    DetailLabel("AUTO:")
-                      .frame(maxWidth: .infinity, alignment: .trailing)
-                  }
-                  
-                  .padding(.trailing)
-                  .onChange(of: shouldAutoCalcExpiry) {
-                    updateExpiryValue()
-                  }
                 }
                 .padding(.bottom, 4)
                 
-                // time value picker
-                if !shouldAutoCalcExpiry {
-                  HStack {
-                    DetailLabel("EXPIRE IN:")
-                      .padding(.leading)
-                    
-                    Spacer()
-                    
-                    Picker("Expiry Value", selection: $expiryValue) {
-                      ForEach(1...100, id: \.self) { value in
-                        Text(String(value))
-                      }
-                    }
-                    .labelsHidden()
-                    .pickerStyle(.wheel)
-                    .frame(height: 85)
-                    .onChange(of: expiryValue) {
-                      updateExpiryValue()
-                    }
-                    
-                    Spacer()
-                    
-                    Picker("Expiry Unit", selection: $expiryUnit) {
-                      ForEach(TimeUnit.allCases, id: \.self) { unit in
-                        Text(unit.rawValue)
-                      }
-                    }
-                    .labelsHidden()
-                    .onChange(of: expiryUnit) {
-                      updateExpiryValue()
-                    }
-                  }
-                  .padding(.bottom, 4)
-                }
               }
             }
             
@@ -255,27 +211,6 @@ struct EditPlaceView: View {
         center: CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude),
         span: MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001))
     )
-  }
-  
-  func updateExpiryValue() {
-    expiryInterval = {
-      switch expiryUnit {
-      case .days:
-        return 1 * 86400 * Double(expiryValue)
-      case .weeks:
-        return 7 * 86400 * Double(expiryValue)
-      case .months:
-        return 30 * 86400 * Double(expiryValue)
-      case .years:
-        return 365 * 86400 * Double(expiryValue)
-      }
-    }()
-    
-    if shouldAutoCalcExpiry {
-      place.expirationDate = place.addDate.addingTimeInterval(appSettings.autoExpiryInterval)
-    } else {
-      place.expirationDate = place.addDate.addingTimeInterval(expiryInterval)
-    }
   }
 
 }
