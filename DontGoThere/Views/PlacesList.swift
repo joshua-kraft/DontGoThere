@@ -13,55 +13,75 @@ struct PlacesList: View {
   @Environment(\.modelContext) var modelContext
   @Query(sort: \Place.name) var places: [Place]
   
+  let listTyoe: String
+  let searchString: String
+  
   var body: some View {
-    List {
-      ForEach(places) { place in
-        NavigationLink(value: place) {
-          HStack {
-            VStack(alignment: .leading) {
-              Text(place.name)
-                .font(.headline)
-              Text(place.displayNotes)
-                .font(.subheadline)
-            }
-            
-            Spacer()
-            
-            VStack(alignment: .trailing) {
-              Text("Added: \(place.formattedAddDate)")
-                .font(.footnote)
-              Text("Expires: \(place.formattedExpirationDate)")
-                .font(.footnote)
-            }
-          }
-        }
-        .swipeActions() {
-          if place.isArchived {
-            Button("Delete", systemImage: "trash", role: .destructive) {
-              modelContext.delete(place)
-            }
-            Button("Unarchive", systemImage: "archivebox", role: .destructive) {
-              withAnimation {
-                place.isArchived.toggle()
-              }
-            }
-            .tint(.green)
+    if places.isEmpty {
+      if searchString.isEmpty {
+        ContentUnavailableView {
+          DontGoThereUnavailableLabel("No \(listTyoe) Places")
+        } description: {
+          if listTyoe == "Active" {
+            Text("You don't have any active places. Add a new one by tapping the add icon in the toolbar.")
           } else {
-            Button("Archive", systemImage: "archivebox", role: .destructive) {
-              withAnimation {
-                place.isArchived.toggle()
-              }
-            }
-            .tint(.orange)
-            
-            Button("Delete", systemImage: "trash", role: .destructive) {
-              modelContext.delete(place)
-            }
+            Text("You don't have any archived places. Places archive themselves after their expiration date, after the max notification count that you've specified is reached, or when you archive them yourself.")
           }
         }
-        .tag(place)
+      } else {
+        ContentUnavailableView.search
+          .imageScale(.large)
       }
-      .onDelete(perform: deletePlaces)
+    } else {
+      List {
+        ForEach(places) { place in
+          NavigationLink(value: place) {
+            HStack {
+              VStack(alignment: .leading) {
+                Text(place.name)
+                  .font(.headline)
+                Text(place.displayNotes)
+                  .font(.subheadline)
+              }
+              
+              Spacer()
+              
+              VStack(alignment: .trailing) {
+                Text("Added: \(place.formattedAddDate)")
+                  .font(.footnote)
+                Text("Expires: \(place.formattedExpirationDate)")
+                  .font(.footnote)
+              }
+            }
+          }
+          .swipeActions() {
+            if place.isArchived {
+              Button("Delete", systemImage: "trash", role: .destructive) {
+                modelContext.delete(place)
+              }
+              Button("Unarchive", systemImage: "archivebox", role: .destructive) {
+                withAnimation {
+                  place.isArchived.toggle()
+                }
+              }
+              .tint(.green)
+            } else {
+              Button("Archive", systemImage: "archivebox", role: .destructive) {
+                withAnimation {
+                  place.isArchived.toggle()
+                }
+              }
+              .tint(.orange)
+              
+              Button("Delete", systemImage: "trash", role: .destructive) {
+                modelContext.delete(place)
+              }
+            }
+          }
+          .tag(place)
+        }
+        .onDelete(perform: deletePlaces)
+      }
     }
   }
   
@@ -85,6 +105,9 @@ struct PlacesList: View {
         return false
       }
     }, sort: sortOrder)
+    
+    self.listTyoe = archived ? "Archived" : "Active"
+    self.searchString = searchString
   }
 }
 
