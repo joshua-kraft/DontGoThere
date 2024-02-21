@@ -73,11 +73,11 @@
 			children = (
 				42560A0A2B74292B0013FCF4 /* DontGoThereApp.swift */,
 				42560A0C2B74292B0013FCF4 /* ContentView.swift */,
-				426BB6AB2B868DFF00CBDA71 /* DontGoThereIconView.swift */,
 				426BB6AD2B86AC5F00CBDA71 /* PlaceList */,
 				426BB6AF2B86AC8E00CBDA71 /* PlaceMap */,
 				426BB6AE2B86AC7C00CBDA71 /* Editing */,
 				426BB6B02B86ACD500CBDA71 /* Settings */,
+				426BB6B32B86AEF600CBDA71 /* Reusables */,
 				42560A182B7429300013FCF4 /* Models */,
 				42560A0E2B74292C0013FCF4 /* Assets.xcassets */,
 				42560A102B74292C0013FCF4 /* Preview Content */,
@@ -135,6 +135,14 @@
 				42560A242B7D3D170013FCF4 /* SettingsView.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		426BB6B32B86AEF600CBDA71 /* Reusables */ = {
+			isa = PBXGroup;
+			children = (
+				426BB6AB2B868DFF00CBDA71 /* DontGoThereIconView.swift */,
+			);
+			path = Reusables;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
