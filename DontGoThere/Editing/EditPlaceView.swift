@@ -158,6 +158,13 @@ struct EditPlaceView: View {
                           .scaledToFill()
                           .frame(width: proxy.size.width * 0.34, height: proxy.size.height * 0.17)
                           .clipShape(.rect(cornerRadius: 5))
+                          .contextMenu {
+                            Button("Delete", systemImage: "trash", role: .destructive) {
+                              withAnimation {
+                                deletePhoto(imageData: imageData)
+                              }
+                            }
+                          }
                       }
                     }
                   }
@@ -201,6 +208,12 @@ struct EditPlaceView: View {
           }
         }
       }
+    }
+  }
+  
+  func deletePhoto(imageData: Data) {
+    if let index = place.imageData?.firstIndex(of: imageData) {
+      place.imageData?.remove(at: index)
     }
   }
   
