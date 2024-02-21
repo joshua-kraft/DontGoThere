@@ -72,7 +72,12 @@
 			isa = PBXGroup;
 			children = (
 				42560A0A2B74292B0013FCF4 /* DontGoThereApp.swift */,
-				42560A192B7429340013FCF4 /* Views */,
+				42560A0C2B74292B0013FCF4 /* ContentView.swift */,
+				426BB6AB2B868DFF00CBDA71 /* DontGoThereIconView.swift */,
+				426BB6AD2B86AC5F00CBDA71 /* PlaceList */,
+				426BB6AF2B86AC8E00CBDA71 /* PlaceMap */,
+				426BB6AE2B86AC7C00CBDA71 /* Editing */,
+				426BB6B02B86ACD500CBDA71 /* Settings */,
 				42560A182B7429300013FCF4 /* Models */,
 				42560A0E2B74292C0013FCF4 /* Assets.xcassets */,
 				42560A102B74292C0013FCF4 /* Preview Content */,
@@ -95,19 +100,6 @@
 				42560A282B8078500013FCF4 /* Previewer.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		42560A192B7429340013FCF4 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				42560A0C2B74292B0013FCF4 /* ContentView.swift */,
-				426BB6AB2B868DFF00CBDA71 /* DontGoThereIconView.swift */,
-				426BB6AD2B86AC5F00CBDA71 /* PlaceList */,
-				426BB6AF2B86AC8E00CBDA71 /* PlaceMap */,
-				426BB6AE2B86AC7C00CBDA71 /* Editing */,
-				426BB6B02B86ACD500CBDA71 /* Settings */,
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		426BB6AD2B86AC5F00CBDA71 /* PlaceList */ = {
