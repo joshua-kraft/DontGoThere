@@ -36,19 +36,22 @@ struct EditPlaceView: View {
   
   @State private var isShowingPhotoPicker = false
   @State private var selectedPhotoItems = [PhotosPickerItem]()
-  
-  @State private var isShowingMapSheet = false
-  
+    
   var body: some View {
     GeometryReader { proxy in
       ScrollView(.vertical) {
         VStack(alignment: .leading) {
-          Map(initialPosition: position(for: place), interactionModes: []) {
-            Marker(place.name, coordinate: place.coordinate)
-          }
-          .frame(height: proxy.size.height * 0.30)
-          .onTapGesture {
-            isShowingMapSheet = true
+          MapReader { mapProxy in
+            Map(initialPosition: position(for: place), interactionModes: [.pan, .zoom, .rotate]) {
+              Marker(place.name, coordinate: place.coordinate)
+            }
+            .frame(height: proxy.size.height * 0.40)
+            .onTapGesture { position in
+              if let tappedCoordinate = mapProxy.convert(position, from: .local) {
+                place.latitude = tappedCoordinate.latitude
+                place.longitude = tappedCoordinate.longitude
+              }
+            }
           }
           
           VStack(alignment: .leading) {
@@ -171,9 +174,6 @@ struct EditPlaceView: View {
               isShowingDeleteAlert = true
             }
           }
-        }
-        .sheet(isPresented: $isShowingMapSheet) {
-          EditPlaceMapSheet()
         }
       }
     }

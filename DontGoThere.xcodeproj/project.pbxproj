@@ -20,7 +20,6 @@
 		42560A292B8078500013FCF4 /* Previewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42560A282B8078500013FCF4 /* Previewer.swift */; };
 		42560A362B81843F0013FCF4 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42560A352B81843F0013FCF4 /* AppSettings.swift */; };
 		426BB6AC2B868DFF00CBDA71 /* DontGoThereIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426BB6AB2B868DFF00CBDA71 /* DontGoThereIconView.swift */; };
-		426BB6B22B86ADDD00CBDA71 /* EditPlaceMapSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426BB6B12B86ADDD00CBDA71 /* EditPlaceMapSheet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,7 +37,6 @@
 		42560A282B8078500013FCF4 /* Previewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Previewer.swift; sourceTree = "<group>"; };
 		42560A352B81843F0013FCF4 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		426BB6AB2B868DFF00CBDA71 /* DontGoThereIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DontGoThereIconView.swift; sourceTree = "<group>"; };
-		426BB6B12B86ADDD00CBDA71 /* EditPlaceMapSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPlaceMapSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,7 +113,6 @@
 			isa = PBXGroup;
 			children = (
 				42560A1E2B7429960013FCF4 /* EditPlaceView.swift */,
-				426BB6B12B86ADDD00CBDA71 /* EditPlaceMapSheet.swift */,
 			);
 			path = Editing;
 			sourceTree = "<group>";
@@ -223,7 +220,6 @@
 				42560A212B74299A0013FCF4 /* PlacesMapView.swift in Sources */,
 				42560A1B2B7429410013FCF4 /* Place.swift in Sources */,
 				42560A0D2B74292B0013FCF4 /* ContentView.swift in Sources */,
-				426BB6B22B86ADDD00CBDA71 /* EditPlaceMapSheet.swift in Sources */,
 				42560A1F2B7429960013FCF4 /* EditPlaceView.swift in Sources */,
 				42560A292B8078500013FCF4 /* Previewer.swift in Sources */,
 				42560A0B2B74292B0013FCF4 /* DontGoThereApp.swift in Sources */,
