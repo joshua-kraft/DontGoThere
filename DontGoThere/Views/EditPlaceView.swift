@@ -131,9 +131,9 @@ struct EditPlaceView: View {
                 loadPhotos()
               }
               
-              if let imageData = place.imageData {
-                ScrollView(.horizontal, showsIndicators: false) {
-                  HStack {
+              ScrollView(.horizontal, showsIndicators: false) {
+                HStack {
+                  if let imageData = place.imageData {
                     ForEach(imageData, id: \.self) { imageData in
                       if let uiImage = UIImage(data: imageData) {
                         Image(uiImage: uiImage)
@@ -144,10 +144,9 @@ struct EditPlaceView: View {
                       }
                     }
                   }
-                  .padding([.leading, .trailing])
-                  .padding(.bottom, 4)
                 }
-                
+                .padding([.leading, .trailing])
+                .padding(.bottom, 4)
               }
             }
             .padding(.bottom)
