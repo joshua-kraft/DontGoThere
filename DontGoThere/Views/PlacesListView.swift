@@ -22,24 +22,40 @@ struct PlacesListView: View {
   @State private var sortOrder = [SortDescriptor(\Place.name)]
   @State private var listType = PlaceListType.active
   
+  @Query private var places: [Place]
+  
   var body: some View {
     NavigationStack(path: $path) {
-      VStack() {
-        Picker("Active/Archived", selection: $listType) {
-          ForEach(PlaceListType.allCases, id: \.self) { type in
-            Text(type.rawValue)
+      VStack {
+        if places.isEmpty {
+          ContentUnavailableView {
+            Label {
+              Text("No Places Added")
+            } icon: {
+              DontGoThereIconView(width: 150, height: 120)
+            }
+          } description: {
+            Text("You haven't added any places yet.")
+          } actions: {
+            Button("Add First Place", action: addPlace)
           }
-        }
-        .pickerStyle(.segmented)
-        .padding([.leading, .trailing])
-        
-        switch listType {
-        case .active:
-          PlacesList(filteredBy: searchText, sortedBy: sortOrder)
-            .searchable(text: $searchText)
-        case .archived:
-          PlacesList(filteredBy: searchText, sortedBy: sortOrder, archived: true)
-            .searchable(text: $searchText)
+        } else {
+          Picker("Active/Archived", selection: $listType) {
+            ForEach(PlaceListType.allCases, id: \.self) { type in
+              Text(type.rawValue)
+            }
+          }
+          .pickerStyle(.segmented)
+          .padding([.leading, .trailing])
+          
+          switch listType {
+          case .active:
+            PlacesList(filteredBy: searchText, sortedBy: sortOrder)
+              .searchable(text: $searchText)
+          case .archived:
+            PlacesList(filteredBy: searchText, sortedBy: sortOrder, archived: true)
+              .searchable(text: $searchText)
+          }
         }
       }
       .navigationTitle("Your Places")
@@ -47,35 +63,38 @@ struct PlacesListView: View {
         EditPlaceView(place: place)
       }
       .toolbar {
-        ToolbarItemGroup(placement: .topBarLeading) {
-          EditButton()
-        }
         
-        ToolbarItemGroup(placement: .topBarTrailing) {
-          Menu("Sort Places", systemImage: "arrow.up.arrow.down") {
-            Picker("Sort", selection: $sortOrder) {
-              Text("Name (A - Z)")
-                .tag([SortDescriptor(\Place.name)])
-              
-              Text("Name (Z - A)")
-                .tag([SortDescriptor(\Place.name, order: .reverse)])
-              
-              Text("Date Added (New - Old)")
-                .tag([SortDescriptor(\Place.addDate, order: .reverse)])
-              
-              Text("Date Added (Old - New)")
-                .tag([SortDescriptor(\Place.addDate)])
-              
-              Text("Expiry Date (Sooner - Later)")
-                .tag([SortDescriptor(\Place.expirationDate)])
-              
-              Text("Expiry Date (Later - Sooner)")
-                .tag([SortDescriptor(\Place.expirationDate, order: .reverse)])
-            }
+        if !places.isEmpty {
+          ToolbarItemGroup(placement: .topBarLeading) {
+            EditButton()
           }
           
-          if listType == .active {
-            Button("Add Place", systemImage: "plus", action: addPlace)
+          ToolbarItemGroup(placement: .topBarTrailing) {
+            Menu("Sort Places", systemImage: "arrow.up.arrow.down") {
+              Picker("Sort", selection: $sortOrder) {
+                Text("Name (A - Z)")
+                  .tag([SortDescriptor(\Place.name)])
+                
+                Text("Name (Z - A)")
+                  .tag([SortDescriptor(\Place.name, order: .reverse)])
+                
+                Text("Date Added (New - Old)")
+                  .tag([SortDescriptor(\Place.addDate, order: .reverse)])
+                
+                Text("Date Added (Old - New)")
+                  .tag([SortDescriptor(\Place.addDate)])
+                
+                Text("Expiry Date (Sooner - Later)")
+                  .tag([SortDescriptor(\Place.expirationDate)])
+                
+                Text("Expiry Date (Later - Sooner)")
+                  .tag([SortDescriptor(\Place.expirationDate, order: .reverse)])
+              }
+            }
+            
+            if listType == .active {
+              Button("Add Place", systemImage: "plus", action: addPlace)
+            }
           }
         }
       }
