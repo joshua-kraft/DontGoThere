@@ -56,10 +56,10 @@ struct EditPlaceView: View {
               .padding(.bottom, 4)
             
             // name, times
-            VStack(alignment: .leading) {
+            VStack(alignment: .listRowSeparatorLeading) {
               HStack {
                 DetailLabel("Name:")
-                  .frame(width: proxy.size.width * 0.20, alignment: .trailing)
+                  .padding([.leading])
                 TextField("Place Name", text: $place.name)
                   .textFieldStyle(.roundedBorder)
                   .padding(.trailing)
@@ -67,7 +67,7 @@ struct EditPlaceView: View {
               .padding(.bottom, 4)
               HStack {
                 DetailLabel("Added:")
-                  .frame(width: proxy.size.width * 0.20, alignment: .trailing)
+                  .padding([.leading])
                 DatePicker("Added Date", selection: $place.addDate, displayedComponents: .date)
                   .disabled(true)
                   .labelsHidden()
@@ -86,7 +86,7 @@ struct EditPlaceView: View {
                 
                 HStack {
                   DetailLabel("Expires:")
-                    .frame(width: proxy.size.width * 0.20, alignment: .trailing)
+                    .padding([.leading])
                   DatePicker("Expires", selection: $place.expirationDate, displayedComponents: .date)
                     .labelsHidden()
                 }
@@ -153,10 +153,8 @@ struct EditPlaceView: View {
             .padding(.bottom)
           }
         }
-        .frame(minHeight: proxy.size.height)
         .navigationTitle(place.name)
         .navigationBarTitleDisplayMode(.inline)
-        .background(.thinMaterial)
         .alert("Delete place", isPresented: $isShowingDeleteAlert) {
           Button("Delete", role: .destructive, action: deletePlace)
           Button("Cancel", role: .cancel) { }
@@ -172,6 +170,7 @@ struct EditPlaceView: View {
         }
       }
     }
+    .background(.thinMaterial)
   }
   
   func loadPhotos() {
