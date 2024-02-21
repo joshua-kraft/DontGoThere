@@ -49,6 +49,22 @@ struct DontGoThereIconView: View {
   
 }
 
+struct DontGoThereUnavailableLabel: View {
+  
+  let titleText: String
+  
+  var body: some View {
+    Label(
+      title: { Text(titleText) },
+      icon: { DontGoThereIconView(width: 150, height: 120) }
+    )
+  }
+
+  init(_ titleText: String) {
+    self.titleText = titleText
+  }
+}
+
 #Preview {
     DontGoThereIconView(width: 60, height: 48)
 }

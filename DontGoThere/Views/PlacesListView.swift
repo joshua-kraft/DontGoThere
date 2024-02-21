@@ -29,11 +29,7 @@ struct PlacesListView: View {
       VStack {
         if places.isEmpty {
           ContentUnavailableView {
-            Label {
-              Text("No Places Added")
-            } icon: {
-              DontGoThereIconView(width: 150, height: 120)
-            }
+            DontGoThereUnavailableLabel("No Places Added")
           } description: {
             Text("You haven't added any places yet.")
           } actions: {
