@@ -12,6 +12,8 @@ struct DontGoThereIconView: View {
   let width: CGFloat
   let height: CGFloat
   
+  let borderColor = Color(red: 0.15, green: 0.15, blue: 0.15, opacity: 1.0)
+  
   struct InvertedTriangle: Shape {
     func path(in rect: CGRect) -> Path {
       var path = Path()
@@ -26,7 +28,7 @@ struct DontGoThereIconView: View {
   var body: some View {
     ZStack(alignment: .top) {
       InvertedTriangle()
-        .stroke(.black, style: StrokeStyle(lineWidth: 10, lineCap: .round, lineJoin: .round))
+        .stroke(borderColor, style: StrokeStyle(lineWidth: 10, lineCap: .round, lineJoin: .round))
         .fill(.yellow)
         .frame(width: width, height: height)
       
