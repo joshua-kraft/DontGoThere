@@ -10,38 +10,7 @@ import SwiftData
 import SwiftUI
 
 struct PlacesMapView: View {
-  
-  struct DontGoThereAnnotation: View {
     
-    struct InvertedTriangle: Shape {
-      func path(in rect: CGRect) -> Path {
-        var path = Path()
-        path.move(to: CGPoint(x: rect.midX, y: rect.maxY))
-        path.addLine(to: CGPoint(x: rect.minX, y: rect.minY))
-        path.addLine(to: CGPoint(x: rect.maxX, y: rect.minY))
-        path.addLine(to: CGPoint(x: rect.midX, y: rect.maxY))
-        return path
-      }
-    }
-    
-    var body: some View {
-      ZStack(alignment: .top) {
-        InvertedTriangle()
-          .stroke(.black, style: StrokeStyle(lineWidth: 10, lineCap: .round, lineJoin: .round))
-          .fill(.yellow)
-          .frame(width: 54, height: 44)
-        
-        Image(systemName: "mappin.slash.circle")
-          .resizable()
-          .background(.white)
-          .foregroundStyle(.black)
-          .frame(width: 25, height: 30)
-          .clipShape(.circle)
-          .padding(.top, 2)
-      }
-    }
-  }
-  
   @Query var places: [Place]
   @Environment(\.modelContext) var modelContext
   @EnvironmentObject var appSettings: AppSettings
@@ -67,7 +36,7 @@ struct PlacesMapView: View {
               if showExistingPlaces {
                 ForEach(places.filter { !$0.isArchived }) { place in
                   Annotation(place.name, coordinate: place.coordinate) {
-                    DontGoThereAnnotation()
+                    DontGoThereIconView(width: 50, height: 40)
                       .contextMenu {
                         Button("Show Details", systemImage: "list.dash") { path.append(place) }
                         Button("Delete", systemImage: "trash", role: .destructive) {
