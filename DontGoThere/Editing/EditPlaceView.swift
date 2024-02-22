@@ -57,161 +57,161 @@ struct EditPlaceView: View {
   
   @State private var isShowingPhotoPicker = false
   @State private var selectedPhotoItems = [PhotosPickerItem]()
-
+  
   var body: some View {
-    GeometryReader { proxy in
-      ScrollView(.vertical) {
-        VStack(alignment: .leading) {
-          
-          ZStack(alignment: .top) {
-            MapReader { mapProxy in
-              Map(initialPosition: position(for: place), interactionModes: [.pan, .zoom, .rotate]) {
-                Marker(place.name, coordinate: place.coordinate)
-              }
-              .frame(height: proxy.size.height * 0.40)
-              .onTapGesture { position in
-                if let tappedCoordinate = mapProxy.convert(position, from: .local) {
-                  place.latitude = tappedCoordinate.latitude
-                  place.longitude = tappedCoordinate.longitude
-                }
+    ScrollView(.vertical) {
+      VStack(alignment: .leading) {
+        
+        ZStack(alignment: .top) {
+          MapReader { mapProxy in
+            Map(initialPosition: position(for: place), interactionModes: [.pan, .zoom, .rotate]) {
+              Marker(place.name, coordinate: place.coordinate)
+            }
+            .frame(height: 250)
+            .onTapGesture { position in
+              if let tappedCoordinate = mapProxy.convert(position, from: .local) {
+                place.latitude = tappedCoordinate.latitude
+                place.longitude = tappedCoordinate.longitude
               }
             }
-            
-            Text("Tap on the map to edit this place's location.")
-              .frame(maxWidth: .infinity)
-              .padding([.top, .bottom], 12)
-              .font(.subheadline.bold())
-              .background(.thinMaterial.opacity(0.9))
-              .multilineTextAlignment(.center)
           }
           
+          Text("Tap on the map to edit this place's location.")
+            .frame(maxWidth: .infinity)
+            .padding([.top, .bottom], 12)
+            .font(.subheadline.bold())
+            .background(.thinMaterial.opacity(0.9))
+            .multilineTextAlignment(.center)
+        }
+        
+        VStack(alignment: .leading) {
+          Text("Details")
+            .font(.title3)
+            .foregroundStyle(.secondary)
+            .padding(.leading)
+          
+          Divider()
+            .padding(.bottom, 4)
+          
+          // name, times
+          VStack(alignment: .listRowSeparatorLeading) {
+            HStack {
+              DetailLabel("Name:")
+                .padding([.leading])
+              TextField("Place Name", text: $place.name)
+                .textFieldStyle(.roundedBorder)
+                .padding(.trailing)
+            }
+            .padding(.bottom, 4)
+            HStack {
+              DetailLabel("Added:")
+                .padding([.leading])
+              DatePicker("Added Date", selection: $place.addDate, displayedComponents: .date)
+                .disabled(true)
+                .labelsHidden()
+              Spacer()
+              DetailLabel("Expires?")
+              Toggle("Expires?", isOn: $place.shouldExpire.animation())
+                .labelsHidden()
+                .padding(.trailing)
+                .onChange(of: place.shouldExpire) {
+                  place.expirationDate = place.shouldExpire ? Date.distantFuture : appSettings.getExpiryDate(from: place.addDate)
+                }
+            }
+            .padding(.bottom, 4)
+            
+            if place.shouldExpire {
+              
+              HStack {
+                DetailLabel("Expires:")
+                  .padding([.leading])
+                DatePicker("Expires", selection: $place.expirationDate, displayedComponents: .date)
+                  .labelsHidden()
+              }
+              .padding(.bottom, 4)
+              
+            }
+          }
+          
+          Divider()
+            .padding(.bottom, 4)
+          
+          // review
           VStack(alignment: .leading) {
-            Text("Details")
+            Text("Review")
               .font(.title3)
               .foregroundStyle(.secondary)
               .padding(.leading)
             
-            Divider()
-              .padding(.bottom, 4)
-            
-            // name, times
-            VStack(alignment: .listRowSeparatorLeading) {
-              HStack {
-                DetailLabel("Name:")
-                  .padding([.leading])
-                TextField("Place Name", text: $place.name)
-                  .textFieldStyle(.roundedBorder)
-                  .padding(.trailing)
-              }
-              .padding(.bottom, 4)
-              HStack {
-                DetailLabel("Added:")
-                  .padding([.leading])
-                DatePicker("Added Date", selection: $place.addDate, displayedComponents: .date)
-                  .disabled(true)
-                  .labelsHidden()
-                Spacer()
-                DetailLabel("Expires?")
-                Toggle("Expires?", isOn: $place.shouldExpire.animation())
-                  .labelsHidden()
-                  .padding(.trailing)
-                  .onChange(of: place.shouldExpire) {
-                    place.expirationDate = place.shouldExpire ? Date.distantFuture : appSettings.getExpiryDate(from: place.addDate)
-                  }
-              }
-              .padding(.bottom, 4)
-              
-              if place.shouldExpire {
-                
-                HStack {
-                  DetailLabel("Expires:")
-                    .padding([.leading])
-                  DatePicker("Expires", selection: $place.expirationDate, displayedComponents: .date)
-                    .labelsHidden()
-                }
-                .padding(.bottom, 4)
-                
-              }
-            }
-            
-            Divider()
-              .padding(.bottom, 4)
-            
-            // review
-            VStack(alignment: .leading) {
-              Text("Review")
+            TextField("Why do you want to avoid this place?", text: $place.review, axis: .vertical)
+              .lineLimit(6, reservesSpace: true)
+              .textFieldStyle(.roundedBorder)
+              .padding([.leading, .trailing, .bottom])
+          }
+          
+          Divider()
+            .padding(.bottom, 4)
+          
+          // images
+          VStack {
+            HStack(alignment: .bottom) {
+              Text("Photos")
                 .font(.title3)
                 .foregroundStyle(.secondary)
-                .padding(.leading)
               
-              TextField("Why do you want to avoid this place?", text: $place.review, axis: .vertical)
-                .textFieldStyle(.roundedBorder)
-                .padding([.leading, .trailing, .bottom])
+              Spacer()
+              
+              PhotosPicker(selection: $selectedPhotoItems, maxSelectionCount: 6, matching: .any(of: [.images, .not(.screenshots)])) {
+                Label("Add Photos", systemImage: "photo.badge.plus")
+              }
+            }
+            .padding([.leading, .trailing])
+            .onChange(of: selectedPhotoItems) {
+              loadPhotos()
             }
             
-            Divider()
-              .padding(.bottom, 4)
-            
-            // images
-            VStack {
-              HStack(alignment: .bottom) {
-                Text("Photos")
-                  .font(.title3)
-                  .foregroundStyle(.secondary)
-                
-                Spacer()
-                
-                PhotosPicker(selection: $selectedPhotoItems, maxSelectionCount: 6, matching: .any(of: [.images, .not(.screenshots)])) {
-                  Label("Add Photos", systemImage: "photo.badge.plus")
+            ScrollView(.horizontal, showsIndicators: false) {
+              HStack {
+                if let imageData = place.imageData {
+                  ForEach(imageData, id: \.self) { imageData in
+                    PlaceImageCardView(imageData: imageData, place: place)
+                      .frame(width: 180, height: 180)
+                      .clipShape(.rect(cornerRadius: 5))
+                      .contextMenu {
+                        Button("Delete", systemImage: "trash", role: .destructive) {
+                          withAnimation {
+                            deletePhoto(imageData: imageData)
+                          }
+                        }
+                      }
+                    
+                  }
                 }
               }
               .padding([.leading, .trailing])
-              .onChange(of: selectedPhotoItems) {
-                loadPhotos()
-              }
-              
-              ScrollView(.horizontal, showsIndicators: false) {
-                HStack {
-                  if let imageData = place.imageData {
-                    ForEach(imageData, id: \.self) { imageData in
-                      PlaceImageCardView(imageData: imageData, place: place)
-                        .frame(width: proxy.size.width * 0.34, height: proxy.size.height * 0.17)
-                        .clipShape(.rect(cornerRadius: 5))
-                        .contextMenu {
-                          Button("Delete", systemImage: "trash", role: .destructive) {
-                            withAnimation {
-                              deletePhoto(imageData: imageData)
-                            }
-                          }
-                        }
-                      
-                    }
-                  }
-                }
-                .padding([.leading, .trailing])
-                .padding(.bottom, 4)
-              }
+              .padding(.bottom, 4)
             }
-            .padding(.bottom)
           }
+          .padding(.bottom)
         }
-        .navigationTitle(place.name)
-        .navigationBarTitleDisplayMode(.inline)
-        .alert("Delete Place", isPresented: $isShowingDeleteAlert) {
-          Button("Delete", role: .destructive, action: deletePlace)
-          Button("Cancel", role: .cancel) { }
-        } message: {
-          Text("Are you sure?")
-        }
-        .toolbar {
-          ToolbarItem(placement: .topBarTrailing) {
-            Button("Delete Place", systemImage: "trash") {
-              isShowingDeleteAlert = true
-            }
+      }
+      .navigationTitle(place.name)
+      .navigationBarTitleDisplayMode(.inline)
+      .alert("Delete Place", isPresented: $isShowingDeleteAlert) {
+        Button("Delete", role: .destructive, action: deletePlace)
+        Button("Cancel", role: .cancel) { }
+      } message: {
+        Text("Are you sure?")
+      }
+      .toolbar {
+        ToolbarItem(placement: .topBarTrailing) {
+          Button("Delete Place", systemImage: "trash") {
+            isShowingDeleteAlert = true
           }
         }
       }
     }
+    .scrollDismissesKeyboard(.immediately)
     .background(.thinMaterial)
   }
   
