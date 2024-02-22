@@ -56,7 +56,7 @@ struct DontGoThereUnavailableLabel: View {
   var body: some View {
     Label(
       title: { Text(titleText) },
-      icon: { DontGoThereIconView(width: 150, height: 120) }
+      icon: { DontGoThereIconView(width: 180, height: 144) }
     )
   }
 
@@ -66,5 +66,5 @@ struct DontGoThereUnavailableLabel: View {
 }
 
 #Preview {
-    DontGoThereIconView(width: 60, height: 48)
+    DontGoThereIconView(width: 180, height: 144)
 }
