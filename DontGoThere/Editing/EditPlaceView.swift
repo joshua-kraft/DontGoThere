@@ -26,6 +26,27 @@ struct EditPlaceView: View {
     }
   }
   
+  struct PlaceImageCardView: View {
+    
+    let imageData: Data
+    @Bindable var place: Place
+    @State private var isShowingPhotoSheet = false
+    
+    var body: some View {
+      if let uiImage = UIImage(data: imageData) {
+        Image(uiImage: uiImage)
+          .resizable()
+          .scaledToFill()
+          .onTapGesture {
+            isShowingPhotoSheet = true
+          }
+          .sheet(isPresented: $isShowingPhotoSheet) {
+            PhotoSheetView(imageData: imageData, place: place)
+          }
+      }
+    }
+  }
+  
   @Environment(\.modelContext) var modelContext
   @Environment(\.dismiss) var dismiss
   @EnvironmentObject var appSettings: AppSettings
@@ -36,7 +57,7 @@ struct EditPlaceView: View {
   
   @State private var isShowingPhotoPicker = false
   @State private var selectedPhotoItems = [PhotosPickerItem]()
-    
+
   var body: some View {
     GeometryReader { proxy in
       ScrollView(.vertical) {
@@ -63,6 +84,7 @@ struct EditPlaceView: View {
               .background(.thinMaterial.opacity(0.9))
               .multilineTextAlignment(.center)
           }
+          
           VStack(alignment: .leading) {
             Text("Details")
               .font(.title3)
@@ -152,20 +174,17 @@ struct EditPlaceView: View {
                 HStack {
                   if let imageData = place.imageData {
                     ForEach(imageData, id: \.self) { imageData in
-                      if let uiImage = UIImage(data: imageData) {
-                        Image(uiImage: uiImage)
-                          .resizable()
-                          .scaledToFill()
-                          .frame(width: proxy.size.width * 0.34, height: proxy.size.height * 0.17)
-                          .clipShape(.rect(cornerRadius: 5))
-                          .contextMenu {
-                            Button("Delete", systemImage: "trash", role: .destructive) {
-                              withAnimation {
-                                deletePhoto(imageData: imageData)
-                              }
+                      PlaceImageCardView(imageData: imageData, place: place)
+                        .frame(width: proxy.size.width * 0.34, height: proxy.size.height * 0.17)
+                        .clipShape(.rect(cornerRadius: 5))
+                        .contextMenu {
+                          Button("Delete", systemImage: "trash", role: .destructive) {
+                            withAnimation {
+                              deletePhoto(imageData: imageData)
                             }
                           }
-                      }
+                        }
+                      
                     }
                   }
                 }
@@ -178,7 +197,7 @@ struct EditPlaceView: View {
         }
         .navigationTitle(place.name)
         .navigationBarTitleDisplayMode(.inline)
-        .alert("Delete place", isPresented: $isShowingDeleteAlert) {
+        .alert("Delete Place", isPresented: $isShowingDeleteAlert) {
           Button("Delete", role: .destructive, action: deletePlace)
           Button("Cancel", role: .cancel) { }
         } message: {
