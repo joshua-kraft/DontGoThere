@@ -12,7 +12,7 @@ struct PlaceMapSearchView: View {
   
   
   @State private var locationServiceController = LocationServiceController(completer: .init())
-  @State private var searchText = "Bella Sera"
+  @State private var searchText = "McDonald's Leander"
   
   var body: some View {
     VStack {
@@ -25,8 +25,8 @@ struct PlaceMapSearchView: View {
       .onChange(of: searchText) {
         locationServiceController.updateSearchResults(with: searchText)
       }
+      .padding(.bottom)
       
-      Spacer()
       
       List {
         ForEach(locationServiceController.searchCompletions) { completion in

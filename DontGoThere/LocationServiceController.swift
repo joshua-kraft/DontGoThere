@@ -8,17 +8,18 @@
 import MapKit
 import SwiftUI
 
-struct MapSearchCompletions: Identifiable {
+struct MapSearchResults: Identifiable {
   let id = UUID()
   let name: String
   let address: String
+  let mapItem: MKMapItem?
 }
 
 @Observable
 class LocationServiceController: NSObject, MKLocalSearchCompleterDelegate {
   let completer: MKLocalSearchCompleter
   
-  var searchCompletions = [MapSearchCompletions]()
+  var searchCompletions = [MapSearchResults]()
   
   init(completer: MKLocalSearchCompleter) {
     self.completer = completer
@@ -32,7 +33,10 @@ class LocationServiceController: NSObject, MKLocalSearchCompleterDelegate {
   }
   
   func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
-    searchCompletions = completer.results.map { MapSearchCompletions(name: $0.title, address: $0.subtitle) }
+    searchCompletions = completer.results.map {
+      let mapItem = $0.value(forKey: "_mapItem") as? MKMapItem
+      return MapSearchResults(name: $0.title, address: $0.subtitle, mapItem: mapItem)
+    }
   }
 }
 
