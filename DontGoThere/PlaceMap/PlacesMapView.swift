@@ -67,7 +67,7 @@ struct PlacesMapView: View {
         EditPlaceView(place: place)
       }
       .sheet(isPresented: $isShowingSearchSheet) {
-        PlaceMapSearchView()
+        PlaceMapSearchView(position: $position)
       }
       .toolbar {
         ToolbarItem(placement: .topBarLeading) {

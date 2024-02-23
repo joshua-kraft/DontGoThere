@@ -10,7 +10,29 @@ import SwiftUI
 
 struct PlaceMapSearchView: View {
   
-  @State private var searchText = ""
+  struct SearchResultRow: View {
+    
+    let result: MKMapItem
+    
+    var body: some View {
+      HStack {
+        VStack(alignment: .leading) {
+          Text(result.name ?? "Unknown Name")
+          Text(result.phoneNumber ?? "Unknown Number")
+        }
+      }
+      
+    }
+    
+    init(_ result: MKMapItem) {
+      self.result = result
+    }
+  }
+  
+  @State private var searchText = "Bella Sera"
+  @Binding var position: MapCameraPosition
+  
+  @State private var searchResults = [MKMapItem]()
   
   var body: some View {
     VStack {
@@ -22,18 +44,43 @@ struct PlaceMapSearchView: View {
           .background(.gray.opacity(0.2))
           .clipShape(.rect(cornerRadius: 8))
           .foregroundStyle(.primary)
+          .onChange(of: searchText) {
+            performSearch()
+          }
       }
       
-      Spacer()
+      List(searchResults, id: \.self) { result in
+        SearchResultRow(result)
+      }
       
     }
     .padding()
     .presentationDetents([.height(150), .large])
-    .presentationBackground(.regularMaterial)
     .presentationBackgroundInteraction(.enabled(upThrough: .large))
+    .onAppear { performSearch() }
+  }
+  
+  func performSearch() {
+    let searchRequest = MKLocalSearch.Request()
+    searchRequest.naturalLanguageQuery = searchText
+    if let region = position.region {
+      searchRequest.region = region
+    }
+    let search = MKLocalSearch(request: searchRequest)
+    
+    search.start { searchResponse, error in
+      guard let searchResponse = searchResponse else {
+        print("Search failed: \(error?.localizedDescription ?? "Unknown error")")
+        return
+      }
+      
+      withAnimation {
+        searchResults = searchResponse.mapItems
+      }
+    }
   }
 }
 
 #Preview {
-  PlaceMapSearchView()
+  PlaceMapSearchView(position: .constant(.automatic))
 }
