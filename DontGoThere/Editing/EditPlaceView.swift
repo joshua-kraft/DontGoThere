@@ -12,6 +12,20 @@ import SwiftUI
 
 struct EditPlaceView: View {
   
+  struct HeaderLabel: View {
+    let text: String
+    
+    var body: some View {
+      Text(text)
+        .font(.title3)
+        .foregroundStyle(.secondary)
+    }
+    
+    init(_ text: String) {
+      self.text = text
+    }
+  }
+  
   struct DetailLabel: View {
     let text: String
     
@@ -25,28 +39,7 @@ struct EditPlaceView: View {
       self.text = text
     }
   }
-  
-  struct PlaceImageCardView: View {
     
-    let imageData: Data
-    @Bindable var place: Place
-    @State private var isShowingPhotoSheet = false
-    
-    var body: some View {
-      if let uiImage = UIImage(data: imageData) {
-        Image(uiImage: uiImage)
-          .resizable()
-          .scaledToFill()
-          .onTapGesture {
-            isShowingPhotoSheet = true
-          }
-          .sheet(isPresented: $isShowingPhotoSheet) {
-            PhotoSheetView(imageData: imageData, place: place)
-          }
-      }
-    }
-  }
-  
   @Environment(\.modelContext) var modelContext
   @Environment(\.dismiss) var dismiss
   @EnvironmentObject var appSettings: AppSettings
@@ -85,16 +78,14 @@ struct EditPlaceView: View {
         }
         
         VStack(alignment: .leading) {
-          Text("Details")
-            .font(.title3)
-            .foregroundStyle(.secondary)
+          HeaderLabel("Details")
             .padding(.leading)
           
           Divider()
             .padding(.bottom, 4)
           
           // name, times
-          VStack(alignment: .listRowSeparatorLeading) {
+          VStack(alignment: .leading) {
             HStack {
               DetailLabel("Name:")
                 .padding([.leading])
@@ -138,9 +129,7 @@ struct EditPlaceView: View {
           
           // review
           VStack(alignment: .leading) {
-            Text("Review")
-              .font(.title3)
-              .foregroundStyle(.secondary)
+            HeaderLabel("Review")
               .padding(.leading)
             
             TextField("Why do you want to avoid this place?", text: $place.review, axis: .vertical)
@@ -155,9 +144,7 @@ struct EditPlaceView: View {
           // images
           VStack {
             HStack(alignment: .bottom) {
-              Text("Photos")
-                .font(.title3)
-                .foregroundStyle(.secondary)
+              HeaderLabel("Photos")
               
               Spacer()
               
@@ -170,27 +157,7 @@ struct EditPlaceView: View {
               loadPhotos()
             }
             
-            ScrollView(.horizontal, showsIndicators: false) {
-              HStack {
-                if let imageData = place.imageData {
-                  ForEach(imageData, id: \.self) { imageData in
-                    PlaceImageCardView(imageData: imageData, place: place)
-                      .frame(width: 180, height: 180)
-                      .clipShape(.rect(cornerRadius: 5))
-                      .contextMenu {
-                        Button("Delete", systemImage: "trash", role: .destructive) {
-                          withAnimation {
-                            deletePhoto(imageData: imageData)
-                          }
-                        }
-                      }
-                    
-                  }
-                }
-              }
-              .padding([.leading, .trailing])
-              .padding(.bottom, 4)
-            }
+            PhotoCardScrollerView(place: place)
           }
           .padding(.bottom)
         }
@@ -229,13 +196,7 @@ struct EditPlaceView: View {
       }
     }
   }
-  
-  func deletePhoto(imageData: Data) {
-    if let index = place.imageData?.firstIndex(of: imageData) {
-      place.imageData?.remove(at: index)
-    }
-  }
-  
+    
   func deletePlace() {
     modelContext.delete(place)
     dismiss()

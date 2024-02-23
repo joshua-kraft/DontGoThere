@@ -12,25 +12,29 @@ struct PhotoSheetView: View {
   @Environment(\.dismiss) var dismiss
   
   let imageData: Data
-  
   @Bindable var place: Place
-  
   @State private var isShowingDeleteAlert = false
   
   var body: some View {
-    VStack {
-      Text("Photo of \(place.name)")
-        .font(.title3.bold())
-        .padding(.top)
-      if let uiImage = UIImage(data: imageData) {
-        ZoomableScrollView {
-          Image(uiImage: uiImage)
-            .resizable()
-            .scaledToFit()
+    NavigationStack {
+      VStack {
+        if let uiImage = UIImage(data: imageData) {
+          ZoomableScrollView {
+            Image(uiImage: uiImage)
+              .resizable()
+              .scaledToFit()
+          }
         }
       }
-      Button("Delete Photo", role: .destructive) {
-        isShowingDeleteAlert = true
+      .navigationTitle("Photo of \(place.name)")
+      .navigationBarTitleDisplayMode(.inline)
+      .toolbar {
+        ToolbarItem(placement: .topBarTrailing) {
+          Button("Delete Photo", systemImage: "trash", role: .destructive) {
+            isShowingDeleteAlert = true
+          }
+          .tint(.red)
+        }
       }
     }
     .alert("Delete Photo", isPresented: $isShowingDeleteAlert) {
