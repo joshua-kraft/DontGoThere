@@ -11,35 +11,7 @@ import SwiftData
 import SwiftUI
 
 struct EditPlaceView: View {
-  
-  struct HeaderLabel: View {
-    let text: String
-    
-    var body: some View {
-      Text(text)
-        .font(.title3)
-        .foregroundStyle(.secondary)
-    }
-    
-    init(_ text: String) {
-      self.text = text
-    }
-  }
-  
-  struct DetailLabel: View {
-    let text: String
-    
-    var body: some View {
-      Text(text)
-        .font(.subheadline)
-        .foregroundStyle(.secondary)
-    }
-    
-    init(_ text: String) {
-      self.text = text
-    }
-  }
-    
+      
   @Environment(\.modelContext) var modelContext
   @Environment(\.dismiss) var dismiss
   @EnvironmentObject var appSettings: AppSettings
@@ -84,45 +56,7 @@ struct EditPlaceView: View {
           Divider()
             .padding(.bottom, 4)
           
-          // name, times
-          VStack(alignment: .leading) {
-            HStack {
-              DetailLabel("Name:")
-                .padding([.leading])
-              TextField("Place Name", text: $place.name)
-                .textFieldStyle(.roundedBorder)
-                .padding(.trailing)
-            }
-            .padding(.bottom, 4)
-            HStack {
-              DetailLabel("Added:")
-                .padding([.leading])
-              DatePicker("Added Date", selection: $place.addDate, displayedComponents: .date)
-                .disabled(true)
-                .labelsHidden()
-              Spacer()
-              DetailLabel("Expires?")
-              Toggle("Expires?", isOn: $place.shouldExpire.animation())
-                .labelsHidden()
-                .padding(.trailing)
-                .onChange(of: place.shouldExpire) {
-                  place.expirationDate = place.shouldExpire ? Date.distantFuture : appSettings.getExpiryDate(from: place.addDate)
-                }
-            }
-            .padding(.bottom, 4)
-            
-            if place.shouldExpire {
-              
-              HStack {
-                DetailLabel("Expires:")
-                  .padding([.leading])
-                DatePicker("Expires", selection: $place.expirationDate, displayedComponents: .date)
-                  .labelsHidden()
-              }
-              .padding(.bottom, 4)
-              
-            }
-          }
+          DetailSectionView(place: place)
           
           Divider()
             .padding(.bottom, 4)
