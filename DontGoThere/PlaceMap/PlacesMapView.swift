@@ -20,11 +20,10 @@ struct PlacesMapView: View {
   
   @State private var isShowingDeleteAlert = false
   @State private var deletedPlace: Place?
+    
+  @State private var position = MapCameraPosition.automatic
   
-  let startPosition = MapCameraPosition.region(MKCoordinateRegion(
-    center: CLLocationCoordinate2D(latitude: 30.5788, longitude: -97.8531),
-    span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))
-  )
+  @State private var isShowingSearchSheet = false
   
   var body: some View {
     NavigationStack(path: $path) {
@@ -32,7 +31,7 @@ struct PlacesMapView: View {
         ZStack(alignment: .top) {
           
           MapReader { proxy in
-            Map(initialPosition: startPosition) {
+            Map(position: $position) {
               if showExistingPlaces {
                 ForEach(places.filter { !$0.isArchived }) { place in
                   Annotation(place.name, coordinate: place.coordinate) {
@@ -67,6 +66,9 @@ struct PlacesMapView: View {
       .navigationDestination(for: Place.self) { place in
         EditPlaceView(place: place)
       }
+      .sheet(isPresented: $isShowingSearchSheet) {
+        PlaceMapSearchView()
+      }
       .toolbar {
         ToolbarItem(placement: .topBarLeading) {
           Button(showExistingPlaces ? "Hide Existing" : "Show Existing") {
@@ -74,7 +76,11 @@ struct PlacesMapView: View {
           }
         }
         
-        ToolbarItem(placement: .topBarTrailing) {
+        ToolbarItemGroup(placement: .topBarTrailing) {
+          Button("Search", systemImage: "magnifyingglass") {
+            isShowingSearchSheet.toggle()
+          }
+
           Button("Add Place", systemImage: "plus") {
             addPlace()
           }
