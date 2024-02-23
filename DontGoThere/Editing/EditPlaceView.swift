@@ -30,11 +30,6 @@ struct EditPlaceView: View {
         PlaceMinimapView(place: place)
         
         VStack(alignment: .leading) {
-          HeaderLabel("Details")
-            .padding(.leading)
-          
-          Divider()
-            .padding(.bottom, 4)
           
           DetailSectionView(place: place)
           
@@ -55,25 +50,7 @@ struct EditPlaceView: View {
           Divider()
             .padding(.bottom, 4)
           
-          // images
-          VStack {
-            HStack(alignment: .bottom) {
-              HeaderLabel("Photos")
-              
-              Spacer()
-              
-              PhotosPicker(selection: $selectedPhotoItems, maxSelectionCount: 6, matching: .any(of: [.images, .not(.screenshots)])) {
-                Label("Add Photos", systemImage: "photo.badge.plus")
-              }
-            }
-            .padding([.leading, .trailing])
-            .onChange(of: selectedPhotoItems) {
-              loadPhotos()
-            }
-            
-            PhotoCardScrollerView(place: place)
-          }
-          .padding(.bottom)
+          PhotoSectionView(place: place)
         }
       }
       .navigationTitle(place.name)
@@ -95,22 +72,7 @@ struct EditPlaceView: View {
     .scrollDismissesKeyboard(.immediately)
     .background(.thinMaterial)
   }
-  
-  func loadPhotos() {
-    Task { @MainActor in
-      for selectedItem in selectedPhotoItems {
-        let imageDatum = try await selectedItem.loadTransferable(type: Data.self)
-        if let data = imageDatum {
-          if let contains = place.imageData?.contains(data) {
-            if !contains {
-              place.imageData?.append(data)
-            }
-          }
-        }
-      }
-    }
-  }
-    
+      
   func deletePlace() {
     modelContext.delete(place)
     dismiss()

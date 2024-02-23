@@ -14,6 +14,12 @@ struct DetailSectionView: View {
   
   var body: some View {
     VStack(alignment: .leading) {
+      HeaderLabel("Details")
+        .padding(.leading)
+      
+      Divider()
+        .padding(.bottom, 4)
+
       HStack {
         DetailLabel("Name:")
           .padding([.leading])

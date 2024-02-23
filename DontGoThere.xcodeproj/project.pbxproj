@@ -11,6 +11,7 @@
 		4238EFB72B891B2D00597B4A /* DetailSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4238EFB62B891B2D00597B4A /* DetailSectionView.swift */; };
 		4238EFB92B891B9A00597B4A /* Labels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4238EFB82B891B9A00597B4A /* Labels.swift */; };
 		4238EFBB2B891CC100597B4A /* PlaceMinimapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4238EFBA2B891CC100597B4A /* PlaceMinimapView.swift */; };
+		4238EFBD2B891E2200597B4A /* PhotoSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4238EFBC2B891E2200597B4A /* PhotoSectionView.swift */; };
 		42560A0B2B74292B0013FCF4 /* DontGoThereApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42560A0A2B74292B0013FCF4 /* DontGoThereApp.swift */; };
 		42560A0D2B74292B0013FCF4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42560A0C2B74292B0013FCF4 /* ContentView.swift */; };
 		42560A0F2B74292C0013FCF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42560A0E2B74292C0013FCF4 /* Assets.xcassets */; };
@@ -33,6 +34,7 @@
 		4238EFB62B891B2D00597B4A /* DetailSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSectionView.swift; sourceTree = "<group>"; };
 		4238EFB82B891B9A00597B4A /* Labels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Labels.swift; sourceTree = "<group>"; };
 		4238EFBA2B891CC100597B4A /* PlaceMinimapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceMinimapView.swift; sourceTree = "<group>"; };
+		4238EFBC2B891E2200597B4A /* PhotoSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSectionView.swift; sourceTree = "<group>"; };
 		42560A072B74292B0013FCF4 /* DontGoThere.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DontGoThere.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42560A0A2B74292B0013FCF4 /* DontGoThereApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DontGoThereApp.swift; sourceTree = "<group>"; };
 		42560A0C2B74292B0013FCF4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -62,6 +64,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4238EFBE2B891E2500597B4A /* Photos */ = {
+			isa = PBXGroup;
+			children = (
+				4238EFBC2B891E2200597B4A /* PhotoSectionView.swift */,
+				4238EFB42B89161900597B4A /* PhotoCardScrollerView.swift */,
+				426BB6B42B87CFFC00CBDA71 /* PhotoSheetView.swift */,
+			);
+			path = Photos;
+			sourceTree = "<group>";
+		};
 		425609FE2B74292B0013FCF4 = {
 			isa = PBXGroup;
 			children = (
@@ -127,8 +139,7 @@
 				42560A1E2B7429960013FCF4 /* EditPlaceView.swift */,
 				4238EFBA2B891CC100597B4A /* PlaceMinimapView.swift */,
 				4238EFB62B891B2D00597B4A /* DetailSectionView.swift */,
-				4238EFB42B89161900597B4A /* PhotoCardScrollerView.swift */,
-				426BB6B42B87CFFC00CBDA71 /* PhotoSheetView.swift */,
+				4238EFBE2B891E2500597B4A /* Photos */,
 			);
 			path = Editing;
 			sourceTree = "<group>";
@@ -235,6 +246,7 @@
 				426BB6B52B87CFFC00CBDA71 /* PhotoSheetView.swift in Sources */,
 				42560A272B7F1F210013FCF4 /* PlacesList.swift in Sources */,
 				42560A252B7D3D170013FCF4 /* SettingsView.swift in Sources */,
+				4238EFBD2B891E2200597B4A /* PhotoSectionView.swift in Sources */,
 				426BB6AC2B868DFF00CBDA71 /* DontGoThereIconView.swift in Sources */,
 				4238EFB52B89161900597B4A /* PhotoCardScrollerView.swift in Sources */,
 				42560A1D2B74298F0013FCF4 /* PlacesListView.swift in Sources */,
