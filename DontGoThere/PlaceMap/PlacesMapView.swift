@@ -29,7 +29,6 @@ struct PlacesMapView: View {
     NavigationStack(path: $path) {
       VStack {
         ZStack(alignment: .top) {
-          
           MapReader { proxy in
             Map(position: $position) {
               if showExistingPlaces {
@@ -67,7 +66,7 @@ struct PlacesMapView: View {
         EditPlaceView(place: place)
       }
       .sheet(isPresented: $isShowingSearchSheet) {
-        PlaceMapSearchView(position: $position)
+        PlaceMapSearchView()
       }
       .toolbar {
         ToolbarItem(placement: .topBarLeading) {

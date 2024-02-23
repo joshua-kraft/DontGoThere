@@ -10,29 +10,9 @@ import SwiftUI
 
 struct PlaceMapSearchView: View {
   
-  struct SearchResultRow: View {
-    
-    let result: MKMapItem
-    
-    var body: some View {
-      HStack {
-        VStack(alignment: .leading) {
-          Text(result.name ?? "Unknown Name")
-          Text(result.phoneNumber ?? "Unknown Number")
-        }
-      }
-      
-    }
-    
-    init(_ result: MKMapItem) {
-      self.result = result
-    }
-  }
   
+  @State private var locationServiceController = LocationServiceController(completer: .init())
   @State private var searchText = "Bella Sera"
-  @Binding var position: MapCameraPosition
-  
-  @State private var searchResults = [MKMapItem]()
   
   var body: some View {
     VStack {
@@ -40,47 +20,45 @@ struct PlaceMapSearchView: View {
         Image(systemName: "magnifyingglass")
         TextField("Search for a place...", text: $searchText)
           .autocorrectionDisabled()
-          .padding(12)
-          .background(.gray.opacity(0.2))
-          .clipShape(.rect(cornerRadius: 8))
-          .foregroundStyle(.primary)
-          .onChange(of: searchText) {
-            performSearch()
+      }
+      .modifier(SearchBarModifier())
+      .onChange(of: searchText) {
+        locationServiceController.updateSearchResults(with: searchText)
+      }
+      
+      Spacer()
+      
+      List {
+        ForEach(locationServiceController.searchCompletions) { completion in
+          VStack(alignment: .leading, spacing: 4) {
+            Text(completion.name)
+              .font(.headline)
+              .fontDesign(.rounded)
+            Text(completion.address)
           }
+          .listRowBackground(Color.gray.opacity(0.2))
+        }
       }
-      
-      List(searchResults, id: \.self) { result in
-        SearchResultRow(result)
-      }
-      
+      .listStyle(.plain)
+      .scrollContentBackground(.hidden)
     }
     .padding()
+    .onAppear { locationServiceController.updateSearchResults(with: searchText) }
     .presentationDetents([.height(150), .large])
     .presentationBackgroundInteraction(.enabled(upThrough: .large))
-    .onAppear { performSearch() }
   }
-  
-  func performSearch() {
-    let searchRequest = MKLocalSearch.Request()
-    searchRequest.naturalLanguageQuery = searchText
-    if let region = position.region {
-      searchRequest.region = region
-    }
-    let search = MKLocalSearch(request: searchRequest)
-    
-    search.start { searchResponse, error in
-      guard let searchResponse = searchResponse else {
-        print("Search failed: \(error?.localizedDescription ?? "Unknown error")")
-        return
-      }
-      
-      withAnimation {
-        searchResults = searchResponse.mapItems
-      }
-    }
+}
+
+struct SearchBarModifier: ViewModifier {
+  func body(content: Content) -> some View {
+    content
+      .padding(12)
+      .background(.gray.opacity(0.2))
+      .clipShape(.rect(cornerRadius: 8))
+      .foregroundStyle(.primary)
   }
 }
 
 #Preview {
-  PlaceMapSearchView(position: .constant(.automatic))
+  PlaceMapSearchView()
 }
