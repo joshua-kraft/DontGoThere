@@ -26,28 +26,8 @@ struct EditPlaceView: View {
   var body: some View {
     ScrollView(.vertical) {
       VStack(alignment: .leading) {
-        
-        ZStack(alignment: .top) {
-          MapReader { mapProxy in
-            Map(initialPosition: position(for: place), interactionModes: [.pan, .zoom, .rotate]) {
-              Marker(place.name, coordinate: place.coordinate)
-            }
-            .frame(height: 250)
-            .onTapGesture { position in
-              if let tappedCoordinate = mapProxy.convert(position, from: .local) {
-                place.latitude = tappedCoordinate.latitude
-                place.longitude = tappedCoordinate.longitude
-              }
-            }
-          }
-          
-          Text("Tap on the map to edit this place's location.")
-            .frame(maxWidth: .infinity)
-            .padding([.top, .bottom], 12)
-            .font(.subheadline.bold())
-            .background(.thinMaterial.opacity(0.9))
-            .multilineTextAlignment(.center)
-        }
+
+        PlaceMinimapView(place: place)
         
         VStack(alignment: .leading) {
           HeaderLabel("Details")
@@ -135,15 +115,7 @@ struct EditPlaceView: View {
     modelContext.delete(place)
     dismiss()
   }
-  
-  func position(for place: Place) -> MapCameraPosition {
-    MapCameraPosition.region(
-      MKCoordinateRegion(
-        center: CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude),
-        span: MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001))
-    )
-  }
-  
+    
 }
 
 #Preview {
