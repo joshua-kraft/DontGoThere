@@ -8,18 +8,31 @@
 import MapKit
 import SwiftUI
 
-struct MapSearchResults: Identifiable {
+struct MapSearchCompletion: Identifiable {
   let id = UUID()
   let name: String
   let address: String
-  let mapItem: MKMapItem?
 }
+
+struct MapSearchResult: Identifiable, Hashable {
+  let id = UUID()
+  let coordinate: CLLocationCoordinate2D
+  
+  static func ==(lhs: MapSearchResult, rhs: MapSearchResult) -> Bool {
+    lhs.id == rhs.id
+  }
+  
+  func hash(into hasher: inout Hasher) {
+    hasher.combine(id)
+  }
+}
+
 
 @Observable
 class LocationServiceController: NSObject, MKLocalSearchCompleterDelegate {
   let completer: MKLocalSearchCompleter
   
-  var searchCompletions = [MapSearchResults]()
+  var searchCompletions = [MapSearchCompletion]()
   
   init(completer: MKLocalSearchCompleter) {
     self.completer = completer
@@ -34,10 +47,31 @@ class LocationServiceController: NSObject, MKLocalSearchCompleterDelegate {
   
   func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
     searchCompletions = completer.results.map {
-      let mapItem = $0.value(forKey: "_mapItem") as? MKMapItem
-      return MapSearchResults(name: $0.title, address: $0.subtitle, mapItem: mapItem)
+      MapSearchCompletion(name: $0.title, address: $0.subtitle)
     }
   }
+  
+  func performSearch(with searchText: String, coordinate: CLLocationCoordinate2D? = nil) async throws -> [MapSearchResult] {
+    let searchRequest = MKLocalSearch.Request()
+    searchRequest.naturalLanguageQuery = searchText
+    searchRequest.resultTypes = .pointOfInterest
+    if let coordinate {
+      searchRequest.region = MKCoordinateRegion(
+        center: coordinate,
+        span: MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1)
+      )
+    }
+    let search = MKLocalSearch(request: searchRequest)
+    
+    let response = try await search.start()
+    
+    return response.mapItems.compactMap { mapItem in
+      guard let coordinate = mapItem.placemark.location?.coordinate else { return nil }
+      
+      return MapSearchResult(coordinate: coordinate)
+    }
+  }
+  
 }
 
 

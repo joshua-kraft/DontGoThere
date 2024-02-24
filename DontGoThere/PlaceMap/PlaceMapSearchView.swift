@@ -9,10 +9,10 @@ import MapKit
 import SwiftUI
 
 struct PlaceMapSearchView: View {
-  
-  
+
   @State private var locationServiceController = LocationServiceController(completer: .init())
-  @State private var searchText = "McDonald's Leander"
+  @State private var searchText = ""
+  @Binding var searchResults: [MapSearchResult]
   
   var body: some View {
     VStack {
@@ -20,6 +20,11 @@ struct PlaceMapSearchView: View {
         Image(systemName: "magnifyingglass")
         TextField("Search for a place...", text: $searchText)
           .autocorrectionDisabled()
+          .onSubmit {
+            Task {
+              searchResults = (try? await locationServiceController.performSearch(with: searchText)) ?? []
+            }
+          }
       }
       .modifier(SearchBarModifier())
       .onChange(of: searchText) {
@@ -30,13 +35,14 @@ struct PlaceMapSearchView: View {
       
       List {
         ForEach(locationServiceController.searchCompletions) { completion in
-          VStack(alignment: .leading, spacing: 4) {
+          VStack(alignment: .leading) {
             Text(completion.name)
               .font(.headline)
               .fontDesign(.rounded)
             Text(completion.address)
           }
           .listRowBackground(Color.gray.opacity(0.2))
+          .onTapGesture { rowTapped(completion: completion) }
         }
       }
       .listStyle(.plain)
@@ -46,6 +52,14 @@ struct PlaceMapSearchView: View {
     .onAppear { locationServiceController.updateSearchResults(with: searchText) }
     .presentationDetents([.height(150), .large])
     .presentationBackgroundInteraction(.enabled(upThrough: .large))
+  }
+  
+  func rowTapped(completion: MapSearchCompletion) {
+    Task {
+      if let tappedResult = try? await locationServiceController.performSearch(with: "\(completion.name) \(completion.address)").first {
+        searchResults = [tappedResult]
+      }
+    }
   }
 }
 
@@ -60,5 +74,5 @@ struct SearchBarModifier: ViewModifier {
 }
 
 #Preview {
-  PlaceMapSearchView()
+  PlaceMapSearchView(searchResults: .constant([]))
 }

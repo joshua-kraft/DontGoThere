@@ -24,17 +24,19 @@ struct PlacesMapView: View {
   @State private var position = MapCameraPosition.automatic
   
   @State private var isShowingSearchSheet = false
+  @State private var searchResults = [MapSearchResult]()
+  @State private var selectedResult: MapSearchResult?
   
   var body: some View {
     NavigationStack(path: $path) {
       VStack {
         ZStack(alignment: .top) {
           MapReader { proxy in
-            Map(position: $position) {
+            Map(position: $position, selection: $selectedResult) {
               if showExistingPlaces {
                 ForEach(places.filter { !$0.isArchived }) { place in
                   Annotation(place.name, coordinate: place.coordinate) {
-                    DontGoThereIconView(width: 50, height: 40)
+                    DontGoThereIconView(width: 40, height: 32)
                       .contextMenu {
                         Button("Show Details", systemImage: "list.dash") { path.append(place) }
                         Button("Delete", systemImage: "trash", role: .destructive) {
@@ -45,11 +47,22 @@ struct PlacesMapView: View {
                   }
                 }
               }
-            }
-            .onTapGesture { position in
-              if let coordinate = proxy.convert(position, from: .local) {
-                addPlace(at: coordinate)
+              
+              ForEach(searchResults) { result in
+                Marker(coordinate: result.coordinate) {
+                  Image(systemName: "mappin")
+                }
+                .tag(result)
               }
+              
+            }
+            .onChange(of: searchResults) {
+              if let firstResult = searchResults.first, searchResults.count == 1 {
+                selectedResult = firstResult
+              }
+            }
+            .onChange(of: selectedResult) {
+              isShowingSearchSheet = selectedResult == nil
             }
           }
           
@@ -66,7 +79,7 @@ struct PlacesMapView: View {
         EditPlaceView(place: place)
       }
       .sheet(isPresented: $isShowingSearchSheet) {
-        PlaceMapSearchView()
+        PlaceMapSearchView(searchResults: $searchResults)
       }
       .toolbar {
         ToolbarItem(placement: .topBarLeading) {
