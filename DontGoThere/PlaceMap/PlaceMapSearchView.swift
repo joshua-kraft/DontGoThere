@@ -50,7 +50,7 @@ struct PlaceMapSearchView: View {
     }
     .padding()
     .onAppear { locationServiceController.updateSearchResults(with: searchText) }
-    .presentationDetents([.height(150), .large])
+    .presentationDetents([.fraction(0.25), .large])
     .presentationBackgroundInteraction(.enabled(upThrough: .large))
   }
   
