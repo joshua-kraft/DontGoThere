@@ -27,10 +27,8 @@ struct DontGoThereSearchIconView: View {
       
       Image(systemName: "mappin.and.ellipse")
         .resizable()
-      //          .background(.white)
         .foregroundStyle(.black)
         .frame(width: width / 2, height: height / 2)
-      //          .clipShape(.circle)
       
       Image(systemName: "plus")
         .resizable()
@@ -43,5 +41,5 @@ struct DontGoThereSearchIconView: View {
 }
 
 #Preview {
-  DontGoThereSearchIconView(width: 50, height: 50)
+  DontGoThereSearchIconView(width: 180, height: 180)
 }
