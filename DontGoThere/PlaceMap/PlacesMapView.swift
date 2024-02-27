@@ -83,6 +83,9 @@ struct PlacesMapView: View {
           Button("Search", systemImage: "magnifyingglass") {
             isShowingSearchSheet.toggle()
           }
+          .onChange(of: isShowingSearchSheet) {
+            showExistingPlaces = !isShowingSearchSheet
+          }
 
           Button("Add Place", systemImage: "plus") {
             addPlace()
