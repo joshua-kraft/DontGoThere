@@ -21,32 +21,27 @@ struct DontGoThereSearchIconView: View {
         .fill(.orange)
         .frame(width: width, height: height)
       
-      Image(systemName: "mappin.circle")
+      Circle()
+        .fill(.blue)
+        .frame(width: width * 0.9, height: height * 0.9)
+      
+      Image(systemName: "mappin.and.ellipse")
         .resizable()
-        .background(.white)
+      //          .background(.white)
         .foregroundStyle(.black)
         .frame(width: width / 2, height: height / 2)
-        .clipShape(.circle)
-    }
-    .overlay(alignment: .trailing) {
+      //          .clipShape(.circle)
+      
       Image(systemName: "plus")
-        .padding(.trailing, width / 10)
-    }
-    .overlay(alignment: .leading) {
-      Image(systemName: "plus")
-        .padding(.leading, width / 10)
-    }
-    .overlay(alignment: .top) {
-      Image(systemName: "plus")
-        .padding(.top, width / 10)
-    }
-    .overlay(alignment: .bottom) {
-      Image(systemName: "plus")
-        .padding(.bottom, width / 10)
+        .resizable()
+        .foregroundStyle(.white)
+        .frame(width: width * 0.2, height: height * 0.2)
+        .padding(.leading, width * 0.5)
+        .padding(.bottom, height * 0.3)
     }
   }
 }
 
 #Preview {
-  DontGoThereSearchIconView(width: 150, height: 150)
+  DontGoThereSearchIconView(width: 50, height: 50)
 }

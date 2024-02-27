@@ -50,10 +50,7 @@ struct PlacesMapView: View {
               
               ForEach(searchResults) { result in
                 Annotation("Name", coordinate: result.coordinate) {
-                  Image(systemName: "mappin.circle")
-                    .onTapGesture {
-                      
-                    }
+                  DontGoThereSearchIconView(width: 50, height: 50)
                 }
               }
               
