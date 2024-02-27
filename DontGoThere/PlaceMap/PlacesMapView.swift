@@ -25,7 +25,6 @@ struct PlacesMapView: View {
   
   @State private var isShowingSearchSheet = false
   @State private var searchResults = [MapSearchResult]()
-  @State private var selectedResult: MapSearchResult?
   
   var body: some View {
     NavigationStack(path: $path) {
@@ -51,6 +50,12 @@ struct PlacesMapView: View {
               ForEach(searchResults) { result in
                 Annotation("Name", coordinate: result.coordinate) {
                   DontGoThereSearchIconView(width: 50, height: 50)
+                    .tag(result)
+                    .onTapGesture {
+                      searchResults = []
+                      isShowingSearchSheet = false
+                      addPlace(at: result.coordinate)
+                    }
                 }
               }
               
