@@ -32,7 +32,7 @@ struct PlacesMapView: View {
       VStack {
         ZStack(alignment: .top) {
           MapReader { proxy in
-            Map(position: $position, selection: $selectedResult) {
+            Map(position: $position) {
               if showExistingPlaces {
                 ForEach(places.filter { !$0.isArchived }) { place in
                   Annotation(place.name, coordinate: place.coordinate) {
@@ -49,20 +49,14 @@ struct PlacesMapView: View {
               }
               
               ForEach(searchResults) { result in
-                Marker(coordinate: result.coordinate) {
-                  Image(systemName: "mappin")
+                Annotation("Name", coordinate: result.coordinate) {
+                  Image(systemName: "mappin.circle")
+                    .onTapGesture {
+                      
+                    }
                 }
-                .tag(result)
               }
               
-            }
-            .onChange(of: searchResults) {
-              if let firstResult = searchResults.first, searchResults.count == 1 {
-                selectedResult = firstResult
-              }
-            }
-            .onChange(of: selectedResult) {
-              isShowingSearchSheet = selectedResult == nil
             }
           }
           
