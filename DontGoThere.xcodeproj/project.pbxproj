@@ -15,6 +15,7 @@
 		4238EFC02B89283300597B4A /* PlaceMapSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4238EFBF2B89283300597B4A /* PlaceMapSearchView.swift */; };
 		4238EFC32B893C5900597B4A /* LocationServiceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4238EFC22B893C5900597B4A /* LocationServiceController.swift */; };
 		4238EFC52B8E591200597B4A /* DontGoThereSearchIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4238EFC42B8E591200597B4A /* DontGoThereSearchIconView.swift */; };
+		4238EFC72B8FCAE400597B4A /* AccessCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4238EFC62B8FCAE400597B4A /* AccessCameraView.swift */; };
 		42560A0B2B74292B0013FCF4 /* DontGoThereApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42560A0A2B74292B0013FCF4 /* DontGoThereApp.swift */; };
 		42560A0D2B74292B0013FCF4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42560A0C2B74292B0013FCF4 /* ContentView.swift */; };
 		42560A0F2B74292C0013FCF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42560A0E2B74292C0013FCF4 /* Assets.xcassets */; };
@@ -41,6 +42,7 @@
 		4238EFBF2B89283300597B4A /* PlaceMapSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceMapSearchView.swift; sourceTree = "<group>"; };
 		4238EFC22B893C5900597B4A /* LocationServiceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServiceController.swift; sourceTree = "<group>"; };
 		4238EFC42B8E591200597B4A /* DontGoThereSearchIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DontGoThereSearchIconView.swift; sourceTree = "<group>"; };
+		4238EFC62B8FCAE400597B4A /* AccessCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessCameraView.swift; sourceTree = "<group>"; };
 		42560A072B74292B0013FCF4 /* DontGoThere.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DontGoThere.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42560A0A2B74292B0013FCF4 /* DontGoThereApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DontGoThereApp.swift; sourceTree = "<group>"; };
 		42560A0C2B74292B0013FCF4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 				4238EFBC2B891E2200597B4A /* PhotoSectionView.swift */,
 				4238EFB42B89161900597B4A /* PhotoCardScrollerView.swift */,
 				426BB6B42B87CFFC00CBDA71 /* PhotoSheetView.swift */,
+				4238EFC62B8FCAE400597B4A /* AccessCameraView.swift */,
 			);
 			path = Photos;
 			sourceTree = "<group>";
@@ -253,6 +256,7 @@
 				4238EFBB2B891CC100597B4A /* PlaceMinimapView.swift in Sources */,
 				42560A362B81843F0013FCF4 /* AppSettings.swift in Sources */,
 				426BB6B52B87CFFC00CBDA71 /* PhotoSheetView.swift in Sources */,
+				4238EFC72B8FCAE400597B4A /* AccessCameraView.swift in Sources */,
 				42560A272B7F1F210013FCF4 /* PlacesList.swift in Sources */,
 				42560A252B7D3D170013FCF4 /* SettingsView.swift in Sources */,
 				4238EFBD2B891E2200597B4A /* PhotoSectionView.swift in Sources */,
@@ -407,7 +411,8 @@
 				DEVELOPMENT_TEAM = 575V4XYC4S;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to the photos you specify to attach them to your DontGoThere. ";
+				INFOPLIST_KEY_NSCameraUsageDescription = "DontGoThere needs to access the camera so you can take photos to add to your places.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "DontGoThere needs to access your photo library for the images you provide to add them to your places.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -438,7 +443,8 @@
 				DEVELOPMENT_TEAM = 575V4XYC4S;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to the photos you specify to attach them to your DontGoThere. ";
+				INFOPLIST_KEY_NSCameraUsageDescription = "DontGoThere needs to access the camera so you can take photos to add to your places.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "DontGoThere needs to access your photo library for the images you provide to add them to your places.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

@@ -72,6 +72,8 @@ class LocationServiceController: NSObject, MKLocalSearchCompleterDelegate {
     }
   }
   
+  
+  
 }
 
 

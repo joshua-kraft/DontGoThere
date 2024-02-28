@@ -13,11 +13,20 @@ struct PhotoSectionView: View {
   @Bindable var place: Place
   @State private var isShowingPhotoPicker = false
   @State private var selectedPhotoItems = [PhotosPickerItem]()
+  
+  @State private var isShowingCamera = false
+  @State private var takenPhoto: UIImage?
 
   var body: some View {
     VStack {
       HStack(alignment: .bottom) {
         HeaderLabel("Photos")
+        
+        Spacer()
+        
+        Button("Take Photo", systemImage: "camera") {
+          isShowingCamera.toggle()
+        }
         
         Spacer()
         
@@ -31,6 +40,9 @@ struct PhotoSectionView: View {
       }
       
       PhotoCardScrollerView(place: place)
+    }
+    .fullScreenCover(isPresented: $isShowingCamera) {
+      AccessCameraView(takenPhoto: $takenPhoto)
     }
     .padding(.bottom)
   }
