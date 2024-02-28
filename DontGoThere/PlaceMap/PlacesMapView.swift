@@ -60,6 +60,13 @@ struct PlacesMapView: View {
               }
               
             }
+            .onTapGesture { position in
+              if let tappedCoordinate = proxy.convert(position, from: .local) {
+                if searchResults.isEmpty {
+                  addPlace(at: tappedCoordinate)
+                }
+              }
+            }
           }
           
           Text("Tap on the map to add a place at that location. Tap and hold on a place to view details or more.")
