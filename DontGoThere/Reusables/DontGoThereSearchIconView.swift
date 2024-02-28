@@ -18,21 +18,21 @@ struct DontGoThereSearchIconView: View {
     ZStack {
       
       Circle()
-        .fill(.orange)
+        .fill(.orange.gradient)
         .frame(width: width, height: height)
       
       Circle()
-        .fill(.blue)
+        .fill(.blue.gradient)
         .frame(width: width * 0.9, height: height * 0.9)
       
       Image(systemName: "mappin.and.ellipse")
         .resizable()
-        .foregroundStyle(.black)
+        .foregroundStyle(.black.gradient)
         .frame(width: width / 2, height: height / 2)
       
       Image(systemName: "plus")
         .resizable()
-        .foregroundStyle(.white)
+        .foregroundStyle(.white.gradient)
         .frame(width: width * 0.2, height: height * 0.2)
         .padding(.leading, width * 0.5)
         .padding(.bottom, height * 0.3)

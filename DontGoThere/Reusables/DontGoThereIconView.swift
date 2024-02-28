@@ -28,14 +28,14 @@ struct DontGoThereIconView: View {
   var body: some View {
     ZStack(alignment: .top) {
       InvertedTriangle()
-        .stroke(borderColor, style: StrokeStyle(lineWidth: 10, lineCap: .round, lineJoin: .round))
-        .fill(.yellow)
+        .stroke(borderColor.gradient, style: StrokeStyle(lineWidth: 10, lineCap: .round, lineJoin: .round))
+        .fill(.yellow.gradient)
         .frame(width: width, height: height)
       
       Image(systemName: "mappin.slash.circle")
         .resizable()
-        .background(.white)
-        .foregroundStyle(.black)
+        .background(.white.gradient)
+        .foregroundStyle(.black.gradient)
         .frame(width: width / 2, height: width / 2)
         .clipShape(.circle)
         .padding(.top, 2)
