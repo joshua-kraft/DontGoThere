@@ -12,6 +12,7 @@ struct PlaceMapSearchView: View {
 
   @State private var locationServiceController = LocationServiceController(completer: .init())
   @State private var searchText = ""
+  @FocusState private var isSearchFieldFocused: Bool
   @Binding var searchResults: [MapSearchResult]
   
   var body: some View {
@@ -19,6 +20,7 @@ struct PlaceMapSearchView: View {
       HStack {
         Image(systemName: "magnifyingglass")
         TextField("Search for a place...", text: $searchText)
+          .focused($isSearchFieldFocused)
           .autocorrectionDisabled()
           .onSubmit {
             Task {
@@ -49,9 +51,12 @@ struct PlaceMapSearchView: View {
       .scrollContentBackground(.hidden)
     }
     .padding()
-    .onAppear { locationServiceController.updateSearchResults(with: searchText) }
     .presentationDetents([.fraction(0.25), .large])
     .presentationBackgroundInteraction(.enabled(upThrough: .large))
+    .onAppear {
+      isSearchFieldFocused = true
+    }
+    .scrollDismissesKeyboard(.interactively)
   }
   
   func rowTapped(completion: MapSearchCompletion) {
