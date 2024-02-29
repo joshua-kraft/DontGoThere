@@ -29,7 +29,7 @@ struct DontGoThereIconView: View {
     ZStack(alignment: .top) {
       InvertedTriangle()
         .stroke(borderColor.gradient, style: StrokeStyle(lineWidth: 10, lineCap: .round, lineJoin: .round))
-        .fill(.yellow.gradient)
+        .fill(.yellow.gradient.shadow(.drop(radius: 15)))
         .frame(width: width, height: height)
       
       Image(systemName: "mappin.slash.circle")

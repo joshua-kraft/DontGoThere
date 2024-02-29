@@ -18,7 +18,7 @@ struct DontGoThereSearchIconView: View {
     ZStack {
       
       Circle()
-        .fill(.orange.gradient)
+        .fill(.orange.gradient.shadow(.drop(radius: 10)))
         .frame(width: width, height: height)
       
       Circle()
