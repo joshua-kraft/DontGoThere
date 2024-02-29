@@ -24,7 +24,7 @@ struct PlacesMapView: View {
   @State private var isShowingSearchSheet = false
   @State private var searchResults = [MapSearchResult]()
   
-  @State private var position = MapCameraPosition.userLocation(followsHeading: true, fallback: .automatic)
+  @State private var position = MapCameraPosition.userLocation(fallback: .automatic)
   
   var body: some View {
     NavigationStack(path: $path) {
@@ -32,6 +32,8 @@ struct PlacesMapView: View {
         ZStack(alignment: .top) {
           MapReader { proxy in
             Map(position: $position) {
+              
+              UserAnnotation()
               
               if showExistingPlaces {
                 ForEach(places.filter { !$0.isArchived }) { place in
