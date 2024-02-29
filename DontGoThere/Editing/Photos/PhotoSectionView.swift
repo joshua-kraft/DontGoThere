@@ -16,7 +16,7 @@ struct PhotoSectionView: View {
   
   @State private var isShowingCamera = false
   @State private var takenPhotoData: Data?
-
+  
   var body: some View {
     VStack {
       HStack(alignment: .bottom) {
@@ -24,14 +24,16 @@ struct PhotoSectionView: View {
         
         Spacer()
         
-        Button("Take Photo", systemImage: "camera") {
-          isShowingCamera.toggle()
-        }
-        
-        Spacer()
-        
-        PhotosPicker(selection: $selectedPhotoItems, maxSelectionCount: 6, matching: .any(of: [.images, .not(.screenshots)])) {
-          Label("Add Photos", systemImage: "photo.badge.plus")
+        Menu("Add Photos", systemImage: "photo.badge.plus") {
+          
+          Button("Take Photo...", systemImage: "camera") {
+            isShowingCamera.toggle()
+          }
+          
+          Button("Choose Photos...", systemImage: "photo.on.rectangle.angled") {
+            isShowingPhotoPicker.toggle()
+          }
+          
         }
       }
       .padding([.leading, .trailing])
@@ -41,6 +43,7 @@ struct PhotoSectionView: View {
       
       PhotoCardScrollerView(place: place)
     }
+    .photosPicker(isPresented: $isShowingPhotoPicker, selection: $selectedPhotoItems, matching: .any(of: [.images, .not(.screenshots)]))
     .fullScreenCover(isPresented: $isShowingCamera, onDismiss: {
       addTakenPhoto()
     }) {
