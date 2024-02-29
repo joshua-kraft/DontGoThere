@@ -9,13 +9,12 @@ import SwiftUI
 
 struct AccessCameraView: UIViewControllerRepresentable {
   
-  @Binding var takenPhoto: UIImage?
+  @Binding var takenPhotoData: Data?
   @Environment(\.dismiss) var dismiss
   
   func makeUIViewController(context: Context) -> UIImagePickerController {
     let imagePicker = UIImagePickerController()
     imagePicker.sourceType = .camera
-    imagePicker.allowsEditing = true
     imagePicker.delegate = context.coordinator
     return imagePicker
   }
@@ -40,7 +39,11 @@ struct AccessCameraView: UIViewControllerRepresentable {
         print("could not get image")
         return
       }
-      self.camera.takenPhoto = takenPhoto
+      guard let photoData = takenPhoto.heicData() else {
+        print("could not get photo data")
+        return
+      }
+      self.camera.takenPhotoData = photoData
       self.camera.dismiss()
     }
   }

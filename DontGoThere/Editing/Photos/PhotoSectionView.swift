@@ -43,6 +43,7 @@ struct PhotoSectionView: View {
     }
     .fullScreenCover(isPresented: $isShowingCamera) {
       AccessCameraView(takenPhoto: $takenPhoto)
+        .ignoresSafeArea()
     }
     .padding(.bottom)
   }
