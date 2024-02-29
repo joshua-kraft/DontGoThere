@@ -20,9 +20,7 @@ struct PlacesMapView: View {
   
   @State private var isShowingDeleteAlert = false
   @State private var deletedPlace: Place?
-    
-  @State private var position = MapCameraPosition.automatic
-  
+      
   @State private var isShowingSearchSheet = false
   @State private var searchResults = [MapSearchResult]()
   
@@ -31,7 +29,7 @@ struct PlacesMapView: View {
       VStack {
         ZStack(alignment: .top) {
           MapReader { proxy in
-            Map(position: $position) {
+            Map {
               if showExistingPlaces {
                 ForEach(places.filter { !$0.isArchived }) { place in
                   Annotation(place.name, coordinate: place.coordinate) {
