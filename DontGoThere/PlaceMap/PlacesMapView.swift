@@ -24,12 +24,15 @@ struct PlacesMapView: View {
   @State private var isShowingSearchSheet = false
   @State private var searchResults = [MapSearchResult]()
   
+  @State private var position = MapCameraPosition.userLocation(followsHeading: true, fallback: .automatic)
+  
   var body: some View {
     NavigationStack(path: $path) {
       VStack {
         ZStack(alignment: .top) {
           MapReader { proxy in
-            Map {
+            Map(position: $position) {
+              
               if showExistingPlaces {
                 ForEach(places.filter { !$0.isArchived }) { place in
                   Annotation(place.name, coordinate: place.coordinate) {
@@ -64,6 +67,7 @@ struct PlacesMapView: View {
                 }
               }
             }
+            .mapControlVisibility(.hidden)
           }
           
           Text("Tap on the map to add a place at that location. Tap and hold on a place to view details or more.")
