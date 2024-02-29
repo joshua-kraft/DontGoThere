@@ -87,7 +87,9 @@ struct PlacesMapView: View {
       .toolbar {
         ToolbarItem(placement: .topBarLeading) {
           Button(showExistingPlaces ? "Hide Existing" : "Show Existing") {
-            showExistingPlaces.toggle()
+            withAnimation {
+              showExistingPlaces.toggle()
+            }
           }
         }
         
@@ -96,7 +98,9 @@ struct PlacesMapView: View {
             isShowingSearchSheet.toggle()
           }
           .onChange(of: isShowingSearchSheet) {
-            showExistingPlaces = !isShowingSearchSheet
+            withAnimation {
+              showExistingPlaces = !isShowingSearchSheet
+            }
           }
 
           Button("Add Place", systemImage: "plus") {
