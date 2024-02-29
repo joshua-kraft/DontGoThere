@@ -24,7 +24,10 @@ struct PlaceMapSearchView: View {
           .autocorrectionDisabled()
           .onSubmit {
             Task {
-              searchResults = (try? await locationServiceController.performSearch(with: searchText)) ?? []
+              let results = (try? await locationServiceController.performSearch(with: searchText)) ?? []
+              withAnimation {
+                searchResults = results
+              }
             }
           }
       }
