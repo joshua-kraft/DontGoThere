@@ -52,7 +52,6 @@ struct PlacesMapView: View {
                   DontGoThereSearchIconView(width: 50, height: 50)
                     .tag(result)
                     .onTapGesture {
-                      searchResults = []
                       isShowingSearchSheet = false
                       addPlace(at: result.coordinate)
                     }
@@ -81,9 +80,11 @@ struct PlacesMapView: View {
       .navigationDestination(for: Place.self) { place in
         EditPlaceView(place: place)
       }
-      .sheet(isPresented: $isShowingSearchSheet) {
+      .sheet(isPresented: $isShowingSearchSheet, onDismiss: {
+        searchResults = []
+      }, content: {
         PlaceMapSearchView(searchResults: $searchResults)
-      }
+      })
       .toolbar {
         ToolbarItem(placement: .topBarLeading) {
           Button(showExistingPlaces ? "Hide Existing" : "Show Existing") {
