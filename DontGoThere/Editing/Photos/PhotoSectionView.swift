@@ -15,7 +15,7 @@ struct PhotoSectionView: View {
   @State private var selectedPhotoItems = [PhotosPickerItem]()
   
   @State private var isShowingCamera = false
-  @State private var takenPhoto: UIImage?
+  @State private var takenPhotoData: Data?
 
   var body: some View {
     VStack {
@@ -41,10 +41,13 @@ struct PhotoSectionView: View {
       
       PhotoCardScrollerView(place: place)
     }
-    .fullScreenCover(isPresented: $isShowingCamera) {
-      AccessCameraView(takenPhoto: $takenPhoto)
+    .fullScreenCover(isPresented: $isShowingCamera, onDismiss: {
+      addTakenPhoto()
+    }) {
+      AccessCameraView(takenPhotoData: $takenPhotoData)
         .ignoresSafeArea()
     }
+    
     .padding(.bottom)
   }
   
@@ -60,6 +63,12 @@ struct PhotoSectionView: View {
           }
         }
       }
+    }
+  }
+  
+  func addTakenPhoto() {
+    if let takenPhotoData {
+      place.imageData?.append(takenPhotoData)
     }
   }
 }
