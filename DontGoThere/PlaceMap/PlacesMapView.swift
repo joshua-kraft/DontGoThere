@@ -26,15 +26,16 @@ struct PlacesMapView: View {
   
   @State private var position = MapCameraPosition.userLocation(fallback: .automatic)
   
+  let notSearchingOverlayText = "Tap on the map to add a place at that location. Tap and hold on a place to view details, share, or delete."
+  let searchingOverlayText = "Tap on a seach result or marker to add a place at that location. End searching to show your current places."
+  
   var body: some View {
     NavigationStack(path: $path) {
       VStack {
         ZStack(alignment: .top) {
           MapReader { proxy in
             Map(position: $position) {
-              
-              UserAnnotation()
-              
+                            
               if showExistingPlaces {
                 ForEach(places.filter { !$0.isArchived }) { place in
                   Annotation(place.name, coordinate: place.coordinate) {
@@ -55,7 +56,9 @@ struct PlacesMapView: View {
                   DontGoThereSearchIconView(width: 50, height: 50)
                     .tag(result)
                     .onTapGesture {
-                      isShowingSearchSheet = false
+                      withAnimation {
+                        isShowingSearchSheet = false
+                      }
                       addPlace(at: result.coordinate)
                     }
                 }
@@ -69,10 +72,9 @@ struct PlacesMapView: View {
                 }
               }
             }
-            .mapControlVisibility(.hidden)
           }
           
-          Text("Tap on the map to add a place at that location. Tap and hold on a place to view details or more.")
+          Text(isShowingSearchSheet ? searchingOverlayText : notSearchingOverlayText)
             .frame(maxWidth: .infinity)
             .padding()
             .font(.subheadline.bold())
@@ -100,7 +102,9 @@ struct PlacesMapView: View {
         
         ToolbarItemGroup(placement: .topBarTrailing) {
           Button("Search", systemImage: "magnifyingglass") {
-            isShowingSearchSheet.toggle()
+            withAnimation {
+              isShowingSearchSheet.toggle()
+            }
           }
           .onChange(of: isShowingSearchSheet) {
             withAnimation {
