@@ -13,7 +13,7 @@
 		4238EFBB2B891CC100597B4A /* PlaceMinimapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4238EFBA2B891CC100597B4A /* PlaceMinimapView.swift */; };
 		4238EFBD2B891E2200597B4A /* PhotoSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4238EFBC2B891E2200597B4A /* PhotoSectionView.swift */; };
 		4238EFC02B89283300597B4A /* PlaceMapSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4238EFBF2B89283300597B4A /* PlaceMapSearchView.swift */; };
-		4238EFC32B893C5900597B4A /* LocationServiceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4238EFC22B893C5900597B4A /* LocationServiceController.swift */; };
+		4238EFC32B893C5900597B4A /* MapSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4238EFC22B893C5900597B4A /* MapSearchController.swift */; };
 		4238EFC52B8E591200597B4A /* DontGoThereSearchIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4238EFC42B8E591200597B4A /* DontGoThereSearchIconView.swift */; };
 		4238EFC72B8FCAE400597B4A /* AccessCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4238EFC62B8FCAE400597B4A /* AccessCameraView.swift */; };
 		42560A0B2B74292B0013FCF4 /* DontGoThereApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42560A0A2B74292B0013FCF4 /* DontGoThereApp.swift */; };
@@ -40,7 +40,7 @@
 		4238EFBA2B891CC100597B4A /* PlaceMinimapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceMinimapView.swift; sourceTree = "<group>"; };
 		4238EFBC2B891E2200597B4A /* PhotoSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSectionView.swift; sourceTree = "<group>"; };
 		4238EFBF2B89283300597B4A /* PlaceMapSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceMapSearchView.swift; sourceTree = "<group>"; };
-		4238EFC22B893C5900597B4A /* LocationServiceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServiceController.swift; sourceTree = "<group>"; };
+		4238EFC22B893C5900597B4A /* MapSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSearchController.swift; sourceTree = "<group>"; };
 		4238EFC42B8E591200597B4A /* DontGoThereSearchIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DontGoThereSearchIconView.swift; sourceTree = "<group>"; };
 		4238EFC62B8FCAE400597B4A /* AccessCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessCameraView.swift; sourceTree = "<group>"; };
 		42560A072B74292B0013FCF4 /* DontGoThere.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DontGoThere.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -104,7 +104,7 @@
 			children = (
 				42560A0A2B74292B0013FCF4 /* DontGoThereApp.swift */,
 				42560A0C2B74292B0013FCF4 /* ContentView.swift */,
-				4238EFC22B893C5900597B4A /* LocationServiceController.swift */,
+				4238EFC22B893C5900597B4A /* MapSearchController.swift */,
 				426BB6AD2B86AC5F00CBDA71 /* PlaceList */,
 				426BB6AF2B86AC8E00CBDA71 /* PlaceMap */,
 				426BB6B02B86ACD500CBDA71 /* Settings */,
@@ -271,7 +271,7 @@
 				42560A0D2B74292B0013FCF4 /* ContentView.swift in Sources */,
 				42560A1F2B7429960013FCF4 /* EditPlaceView.swift in Sources */,
 				4238EFC02B89283300597B4A /* PlaceMapSearchView.swift in Sources */,
-				4238EFC32B893C5900597B4A /* LocationServiceController.swift in Sources */,
+				4238EFC32B893C5900597B4A /* MapSearchController.swift in Sources */,
 				4238EFB72B891B2D00597B4A /* DetailSectionView.swift in Sources */,
 				42560A292B8078500013FCF4 /* Previewer.swift in Sources */,
 				42560A0B2B74292B0013FCF4 /* DontGoThereApp.swift in Sources */,

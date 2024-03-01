@@ -10,7 +10,7 @@ import SwiftUI
 
 struct PlaceMapSearchView: View {
 
-  @State private var locationServiceController = LocationServiceController(completer: .init())
+  @State private var mapSearchController = MapSearchController(completer: .init())
   @State private var searchText = ""
   @FocusState private var isSearchFieldFocused: Bool
   @Binding var searchResults: [MapSearchResult]
@@ -24,7 +24,7 @@ struct PlaceMapSearchView: View {
           .autocorrectionDisabled()
           .onSubmit {
             Task {
-              let results = (try? await locationServiceController.performSearch(with: searchText)) ?? []
+              let results = (try? await mapSearchController.performSearch(with: searchText)) ?? []
               withAnimation {
                 searchResults = results
               }
@@ -33,13 +33,13 @@ struct PlaceMapSearchView: View {
       }
       .modifier(SearchBarModifier())
       .onChange(of: searchText) {
-        locationServiceController.updateSearchResults(with: searchText)
+        mapSearchController.updateSearchResults(with: searchText)
       }
       .padding(.bottom)
       
       
       List {
-        ForEach(locationServiceController.searchCompletions) { completion in
+        ForEach(mapSearchController.searchCompletions) { completion in
           VStack(alignment: .leading) {
             Text(completion.name)
               .font(.headline)
@@ -64,7 +64,7 @@ struct PlaceMapSearchView: View {
   
   func rowTapped(completion: MapSearchCompletion) {
     Task {
-      if let tappedResult = try? await locationServiceController.performSearch(with: "\(completion.name) \(completion.address)").first {
+      if let tappedResult = try? await mapSearchController.performSearch(with: "\(completion.name) \(completion.address)").first {
         searchResults = [tappedResult]
       }
     }

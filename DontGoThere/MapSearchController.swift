@@ -1,5 +1,5 @@
 //
-//  LocationServiceController.swift
+//  MapSearchController.swift
 //  DontGoThere
 //
 //  Created by Joshua Kraft on 2/23/24.
@@ -29,7 +29,7 @@ struct MapSearchResult: Identifiable, Hashable {
 
 
 @Observable
-class LocationServiceController: NSObject, MKLocalSearchCompleterDelegate {
+class MapSearchController: NSObject, MKLocalSearchCompleterDelegate {
   let completer: MKLocalSearchCompleter
   
   var searchCompletions = [MapSearchCompletion]()
