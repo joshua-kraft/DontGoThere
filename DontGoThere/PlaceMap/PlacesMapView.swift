@@ -14,6 +14,7 @@ struct PlacesMapView: View {
   @Query var places: [Place]
   @Environment(\.modelContext) var modelContext
   @EnvironmentObject var appSettings: AppSettings
+  @EnvironmentObject var locationServicesController: LocationServicesController
   
   @State private var showExistingPlaces = true
   @State private var path = [Place]()
@@ -37,6 +38,10 @@ struct PlacesMapView: View {
         MapReader { proxy in
           ZStack(alignment: .bottomTrailing) {
             Map(position: $position, scope: mapScope) {
+              
+              UserAnnotation()
+              
+              
               if showExistingPlaces {
                 ForEach(places.filter { !$0.isArchived }) { place in
                   Annotation(place.name, coordinate: place.coordinate) {
@@ -64,6 +69,10 @@ struct PlacesMapView: View {
                     }
                 }
               }
+              
+            }
+            .onAppear {
+              locationServicesController.checkIfLocationServicesEnabled()
             }
             .onTapGesture { position in
               if let tappedCoordinate = proxy.convert(position, from: .local) {
@@ -83,10 +92,8 @@ struct PlacesMapView: View {
             
             VStack {
               MapUserLocationButton(scope: mapScope)
-              MapCompass(scope: mapScope)
-                .mapControlVisibility(.visible)
             }
-            .padding(.trailing, 10)
+            .padding([.bottom, .trailing], 10)
             .buttonBorderShape(.circle)
           }
           .mapScope(mapScope)
@@ -173,6 +180,7 @@ struct PlacesMapView: View {
     return PlacesMapView()
       .modelContainer(previewer.container)
       .environmentObject(AppSettings.defaultSettings)
+      .environmentObject(LocationServicesController())
   } catch {
     return Text("Could not create preview: \(error.localizedDescription)")
   }

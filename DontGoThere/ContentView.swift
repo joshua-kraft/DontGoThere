@@ -11,6 +11,7 @@ import SwiftUI
 struct ContentView: View {
   
   @StateObject var appSettings = AppSettings.loadSettings()
+  @StateObject var locationServicesController = LocationServicesController()
   
   var body: some View {
     TabView {
@@ -30,6 +31,7 @@ struct ContentView: View {
         }
     }
     .environmentObject(appSettings)
+    .environmentObject(locationServicesController)
   }
 }
 

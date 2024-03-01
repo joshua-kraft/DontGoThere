@@ -416,7 +416,9 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "DontGoThere needs to access the camera so you can take photos to add to your places.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "DontGoThere needs your location in order to show your current location, add places at your current location and notify you not to go to a place as you approach.";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "DontGoThere needs your location in order to show your current location, add places at your current location and notify you not to go to a place as you approach.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "DontGoThere needs your location in order to show your current location, add places at your current location and notify you not to go to a place as you approach.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "DontGoThere needs to access your photo library for the images you provide to add them to your places.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -449,7 +451,9 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "DontGoThere needs to access the camera so you can take photos to add to your places.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "DontGoThere needs your location in order to show your current location, add places at your current location and notify you not to go to a place as you approach.";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "DontGoThere needs your location in order to show your current location, add places at your current location and notify you not to go to a place as you approach.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "DontGoThere needs your location in order to show your current location, add places at your current location and notify you not to go to a place as you approach.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "DontGoThere needs to access your photo library for the images you provide to add them to your places.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
