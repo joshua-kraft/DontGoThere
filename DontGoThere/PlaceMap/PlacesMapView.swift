@@ -24,7 +24,7 @@ struct PlacesMapView: View {
   @State private var isShowingSearchSheet = false
   @State private var searchResults = [MapSearchResult]()
   
-  @State private var position = MapCameraPosition.userLocation(fallback: .automatic)
+  @State private var position: MapCameraPosition = .userLocation(fallback: .automatic)
   
   let notSearchingOverlayText = "Tap on the map to add a place at that location. Tap and hold on a place to view details, share, or delete."
   let searchingOverlayText = "Tap on a seach result or marker to add a place at that location. End searching to show your current places."
@@ -72,8 +72,9 @@ struct PlacesMapView: View {
                 }
               }
             }
-          }
-          
+          }          
+        }
+        .safeAreaInset(edge: .top) {
           Text(isShowingSearchSheet ? searchingOverlayText : notSearchingOverlayText)
             .frame(maxWidth: .infinity)
             .padding()
