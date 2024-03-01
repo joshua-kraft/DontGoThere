@@ -40,8 +40,11 @@ class MapSearchController: NSObject, MKLocalSearchCompleterDelegate {
     self.completer.delegate = self
   }
   
-  func updateSearchResults(with queryFragment: String) {
+  func updateSearchResults(with queryFragment: String, in region: MKCoordinateRegion? = nil) {
     completer.resultTypes = .pointOfInterest
+    if let region {
+      completer.region = region
+    }
     completer.queryFragment = queryFragment
   }
   
@@ -51,15 +54,12 @@ class MapSearchController: NSObject, MKLocalSearchCompleterDelegate {
     }
   }
   
-  func performSearch(with searchText: String, coordinate: CLLocationCoordinate2D? = nil) async throws -> [MapSearchResult] {
+  func performSearch(with searchText: String, in region: MKCoordinateRegion? = nil) async throws -> [MapSearchResult] {
     let searchRequest = MKLocalSearch.Request()
     searchRequest.naturalLanguageQuery = searchText
     searchRequest.resultTypes = .pointOfInterest
-    if let coordinate {
-      searchRequest.region = MKCoordinateRegion(
-        center: coordinate,
-        span: MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1)
-      )
+    if let region {
+      searchRequest.region = region
     }
     let search = MKLocalSearch(request: searchRequest)
     

@@ -25,6 +25,7 @@ struct PlacesMapView: View {
   @State private var searchResults = [MapSearchResult]()
   
   @State private var position: MapCameraPosition = .userLocation(fallback: .automatic)
+  @State private var visibleRegion: MKCoordinateRegion?
   
   let notSearchingOverlayText = "Tap on the map to add a place at that location. Tap and hold on a place to view details, share, or delete."
   let searchingOverlayText = "Tap on a seach result or marker to add a place at that location. End searching to show your current places."
@@ -92,10 +93,13 @@ struct PlacesMapView: View {
           position = .automatic
         }
       }
+      .onMapCameraChange { context in
+        visibleRegion = context.region
+      }
       .sheet(isPresented: $isShowingSearchSheet, onDismiss: {
         searchResults = []
       }, content: {
-        PlaceMapSearchView(searchResults: $searchResults)
+        PlaceMapSearchView(searchResults: $searchResults, visibleRegion: $visibleRegion)
       })
       .toolbar {
         ToolbarItem(placement: .topBarLeading) {

@@ -14,6 +14,7 @@ struct PlaceMapSearchView: View {
   @State private var searchText = ""
   @FocusState private var isSearchFieldFocused: Bool
   @Binding var searchResults: [MapSearchResult]
+  @Binding var visibleRegion: MKCoordinateRegion?
   
   var body: some View {
     VStack {
@@ -24,7 +25,7 @@ struct PlaceMapSearchView: View {
           .autocorrectionDisabled()
           .onSubmit {
             Task {
-              let results = (try? await mapSearchController.performSearch(with: searchText)) ?? []
+              let results = (try? await mapSearchController.performSearch(with: searchText, in: visibleRegion)) ?? []
               withAnimation {
                 searchResults = results
               }
@@ -33,7 +34,7 @@ struct PlaceMapSearchView: View {
       }
       .modifier(SearchBarModifier())
       .onChange(of: searchText) {
-        mapSearchController.updateSearchResults(with: searchText)
+        mapSearchController.updateSearchResults(with: searchText, in: visibleRegion)
       }
       .padding(.bottom)
       
@@ -64,7 +65,7 @@ struct PlaceMapSearchView: View {
   
   func rowTapped(completion: MapSearchCompletion) {
     Task {
-      if let tappedResult = try? await mapSearchController.performSearch(with: "\(completion.name) \(completion.address)").first {
+      if let tappedResult = try? await mapSearchController.performSearch(with: "\(completion.name) \(completion.address)", in: visibleRegion).first {
         searchResults = [tappedResult]
       }
     }
@@ -82,5 +83,5 @@ struct SearchBarModifier: ViewModifier {
 }
 
 #Preview {
-  PlaceMapSearchView(searchResults: .constant([]))
+  PlaceMapSearchView(searchResults: .constant([]), visibleRegion: .constant(MKCoordinateRegion()))
 }
