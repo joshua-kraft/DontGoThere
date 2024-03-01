@@ -33,44 +33,41 @@ struct PlacesMapView: View {
   var body: some View {
     NavigationStack(path: $path) {
       VStack {
-        ZStack(alignment: .top) {
-          MapReader { proxy in
-            Map(position: $position) {
-              
-              if showExistingPlaces {
-                ForEach(places.filter { !$0.isArchived }) { place in
-                  Annotation(place.name, coordinate: place.coordinate) {
-                    DontGoThereIconView(width: 40, height: 32)
-                      .contextMenu {
-                        Button("Show Details", systemImage: "list.dash") { path.append(place) }
-                        Button("Delete", systemImage: "trash", role: .destructive) {
-                          deletedPlace = place
-                          isShowingDeleteAlert = true
-                        }
+        MapReader { proxy in
+          Map(position: $position) {
+            if showExistingPlaces {
+              ForEach(places.filter { !$0.isArchived }) { place in
+                Annotation(place.name, coordinate: place.coordinate) {
+                  DontGoThereIconView(width: 40, height: 32)
+                    .contextMenu {
+                      Button("Show Details", systemImage: "list.dash") { path.append(place) }
+                      Button("Delete", systemImage: "trash", role: .destructive) {
+                        deletedPlace = place
+                        isShowingDeleteAlert = true
                       }
-                  }
-                }
-              }
-              
-              ForEach(searchResults) { result in
-                Annotation("Name", coordinate: result.coordinate) {
-                  DontGoThereSearchIconView(width: 50, height: 50)
-                    .tag(result)
-                    .onTapGesture {
-                      withAnimation {
-                        isShowingSearchSheet = false
-                      }
-                      addPlace(at: result.coordinate)
                     }
                 }
               }
-              
             }
-            .onTapGesture { position in
-              if let tappedCoordinate = proxy.convert(position, from: .local) {
-                if searchResults.isEmpty {
-                  addPlace(at: tappedCoordinate)
-                }
+            
+            ForEach(searchResults) { result in
+              Annotation("Name", coordinate: result.coordinate) {
+                DontGoThereSearchIconView(width: 50, height: 50)
+                  .tag(result)
+                  .onTapGesture {
+                    withAnimation {
+                      isShowingSearchSheet = false
+                    }
+                    addPlace(at: result.coordinate)
+                  }
+              }
+            }
+            
+          }
+          .onTapGesture { position in
+            if let tappedCoordinate = proxy.convert(position, from: .local) {
+              if searchResults.isEmpty {
+                addPlace(at: tappedCoordinate)
               }
             }
           }
