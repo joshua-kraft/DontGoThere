@@ -54,7 +54,7 @@ struct PlaceMapSearchView: View {
       .scrollContentBackground(.hidden)
     }
     .padding()
-    .presentationDetents([.fraction(0.25), .large])
+    .presentationDetents([.fraction(0.20), .large])
     .presentationBackgroundInteraction(.enabled(upThrough: .large))
     .onAppear {
       isSearchFieldFocused = true

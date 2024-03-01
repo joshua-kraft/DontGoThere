@@ -10,7 +10,7 @@ import SwiftData
 import SwiftUI
 
 struct PlacesMapView: View {
-    
+  
   @Query var places: [Place]
   @Environment(\.modelContext) var modelContext
   @EnvironmentObject var appSettings: AppSettings
@@ -20,7 +20,7 @@ struct PlacesMapView: View {
   
   @State private var isShowingDeleteAlert = false
   @State private var deletedPlace: Place?
-      
+  
   @State private var isShowingSearchSheet = false
   @State private var searchResults = [MapSearchResult]()
   
@@ -35,7 +35,7 @@ struct PlacesMapView: View {
         ZStack(alignment: .top) {
           MapReader { proxy in
             Map(position: $position) {
-                            
+              
               if showExistingPlaces {
                 ForEach(places.filter { !$0.isArchived }) { place in
                   Annotation(place.name, coordinate: place.coordinate) {
@@ -72,7 +72,7 @@ struct PlacesMapView: View {
                 }
               }
             }
-          }          
+          }
         }
         .safeAreaInset(edge: .top) {
           Text(isShowingSearchSheet ? searchingOverlayText : notSearchingOverlayText)
@@ -86,6 +86,11 @@ struct PlacesMapView: View {
       .navigationTitle("PlaceMap")
       .navigationDestination(for: Place.self) { place in
         EditPlaceView(place: place)
+      }
+      .onChange(of: searchResults) {
+        withAnimation {
+          position = .automatic
+        }
       }
       .sheet(isPresented: $isShowingSearchSheet, onDismiss: {
         searchResults = []
@@ -112,7 +117,7 @@ struct PlacesMapView: View {
               showExistingPlaces = !isShowingSearchSheet
             }
           }
-
+          
           Button("Add Place", systemImage: "plus") {
             addPlace()
           }
@@ -128,11 +133,11 @@ struct PlacesMapView: View {
       } message: {
         Text("Are you sure?")
       }
-
-
+      
+      
     }
   }
-
+  
   func addPlace(at location: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 30.5788, longitude: -97.8531)) {
     let newPlace = Place(
       name: "",
