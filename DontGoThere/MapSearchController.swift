@@ -17,6 +17,8 @@ struct MapSearchCompletion: Identifiable {
 struct MapSearchResult: Identifiable, Hashable {
   let id = UUID()
   let coordinate: CLLocationCoordinate2D
+  let name: String
+  let address: Address
   
   static func ==(lhs: MapSearchResult, rhs: MapSearchResult) -> Bool {
     lhs.id == rhs.id
@@ -31,7 +33,6 @@ struct MapSearchResult: Identifiable, Hashable {
 @Observable
 class MapSearchController: NSObject, MKLocalSearchCompleterDelegate {
   let completer: MKLocalSearchCompleter
-  
   var searchCompletions = [MapSearchCompletion]()
   
   init(completer: MKLocalSearchCompleter) {
@@ -53,7 +54,7 @@ class MapSearchController: NSObject, MKLocalSearchCompleterDelegate {
       MapSearchCompletion(name: $0.title, address: $0.subtitle)
     }
   }
-  
+    
   func performSearch(with searchText: String, in region: MKCoordinateRegion? = nil) async throws -> [MapSearchResult] {
     let searchRequest = MKLocalSearch.Request()
     searchRequest.naturalLanguageQuery = searchText
@@ -67,8 +68,9 @@ class MapSearchController: NSObject, MKLocalSearchCompleterDelegate {
     
     return response.mapItems.compactMap { mapItem in
       guard let coordinate = mapItem.placemark.location?.coordinate else { return nil }
-      
-      return MapSearchResult(coordinate: coordinate)
+      guard let address = Address(from: mapItem.placemark) else { return nil }
+      guard let name = mapItem.name else { return nil }
+      return MapSearchResult(coordinate: coordinate, name: name, address: address)
     }
   }
   
