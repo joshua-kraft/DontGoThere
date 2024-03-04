@@ -32,6 +32,9 @@ struct ContentView: View {
     }
     .environmentObject(appSettings)
     .environmentObject(locationServicesController)
+    .onAppear {
+      locationServicesController.checkLocationAuth()
+    }
   }
 }
 

@@ -71,9 +71,6 @@ struct PlacesMapView: View {
               }
               
             }
-            .onAppear {
-              locationServicesController.checkLocationAuth()
-            }
             .onTapGesture { position in
               if let tappedCoordinate = proxy.convert(position, from: .local) {
                 if searchResults.isEmpty {
@@ -138,7 +135,7 @@ struct PlacesMapView: View {
           }
           
           Button("Add Place", systemImage: "plus") {
-            addPlace()
+            addPlace(at: locationServicesController.locationManager?.location?.coordinate)
           }
         }
       }
@@ -157,19 +154,23 @@ struct PlacesMapView: View {
     }
   }
   
-  func addPlace(at location: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 30.5788, longitude: -97.8531)) {
-    let newPlace = Place(
-      name: "",
-      review: "",
-      latitude: location.latitude,
-      longitude: location.longitude,
-      addDate: Date.now,
-      expirationDate: appSettings.neverExpire ? Date.distantFuture : appSettings.getExpiryDate(from: Date.now),
-      shouldExpire: !appSettings.neverExpire,
-      imageData: []
-    )
-    modelContext.insert(newPlace)
-    path.append(newPlace)
+  func addPlace(at location: CLLocationCoordinate2D? = nil) {
+    if let location {
+      let newPlace = Place(
+        name: "",
+        review: "",
+        latitude: location.latitude,
+        longitude: location.longitude,
+        addDate: Date.now,
+        expirationDate: appSettings.neverExpire ? Date.distantFuture : appSettings.getExpiryDate(from: Date.now),
+        shouldExpire: !appSettings.neverExpire,
+        imageData: []
+      )
+      modelContext.insert(newPlace)
+      path.append(newPlace)
+    } else {
+      print("could not get location to add")
+    }
   }
 }
 

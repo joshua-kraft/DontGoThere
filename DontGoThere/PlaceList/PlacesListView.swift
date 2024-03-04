@@ -16,6 +16,7 @@ struct PlacesListView: View {
   
   @Environment(\.modelContext) var modelContext
   @EnvironmentObject var appSettings: AppSettings
+  @EnvironmentObject var locationServicesController: LocationServicesController
   
   @State private var path = [Place]()
   @State private var searchText = ""
@@ -98,18 +99,22 @@ struct PlacesListView: View {
   }
   
   func addPlace() {
-    let newPlace = Place(
-      name: "",
-      review: "",
-      latitude: 30.5532,
-      longitude: -97.8422,
-      addDate: Date.now,
-      expirationDate: appSettings.neverExpire ? Date.distantFuture : appSettings.getExpiryDate(from: Date.now),
-      shouldExpire: !appSettings.neverExpire,
-      imageData: []
-    )
-    modelContext.insert(newPlace)
-    path.append(newPlace)
+    if let coordinate = locationServicesController.locationManager?.location?.coordinate {
+      let newPlace = Place(
+        name: "",
+        review: "",
+        latitude: coordinate.latitude,
+        longitude: coordinate.longitude,
+        addDate: Date.now,
+        expirationDate: appSettings.neverExpire ? Date.distantFuture : appSettings.getExpiryDate(from: Date.now),
+        shouldExpire: !appSettings.neverExpire,
+        imageData: []
+      )
+      modelContext.insert(newPlace)
+      path.append(newPlace)
+    } else {
+      print("could not get location to add")
+    }
   }
   
 }

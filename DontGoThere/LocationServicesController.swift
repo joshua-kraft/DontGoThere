@@ -20,6 +20,7 @@ class LocationServicesController: NSObject, CLLocationManagerDelegate, Observabl
       // This will call the delegate method which will in turn call this method and pass through this guard statement.
       locationManager = CLLocationManager()
       locationManager!.desiredAccuracy = kCLLocationAccuracyBest
+      locationManager!.distanceFilter = kCLDistanceFilterNone
       locationManager!.delegate = self
       return
     }
