@@ -8,7 +8,7 @@
 import Foundation
 import MapKit
 
-struct Address {
+struct Address: Codable {
   let streetNumber: String
   let streetName: String
   let city: String
@@ -16,6 +16,14 @@ struct Address {
   let zip: String
   var printableAddress: String {
     "\(streetNumber) \(streetName)\n\(city), \(state) \(zip)"
+  }
+
+  init(streetNumber: String, streetName: String, city: String, state: String, zip: String) {
+    self.streetNumber = streetNumber
+    self.streetName = streetName
+    self.city = city
+    self.state = state
+    self.zip = zip
   }
   
   init?(from placemark: MKPlacemark) {
@@ -30,4 +38,5 @@ struct Address {
     self.state = state
     self.zip = zip
   }
+
 }
