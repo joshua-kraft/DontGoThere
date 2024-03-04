@@ -133,6 +133,7 @@ struct PlacesListView: View {
     return PlacesListView()
       .modelContainer(previewer.container)
       .environmentObject(AppSettings.defaultSettings)
+      .environmentObject(LocationServicesController())
   } catch {
     return Text("Failed to create preview: \(error.localizedDescription)")
   }
