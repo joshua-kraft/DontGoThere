@@ -17,7 +17,7 @@ enum TimeUnit: String, CaseIterable, Codable {
 
 class AppSettings: ObservableObject, Codable {
   
-  static let defaultSettings = AppSettings(neverExpire: false, autoExpiryValue: 3, autoExpiryUnit: .months, autoExpiryInterval: 90.0 * 86400, neverDelete: false, autoDeletionValue: 1, autoDeletionUnit: .months, autoDeletionInterval: 30.0 * 86400, noNotificationLimit: false, maxNotificationCount: 10)
+  static let defaultSettings = AppSettings(neverExpire: false, autoExpiryValue: 3, autoExpiryUnit: .months, neverDelete: false, autoDeletionValue: 1, autoDeletionUnit: .months, noNotificationLimit: false, maxNotificationCount: 10)
   
   let calendar = Calendar.autoupdatingCurrent
   
@@ -33,7 +33,7 @@ class AppSettings: ObservableObject, Codable {
   @Published var maxNotificationCount: Int { didSet { saveSettings() } }
   
     
-  init(neverExpire: Bool, autoExpiryValue: Int, autoExpiryUnit: TimeUnit, autoExpiryInterval: Double, neverDelete: Bool, autoDeletionValue: Int, autoDeletionUnit: TimeUnit, autoDeletionInterval: Double, noNotificationLimit: Bool, maxNotificationCount: Int) {
+  init(neverExpire: Bool, autoExpiryValue: Int, autoExpiryUnit: TimeUnit, neverDelete: Bool, autoDeletionValue: Int, autoDeletionUnit: TimeUnit, noNotificationLimit: Bool, maxNotificationCount: Int) {
     self.neverExpire = neverExpire
     self.autoExpiryValue = autoExpiryValue
     self.autoExpiryUnit = autoExpiryUnit
@@ -90,11 +90,9 @@ class AppSettings: ObservableObject, Codable {
     case neverExpire
     case autoExpiryValue
     case autoExpiryUnit
-    case autoExpiryInterval
     case neverDelete
     case autoDeletionValue
     case autoDeletionUnit
-    case autoDeletionInterval
     case noNotificationLimit
     case maxNotificationCount
   }
