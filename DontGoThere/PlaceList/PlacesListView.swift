@@ -5,6 +5,7 @@
 //  Created by Joshua Kraft on 2/7/24.
 //
 
+import CoreLocation
 import SwiftData
 import SwiftUI
 
@@ -32,9 +33,14 @@ struct PlacesListView: View {
           ContentUnavailableView {
             DontGoThereUnavailableLabel("No Places Added")
           } description: {
-            Text("You haven't added any places yet.")
+            var text: String {
+              "You haven't added any places yet. \(locationServicesController.locationAuthorized ? "" : "Go to the PlaceMap to add your first Place.")"
+            }
+            Text(text)
           } actions: {
-            Button("Add First Place", action: addPlace)
+            if locationServicesController.locationAuthorized {
+              Button("Add First Place", action: addPlace)
+            }
           }
         } else {
           Picker("Active/Archived", selection: $listType) {
@@ -90,7 +96,9 @@ struct PlacesListView: View {
             }
             
             if listType == .active {
-              Button("Add Place", systemImage: "plus", action: addPlace)
+              if locationServicesController.locationAuthorized {
+                Button("Add Place", systemImage: "plus", action: addPlace)
+              }
             }
           }
         }
@@ -116,7 +124,7 @@ struct PlacesListView: View {
       print("could not get location to add")
     }
   }
-  
+    
 }
 
 #Preview {

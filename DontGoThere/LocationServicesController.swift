@@ -20,6 +20,10 @@ class LocationServicesController: NSObject, CLLocationManagerDelegate, Observabl
   
   var locationManager: CLLocationManager?
   let allowedLocationAuths: [CLAuthorizationStatus] = [.authorizedAlways, .authorizedWhenInUse]
+  var locationAuthorized: Bool {
+    guard let locationManager else { return false }
+    return allowedLocationAuths.contains(locationManager.authorizationStatus)
+  }
   
   func checkLocationAuth() {
     guard let locationManager = locationManager else {
@@ -54,14 +58,7 @@ class LocationServicesController: NSObject, CLLocationManagerDelegate, Observabl
     }
     
   }
-  
-  func locationIsAuthorized() -> Bool {
-    guard let locationManager else {
-      return false
-    }
-    return allowedLocationAuths.contains(locationManager.authorizationStatus)
-  }
-  
+    
   func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
     checkLocationAuth()
   }

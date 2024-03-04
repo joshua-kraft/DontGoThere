@@ -39,7 +39,7 @@ struct PlacesMapView: View {
           ZStack(alignment: .bottomTrailing) {
             Map(position: $position, scope: mapScope) {
               
-              if locationServicesController.locationIsAuthorized() {
+              if locationServicesController.locationAuthorized {
                 UserAnnotation()
               }
               
@@ -88,7 +88,7 @@ struct PlacesMapView: View {
                 .multilineTextAlignment(.center)
             }
             
-            if locationServicesController.locationIsAuthorized() {
+            if locationServicesController.locationAuthorized {
               VStack {
                 MapUserLocationButton(scope: mapScope)
               }
@@ -137,7 +137,7 @@ struct PlacesMapView: View {
             }
           }
           
-          if locationServicesController.locationIsAuthorized() {
+          if locationServicesController.locationAuthorized {
             Button("Add Place", systemImage: "plus") {
               addPlace(at: locationServicesController.locationManager?.location?.coordinate)
             }
