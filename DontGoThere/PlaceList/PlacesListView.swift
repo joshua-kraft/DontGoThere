@@ -112,6 +112,7 @@ struct PlacesListView: View {
         review: "",
         latitude: coordinate.latitude,
         longitude: coordinate.longitude,
+        address: Address(streetNumber: "123", streetName: "Placeholder St", city: "City", state: "State", zip: "12345"),
         addDate: Date.now,
         expirationDate: appSettings.neverExpire ? Date.distantFuture : appSettings.getExpiryDate(from: Date.now),
         shouldExpire: !appSettings.neverExpire,
