@@ -40,7 +40,7 @@ struct PlaceMinimapView: View {
     MapCameraPosition.region(
       MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude),
-        span: MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001))
+        span: MKCoordinateSpan(latitudeDelta: 0.002, longitudeDelta: 0.002))
     )
   }
 }
