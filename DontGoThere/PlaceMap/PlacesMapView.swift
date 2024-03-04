@@ -72,7 +72,7 @@ struct PlacesMapView: View {
               
             }
             .onAppear {
-              locationServicesController.checkIfLocationServicesEnabled()
+              locationServicesController.checkLocationAuth()
             }
             .onTapGesture { position in
               if let tappedCoordinate = proxy.convert(position, from: .local) {
