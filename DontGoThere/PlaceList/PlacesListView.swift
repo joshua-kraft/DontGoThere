@@ -5,7 +5,6 @@
 //  Created by Joshua Kraft on 2/7/24.
 //
 
-import CoreLocation
 import SwiftData
 import SwiftUI
 
