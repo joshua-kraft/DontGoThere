@@ -32,8 +32,8 @@ class Place: Identifiable {
   var coordinate: CLLocationCoordinate2D {
     CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
   }
-  
-  // TODO: add geofencing values
+
+  var address: Address
   
   var addDate: Date
   var expirationDate: Date
@@ -51,11 +51,12 @@ class Place: Identifiable {
   
   var isArchived: Bool
   
-  init(name: String, review: String, latitude: Double, longitude: Double, addDate: Date, expirationDate: Date, shouldExpire: Bool = true, imageData: [Data]? = nil, isArchived: Bool = false) {
+  init(name: String, review: String, latitude: Double, longitude: Double, address: Address, addDate: Date, expirationDate: Date, shouldExpire: Bool = true, imageData: [Data]? = nil, isArchived: Bool = false) {
     self.name = name
     self.review = review
     self.latitude = latitude
     self.longitude = longitude
+    self.address = address
     self.addDate = addDate
     self.expirationDate = expirationDate
     self.shouldExpire = shouldExpire
