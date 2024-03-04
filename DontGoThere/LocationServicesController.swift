@@ -12,7 +12,7 @@ import SwiftUI
 
 extension Notification.Name {
   static let locationPermissionsDenied = Notification.Name("locationPermissionsDenied")
-  static let locationPermissionAuthorizedWhenInUse = Notification.Name("locationPermissionAuthorizedWhenInUse")
+  static let locationPermissionsAuthorizedWhenInUse = Notification.Name("locationPermissionAuthorizedWhenInUse")
   static let locationPermissionsRestricted = Notification.Name("locationPermissionsRestricted")
 }
 
@@ -48,7 +48,7 @@ class LocationServicesController: NSObject, CLLocationManagerDelegate, Observabl
       // this is the status we want - we don't need to do anything else
       break
     case .authorizedWhenInUse:
-      NotificationCenter.default.post(name: .locationPermissionAuthorizedWhenInUse, object: nil)
+      NotificationCenter.default.post(name: .locationPermissionsAuthorizedWhenInUse, object: nil)
     case .authorized:
       // this is a deprecated status replaced by authorizedAlways
       break

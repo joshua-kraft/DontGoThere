@@ -59,7 +59,7 @@ struct ContentView: View {
     } message: {
       Text("Denying location services means that DontGoThere won't be able to add places at your current location, show your location to you on the PlaceMap, or notify you if you approach one of your places.")
     }
-    .onReceive(NotificationCenter.default.publisher(for: .locationPermissionAuthorizedWhenInUse)) { _ in
+    .onReceive(NotificationCenter.default.publisher(for: .locationPermissionsAuthorizedWhenInUse)) { _ in
       if locationServicesAllowedInUseOnlyAlertCount == 0 {
         locationServicesAllowedInUseOnlyAlertCount += 1
         isShowingLocationServicesAllowedInUseAlert.toggle()
