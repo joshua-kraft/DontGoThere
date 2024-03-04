@@ -25,10 +25,12 @@ struct PlaceMapSearchView: View {
           .focused($isSearchFieldFocused)
           .autocorrectionDisabled()
           .onSubmit {
-            Task {
-              let results = (try? await mapSearchController.performSearch(with: searchText, in: visibleRegion)) ?? []
-              withAnimation {
-                searchResults = results
+            if mapSearchController.searchCompletions.isEmpty == false {
+              Task {
+                let results = (try? await mapSearchController.performSearch(with: searchText, in: visibleRegion)) ?? []
+                withAnimation {
+                  searchResults = results
+                }
               }
             }
           }
