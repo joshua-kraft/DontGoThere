@@ -27,12 +27,12 @@ struct ContentView: View {
     TabView {
       PlacesListView()
         .tabItem {
-          Label("List", systemImage: "list.triangle")
+          Label("PlaceList", systemImage: "list.triangle")
         }
       
       PlacesMapView()
         .tabItem {
-          Label("Map", systemImage: "map")
+          Label("PlaceMap", systemImage: "map")
         }
       
       SettingsView()
