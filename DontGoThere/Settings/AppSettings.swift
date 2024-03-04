@@ -53,17 +53,24 @@ class AppSettings: ObservableObject, Codable {
         return AppSettings.defaultSettings
       }
     } else {
-      print("Could not load data from UserDefaults")
+      print("Could not load data from UserDefaults, saving default settings")
+      saveDefaultSettings()
       return AppSettings.defaultSettings
     }
   }
   
+  static func saveDefaultSettings() {
+    if let encodedData = try? JSONEncoder().encode(AppSettings.defaultSettings) {
+      UserDefaults.standard.setValue(encodedData, forKey: "DontGoThereSettings")
+    }
+  }
+
   func saveSettings() {
     if let encodedData = try? JSONEncoder().encode(self) {
       UserDefaults.standard.setValue(encodedData, forKey: "DontGoThereSettings")
     }
   }
-  
+    
   func getExpiryDate(from addDate: Date) -> Date {
     switch autoExpiryUnit {
     case .days:
