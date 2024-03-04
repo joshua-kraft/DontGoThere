@@ -32,6 +32,7 @@
 		426BB6B52B87CFFC00CBDA71 /* PhotoSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426BB6B42B87CFFC00CBDA71 /* PhotoSheetView.swift */; };
 		426BB6B72B87D41200CBDA71 /* ZoomableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426BB6B62B87D41200CBDA71 /* ZoomableScrollView.swift */; };
 		42F0ED462B92344100105CB1 /* LocationServicesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F0ED452B92344100105CB1 /* LocationServicesController.swift */; };
+		42FD8B6C2B967411009DFAE8 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FD8B6B2B967411009DFAE8 /* Address.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +62,7 @@
 		426BB6B42B87CFFC00CBDA71 /* PhotoSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSheetView.swift; sourceTree = "<group>"; };
 		426BB6B62B87D41200CBDA71 /* ZoomableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomableScrollView.swift; sourceTree = "<group>"; };
 		42F0ED452B92344100105CB1 /* LocationServicesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServicesController.swift; sourceTree = "<group>"; };
+		42FD8B6B2B967411009DFAE8 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				42560A1A2B7429410013FCF4 /* Place.swift */,
+				42FD8B6B2B967411009DFAE8 /* Address.swift */,
 				42560A282B8078500013FCF4 /* Previewer.swift */,
 			);
 			path = Models;
@@ -262,6 +265,7 @@
 				4238EFC72B8FCAE400597B4A /* AccessCameraView.swift in Sources */,
 				42560A272B7F1F210013FCF4 /* PlacesList.swift in Sources */,
 				42560A252B7D3D170013FCF4 /* SettingsView.swift in Sources */,
+				42FD8B6C2B967411009DFAE8 /* Address.swift in Sources */,
 				4238EFBD2B891E2200597B4A /* PhotoSectionView.swift in Sources */,
 				42F0ED462B92344100105CB1 /* LocationServicesController.swift in Sources */,
 				426BB6AC2B868DFF00CBDA71 /* DontGoThereIconView.swift in Sources */,
