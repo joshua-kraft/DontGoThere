@@ -68,7 +68,7 @@ class MapSearchController: NSObject, MKLocalSearchCompleterDelegate {
     
     return response.mapItems.compactMap { mapItem in
       guard let coordinate = mapItem.placemark.location?.coordinate else { return nil }
-      guard let address = Address(from: mapItem.placemark) else { return nil }
+      guard let address = Address(fromPlacemark: mapItem.placemark) else { return nil }
       guard let name = mapItem.name else { return nil }
       return MapSearchResult(coordinate: coordinate, name: name, address: address)
     }

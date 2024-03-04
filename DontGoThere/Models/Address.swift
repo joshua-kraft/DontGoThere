@@ -26,7 +26,7 @@ struct Address: Codable {
     self.zip = zip
   }
   
-  init?(from placemark: MKPlacemark) {
+  init?(fromPlacemark placemark: MKPlacemark) {
     guard let streetNumber = placemark.subThoroughfare else { return nil }
     guard let streetName = placemark.thoroughfare else { return nil }
     guard let city = placemark.locality else { return nil }
