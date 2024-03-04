@@ -59,8 +59,8 @@ struct PlacesMapView: View {
               }
               
               ForEach(searchResults) { result in
-                Annotation("Name", coordinate: result.coordinate) {
-                  DontGoThereSearchIconView(width: 50, height: 50)
+                Annotation(result.name, coordinate: result.coordinate) {
+                  DontGoThereSearchIconView(width: 40, height: 40)
                     .tag(result)
                     .onTapGesture {
                       withAnimation {
