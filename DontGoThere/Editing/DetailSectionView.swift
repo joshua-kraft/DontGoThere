@@ -22,12 +22,20 @@ struct DetailSectionView: View {
 
       HStack {
         DetailLabel("Name:")
-          .padding([.leading])
+          .padding([.leading, .trailing])
         TextField("Place Name", text: $place.name)
           .textFieldStyle(.roundedBorder)
           .padding(.trailing)
       }
       .padding(.bottom, 4)
+      
+      HStack {
+        DetailLabel("Address:")
+          .padding([.leading])
+        Text("123 Sunshine St\nCity, State 12345")
+      }
+      .padding(.bottom, 4)
+      
       HStack {
         DetailLabel("Added:")
           .padding([.leading])
