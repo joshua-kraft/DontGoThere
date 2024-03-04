@@ -13,6 +13,7 @@ struct PlaceMapSearchView: View {
   @State private var mapSearchController = MapSearchController(completer: .init())
   @State private var searchText = ""
   @FocusState private var isSearchFieldFocused: Bool
+  @State private var presentationDetent: PresentationDetent = .fraction(0.20)
   @Binding var searchResults: [MapSearchResult]
   @Binding var visibleRegion: MKCoordinateRegion?
   
@@ -48,14 +49,17 @@ struct PlaceMapSearchView: View {
             Text(completion.address)
           }
           .listRowBackground(Color.gray.opacity(0.2))
-          .onTapGesture { rowTapped(completion: completion) }
+          .onTapGesture {
+            rowTapped(completion: completion)
+            presentationDetent = .fraction(0.20)
+          }
         }
       }
       .listStyle(.plain)
       .scrollContentBackground(.hidden)
     }
     .padding()
-    .presentationDetents([.fraction(0.20), .large])
+    .presentationDetents([.fraction(0.20), .large], selection: $presentationDetent)
     .presentationBackgroundInteraction(.enabled(upThrough: .large))
     .onAppear {
       isSearchFieldFocused = true
