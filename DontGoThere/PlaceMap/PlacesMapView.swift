@@ -39,8 +39,9 @@ struct PlacesMapView: View {
           ZStack(alignment: .bottomTrailing) {
             Map(position: $position, scope: mapScope) {
               
-              UserAnnotation()
-              
+              if locationServicesController.locationIsAuthorized() {
+                UserAnnotation()
+              }
               
               if showExistingPlaces {
                 ForEach(places.filter { !$0.isArchived }) { place in
@@ -87,11 +88,13 @@ struct PlacesMapView: View {
                 .multilineTextAlignment(.center)
             }
             
-            VStack {
-              MapUserLocationButton(scope: mapScope)
+            if locationServicesController.locationIsAuthorized() {
+              VStack {
+                MapUserLocationButton(scope: mapScope)
+              }
+              .padding([.bottom, .trailing], 10)
+              .buttonBorderShape(.circle)
             }
-            .padding([.bottom, .trailing], 10)
-            .buttonBorderShape(.circle)
           }
           .mapScope(mapScope)
         }
@@ -134,8 +137,10 @@ struct PlacesMapView: View {
             }
           }
           
-          Button("Add Place", systemImage: "plus") {
-            addPlace(at: locationServicesController.locationManager?.location?.coordinate)
+          if locationServicesController.locationIsAuthorized() {
+            Button("Add Place", systemImage: "plus") {
+              addPlace(at: locationServicesController.locationManager?.location?.coordinate)
+            }
           }
         }
       }
@@ -172,6 +177,7 @@ struct PlacesMapView: View {
       print("could not get location to add")
     }
   }
+  
 }
 
 #Preview {
