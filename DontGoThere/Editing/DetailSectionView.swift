@@ -32,7 +32,7 @@ struct DetailSectionView: View {
       HStack {
         DetailLabel("Address:")
           .padding([.leading])
-        Text("123 Sunshine St\nCity, State 12345")
+        Text(place.address.printableAddress)
       }
       .padding(.bottom, 4)
       
