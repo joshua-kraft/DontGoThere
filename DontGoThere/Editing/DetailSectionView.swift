@@ -24,6 +24,7 @@ struct DetailSectionView: View {
       HStack {
         DetailLabel("Name:")
           .padding([.leading, .trailing])
+        
         TextField("Place Name", text: $place.name)
           .textFieldStyle(.roundedBorder)
           .padding(.trailing)
@@ -33,6 +34,7 @@ struct DetailSectionView: View {
       HStack {
         DetailLabel("Address:")
           .padding([.leading])
+        
         TextField("Address", text: .constant(place.address.printableAddress), axis: .vertical)
           .textFieldStyle(.roundedBorder)
           .padding(.trailing)
@@ -43,11 +45,15 @@ struct DetailSectionView: View {
       HStack {
         DetailLabel("Added:")
           .padding([.leading])
+        
         DatePicker("Added Date", selection: $place.addDate, displayedComponents: .date)
           .disabled(true)
           .labelsHidden()
+        
         Spacer()
+        
         DetailLabel("Expires?")
+        
         Toggle("Expires?", isOn: $place.shouldExpire.animation())
           .labelsHidden()
           .padding(.trailing)
@@ -62,6 +68,7 @@ struct DetailSectionView: View {
         HStack {
           DetailLabel("Expires:")
             .padding([.leading])
+          
           DatePicker("Expires", selection: $place.expirationDate, displayedComponents: .date)
             .labelsHidden()
         }
