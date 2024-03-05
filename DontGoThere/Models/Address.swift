@@ -15,7 +15,13 @@ struct Address: Codable {
   let state: String
   let zip: String
   var printableAddress: String {
-    (streetNumber.isEmpty && streetName.isEmpty && city.isEmpty && state.isEmpty && zip.isEmpty) ? "Unknown" : "\(streetNumber) \(streetName)\n\(city), \(state) \(zip)"
+    if streetNumber.isEmpty && streetName.isEmpty && city.isEmpty && state.isEmpty && zip.isEmpty { // empty addresses are unknown
+      return "Unknown"
+    } else if streetNumber.isEmpty && streetName.isEmpty { // don't include the new line prior to city if there's no street address
+      return "\(city), \(state) \(zip)"
+    } else {
+      return "\(streetNumber) \(streetName)\n\(city), \(state) \(zip)"
+    }
   }
 
   init(streetNumber: String, streetName: String, city: String, state: String, zip: String) {
