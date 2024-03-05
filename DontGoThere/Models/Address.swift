@@ -40,30 +40,4 @@ struct Address: Codable {
   }
   
   static let emptyAddress = Address(streetNumber: "", streetName: "", city: "", state: "", zip: "")
-  
-  static func getAddressFromCoordinate(coordinate: CLLocationCoordinate2D, completionHandler: @escaping (MKPlacemark) -> ()) {
-    let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
-    let geocoder = CLGeocoder()
-    geocoder.reverseGeocodeLocation(location) { placemarks, error in
-      if error != nil {
-        print("error in geocoding")
-        return
-      }
-      
-      if let placemarks, let placemark = placemarks.first {
-        guard let _ = placemark.subThoroughfare else { return }
-        guard let _ = placemark.thoroughfare else { return }
-        guard let _ = placemark.locality else { return }
-        guard let _ = placemark.administrativeArea else { return }
-        guard let _ = placemark.postalCode else { return }
-
-        completionHandler(MKPlacemark(placemark: placemark))
-      } else {
-        print("error finding placemark")
-        return
-      }
-      
-    }
-  }
-
 }

@@ -11,6 +11,7 @@ import MapKit
 struct PlaceMinimapView: View {
   
   @Bindable var place: Place
+  @EnvironmentObject var locationServicesController: LocationServicesController
   
   var body: some View {
     MapReader { mapProxy in
@@ -22,7 +23,7 @@ struct PlaceMinimapView: View {
         if let tappedCoordinate = mapProxy.convert(position, from: .local) {
           place.latitude = tappedCoordinate.latitude
           place.longitude = tappedCoordinate.longitude
-          Address.getAddressFromCoordinate(coordinate: tappedCoordinate) { placemark in
+          locationServicesController.getAddressFromCoordinate(coordinate: tappedCoordinate) { placemark in
             if let address = Address(fromPlacemark: placemark) {
               place.address = address
             }
