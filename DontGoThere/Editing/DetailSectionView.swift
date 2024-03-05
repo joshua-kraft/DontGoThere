@@ -52,7 +52,7 @@ struct DetailSectionView: View {
           .labelsHidden()
           .padding(.trailing)
           .onChange(of: place.shouldExpire) {
-            place.expirationDate = place.shouldExpire ? Date.distantFuture : appSettings.getExpiryDate(from: place.addDate)
+            place.expirationDate = place.shouldExpire ? appSettings.getExpiryDate(from: place.addDate) : Date.distantFuture
           }
       }
       .padding(.bottom, 4)
