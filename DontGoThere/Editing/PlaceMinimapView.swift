@@ -13,31 +13,30 @@ struct PlaceMinimapView: View {
   @Bindable var place: Place
   
   var body: some View {
-    ZStack(alignment: .top) {
-      MapReader { mapProxy in
-        Map(initialPosition: position(for: place), interactionModes: [.pan, .zoom, .rotate]) {
-          Marker(place.name, coordinate: place.coordinate)
-        }
-        .frame(height: 250)
-        .onTapGesture { position in
-          if let tappedCoordinate = mapProxy.convert(position, from: .local) {
-            place.latitude = tappedCoordinate.latitude
-            place.longitude = tappedCoordinate.longitude
-            Address.getAddressFromCoordinate(coordinate: tappedCoordinate) { placemark in
-              if let address = Address(fromPlacemark: placemark) {
-                place.address = address
-              }
+    MapReader { mapProxy in
+      Map(initialPosition: position(for: place), interactionModes: [.pan, .zoom, .rotate]) {
+        Marker(place.name, coordinate: place.coordinate)
+      }
+      .frame(height: 250)
+      .onTapGesture { position in
+        if let tappedCoordinate = mapProxy.convert(position, from: .local) {
+          place.latitude = tappedCoordinate.latitude
+          place.longitude = tappedCoordinate.longitude
+          Address.getAddressFromCoordinate(coordinate: tappedCoordinate) { placemark in
+            if let address = Address(fromPlacemark: placemark) {
+              place.address = address
             }
           }
         }
       }
-      
-      Text("Tap on the map to edit this place's location.")
-        .frame(maxWidth: .infinity)
-        .padding([.top, .bottom], 12)
-        .font(.subheadline.bold())
-        .background(.thinMaterial.opacity(0.9))
-        .multilineTextAlignment(.center)
+      .safeAreaInset(edge: .top) {
+        Text("Tap on the map to edit this place's location.")
+          .frame(maxWidth: .infinity)
+          .padding([.top, .bottom], 12)
+          .font(.subheadline.bold())
+          .background(.thinMaterial.opacity(0.9))
+          .multilineTextAlignment(.center)
+      }
     }
   }
   
