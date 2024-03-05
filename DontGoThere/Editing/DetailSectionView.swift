@@ -15,6 +15,12 @@ struct DetailSectionView: View {
   
   @State var enteredAddress = ""
   
+  enum Field: Equatable {
+    case addressField
+  }
+  
+  @FocusState private var focusedField: Field?
+  
   var body: some View {
     VStack(alignment: .leading) {
       HeaderLabel("Details")
@@ -38,15 +44,22 @@ struct DetailSectionView: View {
           .padding([.leading])
         
         
-        TextField("Address", text: $enteredAddress)
+        TextField("Address", text: $enteredAddress, axis: .vertical)
           .textFieldStyle(.roundedBorder)
           .padding(.trailing)
           .submitLabel(.search)
+          .focused($focusedField, equals: .addressField)
+          .lineLimit(2, reservesSpace: true)
           .onAppear {
             enteredAddress = place.address.printableAddress
           }
-          .onSubmit {
-            updateAddress()
+          .onChange(of: enteredAddress) { oldValue, newValue in
+            if let lastCharacter = newValue.last {
+              if lastCharacter == "\n" {
+                focusedField = nil
+                updateAddress()
+              }
+            }
           }
           .onChange(of: place.address) {
             enteredAddress = place.address.printableAddress
@@ -90,6 +103,7 @@ struct DetailSectionView: View {
     }
   }
   
+  @MainActor
   func updateAddress() {
     locationServicesController.getCoordinateFromAddress(address: enteredAddress) { placemark in
       if let address = Address(fromPlacemark: placemark) {
