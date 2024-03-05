@@ -8,7 +8,7 @@
 import Foundation
 import MapKit
 
-struct Address: Codable {
+struct Address: Codable, Equatable {
   let streetNumber: String
   let streetName: String
   let city: String
