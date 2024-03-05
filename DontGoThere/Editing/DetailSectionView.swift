@@ -11,6 +11,7 @@ struct DetailSectionView: View {
   
   @Bindable var place: Place
   @EnvironmentObject var appSettings: AppSettings
+  @EnvironmentObject var locationServicesController: LocationServicesController
   
   var body: some View {
     VStack(alignment: .leading) {
@@ -32,7 +33,10 @@ struct DetailSectionView: View {
       HStack {
         DetailLabel("Address:")
           .padding([.leading])
-        Text(place.address.printableAddress)
+        TextField("Address", text: .constant(place.address.printableAddress), axis: .vertical)
+          .textFieldStyle(.roundedBorder)
+          .padding(.trailing)
+          .lineLimit(2)
       }
       .padding(.bottom, 4)
       
