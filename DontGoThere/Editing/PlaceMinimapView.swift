@@ -8,26 +8,30 @@
 import SwiftUI
 import MapKit
 
+extension CLLocationCoordinate2D: Equatable {
+  public static func == (lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
+    lhs.latitude == rhs.latitude && lhs.longitude == rhs.longitude
+  }
+}
+
 struct PlaceMinimapView: View {
   
   @Bindable var place: Place
+  @State var position: MapCameraPosition = .automatic
   @EnvironmentObject var locationServicesController: LocationServicesController
   
   var body: some View {
     MapReader { mapProxy in
-      Map(initialPosition: position(for: place), interactionModes: [.pan, .zoom, .rotate]) {
+      Map(position: $position, interactionModes: [.pan, .zoom, .rotate]) {
         Marker(place.name, coordinate: place.coordinate)
       }
       .frame(height: 250)
+      .onChange(of: place.coordinate) {
+        position = .automatic
+      }
       .onTapGesture { position in
         if let tappedCoordinate = mapProxy.convert(position, from: .local) {
-          place.latitude = tappedCoordinate.latitude
-          place.longitude = tappedCoordinate.longitude
-          locationServicesController.getAddressFromCoordinate(coordinate: tappedCoordinate) { placemark in
-            if let address = Address(fromPlacemark: placemark) {
-              place.address = address
-            }
-          }
+          updatePosition(with: tappedCoordinate)
         }
       }
       .safeAreaInset(edge: .top) {
@@ -40,14 +44,17 @@ struct PlaceMinimapView: View {
       }
     }
   }
-  
-  func position(for place: Place) -> MapCameraPosition {
-    MapCameraPosition.region(
-      MKCoordinateRegion(
-        center: CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude),
-        span: MKCoordinateSpan(latitudeDelta: 0.002, longitudeDelta: 0.002))
-    )
+    
+  func updatePosition(with tappedCoordinate: CLLocationCoordinate2D) {
+    place.latitude = tappedCoordinate.latitude
+    place.longitude = tappedCoordinate.longitude
+    locationServicesController.getAddressFromCoordinate(coordinate: tappedCoordinate) { placemark in
+      if let address = Address(fromPlacemark: placemark) {
+        place.address = address
+      }
+    }
   }
+  
 }
 
 #Preview {
@@ -56,6 +63,7 @@ struct PlaceMinimapView: View {
     
     return PlaceMinimapView(place: previewer.activePlace)
       .modelContainer(previewer.container)
+      .environmentObject(LocationServicesController())
     
   } catch {
     return Text("Failed to create preview: \(error.localizedDescription)")

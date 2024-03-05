@@ -13,6 +13,8 @@ struct DetailSectionView: View {
   @EnvironmentObject var appSettings: AppSettings
   @EnvironmentObject var locationServicesController: LocationServicesController
   
+  @State var enteredAddress = ""
+  
   var body: some View {
     VStack(alignment: .leading) {
       HeaderLabel("Details")
@@ -35,10 +37,20 @@ struct DetailSectionView: View {
         DetailLabel("Address:")
           .padding([.leading])
         
-        TextField("Address", text: .constant(place.address.printableAddress), axis: .vertical)
+        
+        TextField("Address", text: $enteredAddress)
           .textFieldStyle(.roundedBorder)
           .padding(.trailing)
-          .lineLimit(2)
+          .submitLabel(.search)
+          .onAppear {
+            enteredAddress = place.address.printableAddress
+          }
+          .onSubmit {
+            updateAddress()
+          }
+          .onChange(of: place.address) {
+            enteredAddress = place.address.printableAddress
+          }
       }
       .padding(.bottom, 4)
       
@@ -77,6 +89,17 @@ struct DetailSectionView: View {
       }
     }
   }
+  
+  func updateAddress() {
+    locationServicesController.getCoordinateFromAddress(address: enteredAddress) { placemark in
+      if let address = Address(fromPlacemark: placemark) {
+        place.address = address
+        enteredAddress = address.printableAddress
+        place.latitude = placemark.coordinate.latitude
+        place.longitude = placemark.coordinate.longitude
+      }
+    }
+  }
 }
 
 #Preview {
@@ -86,6 +109,7 @@ struct DetailSectionView: View {
     return DetailSectionView(place: previewer.activePlace)
       .modelContainer(previewer.container)
       .environmentObject(AppSettings.defaultSettings)
+      .environmentObject(LocationServicesController())
     
   } catch {
     return Text("Failed to create preview: \(error.localizedDescription)")
