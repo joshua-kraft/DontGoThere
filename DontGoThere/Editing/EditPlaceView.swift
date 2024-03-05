@@ -69,7 +69,7 @@ struct EditPlaceView: View {
         }
       }
     }
-    .scrollDismissesKeyboard(.immediately)
+    .scrollDismissesKeyboard(.interactively)
     .background(.thinMaterial)
   }
       
@@ -87,6 +87,7 @@ struct EditPlaceView: View {
     return EditPlaceView(place: previewer.activePlace)
       .modelContainer(previewer.container)
       .environmentObject(AppSettings.defaultSettings)
+      .environmentObject(LocationServicesController())
     
   } catch {
     return Text("Failed to create preview: \(error.localizedDescription)")
