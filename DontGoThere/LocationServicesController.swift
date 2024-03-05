@@ -19,6 +19,7 @@ extension Notification.Name {
 class LocationServicesController: NSObject, CLLocationManagerDelegate, ObservableObject {
   
   var locationManager: CLLocationManager?
+  
   let allowedLocationAuths: [CLAuthorizationStatus] = [.authorizedAlways, .authorizedWhenInUse]
   var locationAuthorized: Bool {
     guard let locationManager else { return false }
@@ -63,4 +64,7 @@ class LocationServicesController: NSObject, CLLocationManagerDelegate, Observabl
     checkLocationAuth()
   }
   
+  func getNameForCurrentLocation() -> String {
+    MKMapItem.forCurrentLocation().name ?? "Unknown Name"
+  }
 }

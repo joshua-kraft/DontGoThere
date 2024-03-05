@@ -108,7 +108,7 @@ struct PlacesListView: View {
   func addPlace() {
     if let coordinate = locationServicesController.locationManager?.location?.coordinate {
       let newPlace = Place(
-        name: "",
+        name: locationServicesController.getNameForCurrentLocation(),
         review: "",
         latitude: coordinate.latitude,
         longitude: coordinate.longitude,

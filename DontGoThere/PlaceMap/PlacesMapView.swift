@@ -139,7 +139,7 @@ struct PlacesMapView: View {
           
           if locationServicesController.locationAuthorized {
             Button("Add Place", systemImage: "plus") {
-              addPlace(at: locationServicesController.locationManager?.location?.coordinate)
+              addPlace(forCurrentLocation: true, at: locationServicesController.locationManager?.location?.coordinate)
             }
           }
         }
@@ -159,10 +159,10 @@ struct PlacesMapView: View {
     }
   }
   
-  func addPlace(at coordinate: CLLocationCoordinate2D? = nil, with result: MapSearchResult? = nil) {
+  func addPlace(forCurrentLocation: Bool = false, at coordinate: CLLocationCoordinate2D? = nil, with result: MapSearchResult? = nil) {
     if let coordinate {
       let newPlace = Place(
-        name: result?.name ?? "",
+        name: result?.name ?? (forCurrentLocation ? locationServicesController.getNameForCurrentLocation() : "Unknown Name"),
         review: "",
         latitude: coordinate.latitude,
         longitude: coordinate.longitude,
