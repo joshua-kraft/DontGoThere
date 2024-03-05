@@ -64,6 +64,13 @@ struct DetailSectionView: View {
           .onChange(of: place.address) {
             enteredAddress = place.address.printableAddress
           }
+          .onChange(of: focusedField) {
+            if focusedField == .addressField {
+              Task {
+                UIApplication.shared.sendAction(#selector(UIResponder.selectAll(_:)), to: nil, from: nil, for: nil)
+              }
+            }
+          }
       }
       .padding(.bottom, 4)
       
