@@ -108,8 +108,7 @@
 			children = (
 				42560A0A2B74292B0013FCF4 /* DontGoThereApp.swift */,
 				42560A0C2B74292B0013FCF4 /* ContentView.swift */,
-				4238EFC22B893C5900597B4A /* MapSearchController.swift */,
-				42F0ED452B92344100105CB1 /* LocationServicesController.swift */,
+				42FD8B6D2B96D379009DFAE8 /* Controllers */,
 				426BB6AD2B86AC5F00CBDA71 /* PlaceList */,
 				426BB6AF2B86AC8E00CBDA71 /* PlaceMap */,
 				426BB6B02B86ACD500CBDA71 /* Settings */,
@@ -187,6 +186,15 @@
 				4238EFB82B891B9A00597B4A /* Labels.swift */,
 			);
 			path = Reusables;
+			sourceTree = "<group>";
+		};
+		42FD8B6D2B96D379009DFAE8 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				4238EFC22B893C5900597B4A /* MapSearchController.swift */,
+				42F0ED452B92344100105CB1 /* LocationServicesController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
