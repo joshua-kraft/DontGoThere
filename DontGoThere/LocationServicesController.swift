@@ -65,6 +65,14 @@ class LocationServicesController: NSObject, CLLocationManagerDelegate, Observabl
   }
   
   func getNameForCurrentLocation() -> String {
-    MKMapItem.forCurrentLocation().name ?? "Unknown Name"
+    if let name = MKMapItem.forCurrentLocation().name {
+      if name.contains("Unknown") {
+        return ""
+      } else {
+        return name
+      }
+    } else {
+      return ""
+    }
   }
 }
