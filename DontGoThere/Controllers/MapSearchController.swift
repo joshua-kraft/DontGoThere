@@ -18,7 +18,6 @@ struct MapSearchResult: Identifiable, Hashable {
   let id = UUID()
   let coordinate: CLLocationCoordinate2D
   let name: String
-  let address: Address
   
   static func ==(lhs: MapSearchResult, rhs: MapSearchResult) -> Bool {
     lhs.id == rhs.id
@@ -70,7 +69,7 @@ class MapSearchController: NSObject, MKLocalSearchCompleterDelegate {
       guard let coordinate = mapItem.placemark.location?.coordinate else { return nil }
       guard let address = Address(fromPlacemark: mapItem.placemark) else { return nil }
       guard let name = mapItem.name else { return nil }
-      return MapSearchResult(coordinate: coordinate, name: name, address: address)
+      return MapSearchResult(coordinate: coordinate, name: name)
     }
   }
   
