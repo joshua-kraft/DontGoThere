@@ -66,7 +66,7 @@ struct PlacesMapView: View {
                       withAnimation {
                         isShowingSearchSheet = false
                       }
-                      addPlace(at: result.coordinate)
+                      addPlace(at: result.coordinate, with: result)
                     }
                 }
               }
@@ -159,14 +159,14 @@ struct PlacesMapView: View {
     }
   }
   
-  func addPlace(at location: CLLocationCoordinate2D? = nil) {
-    if let location {
+  func addPlace(at coordinate: CLLocationCoordinate2D? = nil, with result: MapSearchResult? = nil) {
+    if let coordinate {
       let newPlace = Place(
-        name: "",
+        name: result?.name ?? "",
         review: "",
-        latitude: location.latitude,
-        longitude: location.longitude,
-        address: Address(streetNumber: "123", streetName: "Placeholder St", city: "City", state: "State", zip: "12345"),
+        latitude: coordinate.latitude,
+        longitude: coordinate.longitude,
+        address: Address.emptyAddress,
         addDate: Date.now,
         expirationDate: appSettings.neverExpire ? Date.distantFuture : appSettings.getExpiryDate(from: Date.now),
         shouldExpire: !appSettings.neverExpire,
@@ -174,6 +174,13 @@ struct PlacesMapView: View {
       )
       modelContext.insert(newPlace)
       path.append(newPlace)
+      
+      Address.getAddressFromCoordinate(coordinate: coordinate) { placemark in
+        if let address = Address(fromPlacemark: placemark){
+          newPlace.address = address
+        }
+      }
+
     } else {
       print("could not get location to add")
     }

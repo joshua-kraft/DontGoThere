@@ -112,7 +112,7 @@ struct PlacesListView: View {
         review: "",
         latitude: coordinate.latitude,
         longitude: coordinate.longitude,
-        address: Address(streetNumber: "123", streetName: "Placeholder St", city: "City", state: "State", zip: "12345"),
+        address: Address.emptyAddress,
         addDate: Date.now,
         expirationDate: appSettings.neverExpire ? Date.distantFuture : appSettings.getExpiryDate(from: Date.now),
         shouldExpire: !appSettings.neverExpire,
@@ -120,6 +120,13 @@ struct PlacesListView: View {
       )
       modelContext.insert(newPlace)
       path.append(newPlace)
+      
+      Address.getAddressFromCoordinate(coordinate: coordinate) { placemark in
+        if let address = Address(fromPlacemark: placemark) {
+          newPlace.address = address
+        }
+      }
+      
     } else {
       print("could not get location to add")
     }
