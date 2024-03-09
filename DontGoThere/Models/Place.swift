@@ -11,7 +11,6 @@ import SwiftData
 
 @Model
 class Place: Identifiable {
-  // details about a place
   var name: String
   var review: String
   
@@ -25,7 +24,6 @@ class Place: Identifiable {
     }
   }
   
-  // location of a place
   var latitude: Double
   var longitude: Double
   
@@ -50,6 +48,8 @@ class Place: Identifiable {
   @Attribute(.externalStorage) var imageData: [Data]?
   
   var isArchived: Bool
+  
+  var notificationCount = 5
   
   init(name: String, review: String, latitude: Double, longitude: Double, address: Address, addDate: Date, expirationDate: Date, shouldExpire: Bool = true, imageData: [Data]? = nil, isArchived: Bool = false) {
     self.name = name
