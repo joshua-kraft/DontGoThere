@@ -10,6 +10,7 @@ import SwiftUI
 
 @main
 struct DontGoThereApp: App {
+  
   let container: ModelContainer
   var archivalController: ArchivalController
 
@@ -21,6 +22,10 @@ struct DontGoThereApp: App {
       ContentView()
         .environmentObject(appSettings)
         .environmentObject(locationServicesController)
+        .onAppear {
+          locationServicesController.checkLocationAuth()
+          archivalController.fetchData()
+        }
       
     }
     .modelContainer(container)
@@ -29,7 +34,7 @@ struct DontGoThereApp: App {
   init() {
     do {
       container = try ModelContainer(for: Place.self)
-      archivalController = ArchivalController(modelContext: container.mainContext)
+      archivalController = ArchivalController(modelContext: container.mainContext, appSettings: AppSettings.loadSettings())
     } catch {
       fatalError("Could not create container: \(error.localizedDescription)")
     }
