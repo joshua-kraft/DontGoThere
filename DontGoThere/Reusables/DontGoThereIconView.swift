@@ -37,8 +37,8 @@ struct DontGoThereIconView: View {
         .resizable()
         .foregroundStyle(.black.gradient)
         .frame(width: width / 2.5, height: width / 2.5)
-        .padding(.top)
-        .padding(.leading, 6)
+        .padding(.top, height / 10)
+        .padding(.leading, width / 25)
       
     }
   }
