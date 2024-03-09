@@ -24,7 +24,8 @@ struct DontGoThereApp: App {
         .environmentObject(locationServicesController)
         .onAppear {
           locationServicesController.checkLocationAuth()
-          archivalController.fetchData()
+          archivalController.archiveExpiredPlaces()
+          archivalController.deleteOldArchivedPlaces()
         }
       
     }
