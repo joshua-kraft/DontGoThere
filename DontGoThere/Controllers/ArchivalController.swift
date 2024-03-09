@@ -10,13 +10,15 @@ import SwiftData
 
 @Observable
 class ArchivalController: ObservableObject {
+  
   var modelContext: ModelContext
+  var appSettings: AppSettings
   var places = [Place]()
   
-  init(modelContext: ModelContext) {
+  init(modelContext: ModelContext, appSettings: AppSettings) {
     self.modelContext = modelContext
+    self.appSettings = appSettings
     fetchData()
-    print(places.count)
   }
   
   func fetchData() {
@@ -26,5 +28,13 @@ class ArchivalController: ObservableObject {
     } catch {
       print("Fetch failed: \(error.localizedDescription)")
     }
+  }
+  
+  func archiveExpiredPlaces() {
+    
+  }
+  
+  func deleteOldArchivedPlaces() {
+    
   }
 }
