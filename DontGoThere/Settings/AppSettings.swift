@@ -85,7 +85,16 @@ class AppSettings: ObservableObject, Codable {
   }
   
   func getDeletionDate(from expiryDate: Date) -> Date {
-    return Date.now
+    switch autoDeletionUnit {
+    case .days:
+      calendar.date(byAdding: .day, value: autoDeletionValue, to: expiryDate) ?? expiryDate
+    case .weeks:
+      calendar.date(byAdding: .weekOfYear, value: autoDeletionValue, to: expiryDate) ?? expiryDate
+    case .months:
+      calendar.date(byAdding: .month, value: autoDeletionValue, to: expiryDate) ?? expiryDate
+    case .years:
+      calendar.date(byAdding: .year, value: autoExpiryValue, to: expiryDate) ?? expiryDate
+    }
   }
   
   // MARK: - Codable conformance
