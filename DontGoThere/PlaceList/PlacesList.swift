@@ -23,9 +23,9 @@ struct PlacesList: View {
           DontGoThereUnavailableLabel("No \(listTyoe) Places")
         } description: {
           if listTyoe == "Active" {
-            Text("You don't have any active places. Add a new one by tapping the add icon in the toolbar.")
+            Text("You don't have any active places. Add a new one by tapping the add icon in the toolbar or going to the PlaceMap.")
           } else {
-            Text("You don't have any archived places. Places archive themselves after their expiration date, after the max notification count that you've specified is reached, or when you archive them yourself.")
+            Text("You don't have any archived places. Places archive themselves after their expiration date or after the max notification count that you've specified is reached, or you can archive them yourself.")
           }
         }
       } else {
