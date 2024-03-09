@@ -84,6 +84,10 @@ class AppSettings: ObservableObject, Codable {
     }
   }
   
+  func getDeletionDate(from expiryDate: Date) -> Date {
+    return Date.now
+  }
+  
   // MARK: - Codable conformance
   
   enum CodingKeys: CodingKey {
