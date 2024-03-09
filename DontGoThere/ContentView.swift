@@ -12,8 +12,7 @@ struct ContentView: View {
   
   @Environment(\.openURL) var openURL
   
-  @StateObject var appSettings = AppSettings.loadSettings()
-  @StateObject var locationServicesController = LocationServicesController()
+  @EnvironmentObject var locationServicesController: LocationServicesController
   
   @State private var isShowingLocationServicesDeniedAlert = false
   @State private var isShowingLocationServicesAllowedInUseAlert = false
@@ -40,8 +39,6 @@ struct ContentView: View {
           Label("Settings", systemImage: "gearshape.2")
         }
     }
-    .environmentObject(appSettings)
-    .environmentObject(locationServicesController)
     .onAppear {
       locationServicesController.checkLocationAuth()
     }
