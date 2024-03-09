@@ -13,10 +13,10 @@ struct DontGoThereApp: App {
   
   let container: ModelContainer
   var archivalController: ArchivalController
-
-  @StateObject var appSettings = AppSettings.loadSettings()
-  @StateObject var locationServicesController = LocationServicesController()
+  var locationServicesController: LocationServicesController
   
+  @StateObject var appSettings = AppSettings.loadSettings()
+
   var body: some Scene {
     WindowGroup {
       ContentView()
@@ -36,6 +36,7 @@ struct DontGoThereApp: App {
     do {
       container = try ModelContainer(for: Place.self)
       archivalController = ArchivalController(modelContext: container.mainContext, appSettings: AppSettings.loadSettings())
+      locationServicesController = LocationServicesController()
     } catch {
       fatalError("Could not create container: \(error.localizedDescription)")
     }
