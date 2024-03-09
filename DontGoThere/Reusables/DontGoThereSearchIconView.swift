@@ -25,7 +25,7 @@ struct DontGoThereSearchIconView: View {
         .fill(.blue.gradient)
         .frame(width: width * 0.9, height: height * 0.9)
       
-      Image(systemName: "mappin.and.ellipse")
+      Image(.turnAroundIcon)
         .resizable()
         .foregroundStyle(.black.gradient)
         .frame(width: width / 2, height: height / 2)

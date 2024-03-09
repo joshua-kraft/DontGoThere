@@ -32,13 +32,14 @@ struct DontGoThereIconView: View {
         .fill(.yellow.gradient.shadow(.drop(radius: 15)))
         .frame(width: width, height: height)
       
-      Image(systemName: "mappin.slash.circle")
+      
+      Image(.turnAroundIcon)
         .resizable()
-        .background(.white.gradient)
         .foregroundStyle(.black.gradient)
-        .frame(width: width / 2, height: width / 2)
-        .clipShape(.circle)
-        .padding(.top, 2)
+        .frame(width: width / 2.5, height: width / 2.5)
+        .padding(.top)
+        .padding(.leading, 6)
+      
     }
   }
   
