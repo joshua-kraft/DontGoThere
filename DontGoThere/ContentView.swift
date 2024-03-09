@@ -39,9 +39,6 @@ struct ContentView: View {
           Label("Settings", systemImage: "gearshape.2")
         }
     }
-    .onAppear {
-      locationServicesController.checkLocationAuth()
-    }
     .onReceive(NotificationCenter.default.publisher(for: .locationPermissionsDenied)) { _ in
       if locationServicesDeniedAlertCount == 0 {
         locationServicesDeniedAlertCount += 1
@@ -92,6 +89,9 @@ struct ContentView: View {
     
     return ContentView()
       .modelContainer(previewer.container)
+      .environmentObject(LocationServicesController())
+      .environmentObject(AppSettings.defaultSettings)
+      
   } catch {
     return Text("Failed to create preview: \(error.localizedDescription)")
   }
