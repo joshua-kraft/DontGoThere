@@ -31,10 +31,20 @@ class ArchivalController: ObservableObject {
   }
   
   func archiveExpiredPlaces() {
-    
+    let activePlaces = places.filter({ !$0.isArchived })
+    for place in activePlaces {
+      if place.expirationDate < Date.now {
+        place.isArchived = true
+      }
+    }
   }
   
   func deleteOldArchivedPlaces() {
-    
+    let archivedPlaces = places.filter({ $0.isArchived })
+    for place in archivedPlaces {
+      if appSettings.getDeletionDate(from: place.expirationDate) < Date.now {
+        modelContext.delete(place)
+      }
+    }
   }
 }
