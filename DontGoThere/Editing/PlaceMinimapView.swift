@@ -48,7 +48,7 @@ struct PlaceMinimapView: View {
   func updatePosition(with tappedCoordinate: CLLocationCoordinate2D) {
     place.latitude = tappedCoordinate.latitude
     place.longitude = tappedCoordinate.longitude
-    locationServicesController.getAddressFromCoordinate(coordinate: tappedCoordinate) { placemark in
+    Geocoder.getAddressFromCoordinate(coordinate: tappedCoordinate) { placemark in
       if let address = Address(fromPlacemark: placemark) {
         place.address = address
       }

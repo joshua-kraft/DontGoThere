@@ -175,7 +175,7 @@ struct PlacesMapView: View {
       modelContext.insert(newPlace)
       path.append(newPlace)
       
-      locationServicesController.getAddressFromCoordinate(coordinate: coordinate) { placemark in
+      Geocoder.getAddressFromCoordinate(coordinate: coordinate) { placemark in
         if let address = Address(fromPlacemark: placemark){
           newPlace.address = address
         }

@@ -70,11 +70,6 @@ class LocationServicesController: NSObject, CLLocationManagerDelegate, Observabl
     checkLocationAuth()
   }
   
-}
-
-// MARK: - Geocoding
-extension LocationServicesController {
-  
   func getNameForCurrentLocation() -> String {
     if let name = MKMapItem.forCurrentLocation().name {
       if name.contains("Unknown") {
@@ -86,41 +81,5 @@ extension LocationServicesController {
       return ""
     }
   }
-  
-  // Geocoding
-    
-  func getAddressFromCoordinate(coordinate: CLLocationCoordinate2D, completionHandler: @escaping (MKPlacemark) -> ()) {
-    let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
-    geocoder.reverseGeocodeLocation(location) { placemarks, error in
-      if error != nil {
-        print("error in geocoding")
-        return
-      }
-      
-      if let placemarks, let placemark = placemarks.first {
-        completionHandler(MKPlacemark(placemark: placemark))
-      } else {
-        print("error finding placemark")
-        return
-      }
-      
-    }
-  }
-  
-  func getCoordinateFromAddress(address: String, completionHandler: @escaping (MKPlacemark) -> ()) {
-    geocoder.geocodeAddressString(address) { placemarks, error in
-      if error != nil {
-        print("error in geocoding")
-        return
-      }
-      
-      if let placemarks, let placemark = placemarks.first {
-        completionHandler(MKPlacemark(placemark: placemark))
-      } else {
-        print("error finding plcemark")
-        return
-      }
-    }
-  }
-}
 
+}

@@ -112,7 +112,7 @@ struct DetailSectionView: View {
   
   @MainActor
   func updateAddress() {
-    locationServicesController.getCoordinateFromAddress(address: enteredAddress) { placemark in
+    Geocoder.getCoordinateFromAddress(address: enteredAddress) { placemark in
       if let address = Address(fromPlacemark: placemark) {
         place.address = address
         enteredAddress = address.printableAddress
