@@ -63,6 +63,7 @@
 		426BB6B42B87CFFC00CBDA71 /* PhotoSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSheetView.swift; sourceTree = "<group>"; };
 		426BB6B62B87D41200CBDA71 /* ZoomableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomableScrollView.swift; sourceTree = "<group>"; };
 		426E96F52B9C3EF00078E13E /* ArchivalController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchivalController.swift; sourceTree = "<group>"; };
+		426E96F72B9D39210078E13E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		42F0ED452B92344100105CB1 /* LocationServicesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServicesController.swift; sourceTree = "<group>"; };
 		42FD8B6B2B967411009DFAE8 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -108,6 +109,7 @@
 		42560A092B74292B0013FCF4 /* DontGoThere */ = {
 			isa = PBXGroup;
 			children = (
+				426E96F72B9D39210078E13E /* Info.plist */,
 				42560A0A2B74292B0013FCF4 /* DontGoThereApp.swift */,
 				42560A0C2B74292B0013FCF4 /* ContentView.swift */,
 				42FD8B6D2B96D379009DFAE8 /* Controllers */,
@@ -431,6 +433,8 @@
 				DEVELOPMENT_TEAM = 575V4XYC4S;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DontGoThere/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "DontGoThere needs to access the camera so you can take photos to add to your places.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "DontGoThere needs your location in order to show your current location, add places at your current location and notify you not to go to a place as you approach.";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "DontGoThere needs your location in order to show your current location, add places at your current location and notify you not to go to a place as you approach.";
@@ -466,6 +470,8 @@
 				DEVELOPMENT_TEAM = 575V4XYC4S;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DontGoThere/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "DontGoThere needs to access the camera so you can take photos to add to your places.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "DontGoThere needs your location in order to show your current location, add places at your current location and notify you not to go to a place as you approach.";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "DontGoThere needs your location in order to show your current location, add places at your current location and notify you not to go to a place as you approach.";
