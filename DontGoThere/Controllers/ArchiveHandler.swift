@@ -1,5 +1,5 @@
 //
-//  ArchivalController.swift
+//  ArchiveHandler.swift
 //  DontGoThere
 //
 //  Created by Joshua Kraft on 3/9/24.
@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Observable
-class ArchivalController: ObservableObject {
+class ArchiveHandler: ObservableObject {
   
   var modelContext: ModelContext
   var appSettings: AppSettings

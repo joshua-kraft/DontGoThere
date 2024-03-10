@@ -14,7 +14,7 @@ struct DontGoThereApp: App {
   @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
   
   let container: ModelContainer
-  var archivalController: ArchivalController
+  var archiveHandler: ArchiveHandler
   
   @StateObject var locationController = LocationController.shared
   @StateObject var appSettings = AppSettings.loadSettings()
@@ -25,8 +25,8 @@ struct DontGoThereApp: App {
         .environmentObject(appSettings)
         .environmentObject(locationController)
         .onAppear {
-          archivalController.archiveExpiredPlaces()
-          archivalController.deleteOldArchivedPlaces()
+          archiveHandler.archiveExpiredPlaces()
+          archiveHandler.deleteOldArchivedPlaces()
         }
       
     }
@@ -36,7 +36,7 @@ struct DontGoThereApp: App {
   init() {
     do {
       container = try ModelContainer(for: Place.self)
-      archivalController = ArchivalController(modelContext: container.mainContext, appSettings: AppSettings.loadSettings())
+      archiveHandler = ArchiveHandler(modelContext: container.mainContext, appSettings: AppSettings.loadSettings())
     } catch {
       fatalError("Could not create container: \(error.localizedDescription)")
     }
