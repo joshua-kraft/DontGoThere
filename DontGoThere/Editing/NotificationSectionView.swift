@@ -28,7 +28,7 @@ struct NotificationSectionView: View {
 
         Spacer()
 
-        TextField("NotificationDistance", value: .constant(50), format: .number)
+        TextField("Distance", value: $place.radius, format: .number)
           .multilineTextAlignment(.trailing)
           .textFieldStyle(.roundedBorder)
           .keyboardType(.numberPad)
@@ -52,9 +52,9 @@ struct NotificationSectionView: View {
         DetailLabel("Max Notification Count:")
           .padding([.leading])
         Spacer()
-        Text("25")
+        Text(String(appSettings.maxNotificationCount))
           .padding([.trailing])
-        Stepper("Notification Count", value: .constant(25), in: 1...30)
+        Stepper("Notification Count", value: $place.maxNotificationCount, in: 1...30)
           .labelsHidden()
       }
       .padding(.bottom, 4)
