@@ -26,6 +26,7 @@ struct DontGoThereApp: App {
         .onAppear {
           archiveHandler.archiveExpiredPlaces()
           archiveHandler.deleteOldArchivedPlaces()
+          locationHandler.fetchData(modelContext: container.mainContext)
         }
     }
     .modelContainer(container)
