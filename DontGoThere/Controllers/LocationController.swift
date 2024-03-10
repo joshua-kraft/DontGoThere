@@ -64,6 +64,10 @@ import SwiftUI
     }
   }
   
+  func startMonitoringPlaceRegions() {
+    
+  }
+  
   func stopLocationUpdates() {
     self.updatesStarted = false
     self.backgroundActivity = false
