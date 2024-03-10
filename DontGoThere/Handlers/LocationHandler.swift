@@ -105,7 +105,6 @@ extension LocationHandler: CLLocationManagerDelegate {
       // This is what we want
       UserDefaults.standard.setValue(true, forKey: "locationAuthorized")
       self.locationAuthorized = true
-      self.updatesStarted = true
       self.startLocationUpdates()
 
       // Start the background activity if we're allowed, otherwise display the alert that we're not
