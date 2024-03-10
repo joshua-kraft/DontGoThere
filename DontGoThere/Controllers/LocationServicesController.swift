@@ -28,6 +28,7 @@ class LocationServicesController: NSObject, CLLocationManagerDelegate, Observabl
   }
   
   
+  // MARK: - CLLocationManagerDelegate Conformance + Permissions
   func checkLocationAuth() {
     guard let locationManager = locationManager else {
       // Initialize the location manager if it didn't exist.
@@ -68,7 +69,7 @@ class LocationServicesController: NSObject, CLLocationManagerDelegate, Observabl
   
 }
 
-// MARK: - Fetching place information
+// MARK: - Geocoding
 extension LocationServicesController {
   
   func getNameForCurrentLocation() -> String {
@@ -118,5 +119,9 @@ extension LocationServicesController {
       }
     }
   }
+}
 
+// MARK: - Regions
+extension LocationServicesController {
+  
 }
