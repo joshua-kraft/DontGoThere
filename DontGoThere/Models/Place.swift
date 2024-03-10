@@ -26,9 +26,14 @@ class Place: Identifiable {
 
   var latitude: Double
   var longitude: Double
+  var radius: Double
 
   var coordinate: CLLocationCoordinate2D {
-    CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+    .init(latitude: latitude, longitude: longitude)
+  }
+
+  var region: CLMonitor.CircularGeographicCondition {
+    .init(center: coordinate, radius: radius)
   }
 
   var address: Address
@@ -49,12 +54,13 @@ class Place: Identifiable {
 
   var isArchived: Bool
 
-  var notificationCount = 5
+  var notificationCount = 0
 
   init(name: String,
        review: String,
        latitude: Double,
        longitude: Double,
+       radius: Double,
        address: Address,
        addDate: Date,
        expirationDate: Date,
@@ -65,6 +71,7 @@ class Place: Identifiable {
     self.review = review
     self.latitude = latitude
     self.longitude = longitude
+    self.radius = radius
     self.address = address
     self.addDate = addDate
     self.expirationDate = expirationDate
