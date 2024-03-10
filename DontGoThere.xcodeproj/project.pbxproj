@@ -33,7 +33,7 @@
 		426BB6B72B87D41200CBDA71 /* ZoomableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426BB6B62B87D41200CBDA71 /* ZoomableScrollView.swift */; };
 		426E96F62B9C3EF00078E13E /* ArchiveHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426E96F52B9C3EF00078E13E /* ArchiveHandler.swift */; };
 		426E96F92B9D40A60078E13E /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426E96F82B9D40A60078E13E /* NotificationController.swift */; };
-		426E96FB2B9D4D760078E13E /* GeocodingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426E96FA2B9D4D760078E13E /* GeocodingController.swift */; };
+		426E96FB2B9D4D760078E13E /* GeocodingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426E96FA2B9D4D760078E13E /* GeocodingHandler.swift */; };
 		426E96FD2B9D55B10078E13E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426E96FC2B9D55B10078E13E /* AppDelegate.swift */; };
 		42F0ED462B92344100105CB1 /* LocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F0ED452B92344100105CB1 /* LocationController.swift */; };
 		42FD8B6C2B967411009DFAE8 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FD8B6B2B967411009DFAE8 /* Address.swift */; };
@@ -68,7 +68,7 @@
 		426E96F52B9C3EF00078E13E /* ArchiveHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveHandler.swift; sourceTree = "<group>"; };
 		426E96F72B9D39210078E13E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		426E96F82B9D40A60078E13E /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
-		426E96FA2B9D4D760078E13E /* GeocodingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeocodingController.swift; sourceTree = "<group>"; };
+		426E96FA2B9D4D760078E13E /* GeocodingHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeocodingHandler.swift; sourceTree = "<group>"; };
 		426E96FC2B9D55B10078E13E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		42F0ED452B92344100105CB1 /* LocationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationController.swift; sourceTree = "<group>"; };
 		42FD8B6B2B967411009DFAE8 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
@@ -206,7 +206,7 @@
 				42F0ED452B92344100105CB1 /* LocationController.swift */,
 				426E96F52B9C3EF00078E13E /* ArchiveHandler.swift */,
 				426E96F82B9D40A60078E13E /* NotificationController.swift */,
-				426E96FA2B9D4D760078E13E /* GeocodingController.swift */,
+				426E96FA2B9D4D760078E13E /* GeocodingHandler.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -297,7 +297,7 @@
 				42560A212B74299A0013FCF4 /* PlacesMapView.swift in Sources */,
 				4238EFC52B8E591200597B4A /* DontGoThereSearchIconView.swift in Sources */,
 				426BB6B72B87D41200CBDA71 /* ZoomableScrollView.swift in Sources */,
-				426E96FB2B9D4D760078E13E /* GeocodingController.swift in Sources */,
+				426E96FB2B9D4D760078E13E /* GeocodingHandler.swift in Sources */,
 				42560A1B2B7429410013FCF4 /* Place.swift in Sources */,
 				4238EFB92B891B9A00597B4A /* Labels.swift in Sources */,
 				42560A0D2B74292B0013FCF4 /* ContentView.swift in Sources */,

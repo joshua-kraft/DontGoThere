@@ -121,7 +121,7 @@ struct PlacesListView: View {
     modelContext.insert(newPlace)
     path.append(newPlace)
     
-    Geocoder.getAddressFromCoordinate(coordinate: locationController.lastLocation.coordinate) { placemark in
+    GeocodingHandler.getAddressFromCoordinate(coordinate: locationController.lastLocation.coordinate) { placemark in
       if let address = Address(fromPlacemark: placemark) {
         newPlace.address = address
       }

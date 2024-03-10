@@ -1,5 +1,5 @@
 //
-//  GeocodingController.swift
+//  GeocodingHandler.swift
 //  DontGoThere
 //
 //  Created by Joshua Kraft on 3/9/24.
@@ -9,7 +9,7 @@ import CoreLocation
 import MapKit
 import Foundation
 
-struct Geocoder {
+struct GeocodingHandler {
   
   static let geocoder = CLGeocoder()
     
