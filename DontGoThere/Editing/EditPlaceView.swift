@@ -34,6 +34,10 @@ struct EditPlaceView: View {
           Divider()
             .padding(.bottom, 4)
 
+          NotificationSectionView(place: place)
+
+          Divider()
+            .padding(.bottom, 4)
           // review
           VStack(alignment: .leading) {
             HeaderLabel("Review")
