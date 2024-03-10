@@ -32,6 +32,7 @@
 		426BB6B52B87CFFC00CBDA71 /* PhotoSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426BB6B42B87CFFC00CBDA71 /* PhotoSheetView.swift */; };
 		426BB6B72B87D41200CBDA71 /* ZoomableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426BB6B62B87D41200CBDA71 /* ZoomableScrollView.swift */; };
 		426E96F62B9C3EF00078E13E /* ArchivalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426E96F52B9C3EF00078E13E /* ArchivalController.swift */; };
+		426E96F92B9D40A60078E13E /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426E96F82B9D40A60078E13E /* NotificationController.swift */; };
 		42F0ED462B92344100105CB1 /* LocationServicesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F0ED452B92344100105CB1 /* LocationServicesController.swift */; };
 		42FD8B6C2B967411009DFAE8 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FD8B6B2B967411009DFAE8 /* Address.swift */; };
 /* End PBXBuildFile section */
@@ -64,6 +65,7 @@
 		426BB6B62B87D41200CBDA71 /* ZoomableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomableScrollView.swift; sourceTree = "<group>"; };
 		426E96F52B9C3EF00078E13E /* ArchivalController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchivalController.swift; sourceTree = "<group>"; };
 		426E96F72B9D39210078E13E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		426E96F82B9D40A60078E13E /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
 		42F0ED452B92344100105CB1 /* LocationServicesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServicesController.swift; sourceTree = "<group>"; };
 		42FD8B6B2B967411009DFAE8 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -198,6 +200,7 @@
 				4238EFC22B893C5900597B4A /* MapSearchController.swift */,
 				42F0ED452B92344100105CB1 /* LocationServicesController.swift */,
 				426E96F52B9C3EF00078E13E /* ArchivalController.swift */,
+				426E96F82B9D40A60078E13E /* NotificationController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -294,6 +297,7 @@
 				4238EFC02B89283300597B4A /* PlaceMapSearchView.swift in Sources */,
 				426E96F62B9C3EF00078E13E /* ArchivalController.swift in Sources */,
 				4238EFC32B893C5900597B4A /* MapSearchController.swift in Sources */,
+				426E96F92B9D40A60078E13E /* NotificationController.swift in Sources */,
 				4238EFB72B891B2D00597B4A /* DetailSectionView.swift in Sources */,
 				42560A292B8078500013FCF4 /* Previewer.swift in Sources */,
 				42560A0B2B74292B0013FCF4 /* DontGoThereApp.swift in Sources */,

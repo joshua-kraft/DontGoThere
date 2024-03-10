@@ -52,11 +52,9 @@ class LocationServicesController: NSObject, CLLocationManagerDelegate, Observabl
       NotificationCenter.default.post(name: .locationPermissionsDenied, object: nil)
     case .authorizedAlways:
       // this is the status we want
-      locationManager.startUpdatingLocation()
       break
     case .authorizedWhenInUse:
       // Won't work for notifications, but okay for adding and map
-      locationManager.startUpdatingLocation()
       NotificationCenter.default.post(name: .locationPermissionsAuthorizedWhenInUse, object: nil)
     case .authorized:
       // this is a deprecated status, we shouldn't get here
