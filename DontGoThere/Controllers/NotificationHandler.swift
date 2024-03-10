@@ -1,5 +1,5 @@
 //
-//  NotificationController.swift
+//  NotificationHandler.swift
 //  DontGoThere
 //
 //  Created by Joshua Kraft on 3/9/24.
