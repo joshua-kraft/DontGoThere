@@ -33,7 +33,7 @@ struct PlacesMapView: View {
 
   let notSearchingOverlayText =
   "Tap on the map to add a place at that location. "
-  + "Tap and hold on a place to view details, share, or delete."
+  + "Tap and hold on a place to view details or delete."
 
   let searchingOverlayText =
   "Tap on a seach result or marker to add a place at that location. "
@@ -150,9 +150,10 @@ struct PlacesMapView: View {
           }
         }
       }
-      .alert("Delete place", isPresented: $isShowingDeleteAlert) {
+      .alert("Delete Place", isPresented: $isShowingDeleteAlert) {
         Button("Delete", role: .destructive) {
           if let deletedPlace {
+            Task { await locationHandler.removeConditionFromMonitor(id: deletedPlace.id.uuidString) }
             modelContext.delete(deletedPlace)
           }
         }
@@ -188,8 +189,8 @@ struct PlacesMapView: View {
           newPlace.address = address
         }
       }
-    } else {
-      print("could not get location to add")
+
+      Task { await locationHandler.addConditionToMonitor(condition: newPlace.region, id: newPlace.id.uuidString) }
     }
   }
 }

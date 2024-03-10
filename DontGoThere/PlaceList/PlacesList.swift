@@ -11,6 +11,7 @@ import SwiftUI
 struct PlacesList: View {
   @Environment(\.modelContext) var modelContext
   @Query(sort: \Place.name) var places: [Place]
+  @EnvironmentObject var locationHandler: LocationHandler
 
   let listTyoe: String
   let searchString: String
@@ -63,6 +64,7 @@ struct PlacesList: View {
                 modelContext.delete(place)
               }
               Button("Unarchive", systemImage: "archivebox", role: .destructive) {
+                Task { await locationHandler.addConditionToMonitor(condition: place.region, id: place.id.uuidString) }
                 withAnimation {
                   place.isArchived.toggle()
                 }
@@ -70,6 +72,7 @@ struct PlacesList: View {
               .tint(.green)
             } else {
               Button("Archive", systemImage: "archivebox", role: .destructive) {
+                Task { await locationHandler.removeConditionFromMonitor(id: place.id.uuidString) }
                 withAnimation {
                   place.isArchived.toggle()
                 }
@@ -77,6 +80,7 @@ struct PlacesList: View {
               .tint(.orange)
 
               Button("Delete", systemImage: "trash", role: .destructive) {
+                Task { await locationHandler.removeConditionFromMonitor(id: place.id.uuidString) }
                 modelContext.delete(place)
               }
             }
@@ -91,6 +95,7 @@ struct PlacesList: View {
   func deletePlaces(at offsets: IndexSet) {
     for offset in offsets {
       let place = places[offset]
+      Task { await locationHandler.removeConditionFromMonitor(id: place.id.uuidString) }
       modelContext.delete(place)
     }
   }

@@ -129,6 +129,8 @@ struct PlacesListView: View {
         newPlace.address = address
       }
     }
+
+    Task { await locationHandler.addConditionToMonitor(condition: newPlace.region, id: newPlace.id.uuidString) }
   }
 }
 

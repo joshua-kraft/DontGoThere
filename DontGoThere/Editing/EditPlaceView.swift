@@ -15,6 +15,7 @@ struct EditPlaceView: View {
   @Environment(\.modelContext) var modelContext
   @Environment(\.dismiss) var dismiss
   @EnvironmentObject var appSettings: AppSettings
+  @EnvironmentObject var locationHandler: LocationHandler
 
   @Bindable var place: Place
 
@@ -76,6 +77,7 @@ struct EditPlaceView: View {
   }
 
   func deletePlace() {
+    Task { await locationHandler.removeConditionFromMonitor(id: place.id.uuidString) }
     modelContext.delete(place)
     dismiss()
   }

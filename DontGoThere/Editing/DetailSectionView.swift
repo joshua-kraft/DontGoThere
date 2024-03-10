@@ -11,6 +11,7 @@ struct DetailSectionView: View {
 
   @Bindable var place: Place
   @EnvironmentObject var appSettings: AppSettings
+  @EnvironmentObject var locationHandler: LocationHandler
   @State var enteredAddress = ""
   @FocusState private var focusedField: Field?
 
@@ -117,6 +118,8 @@ struct DetailSectionView: View {
         place.longitude = placemark.coordinate.longitude
       }
     }
+
+    Task { await locationHandler.addConditionToMonitor(condition: place.region, id: place.id.uuidString) }
   }
 }
 

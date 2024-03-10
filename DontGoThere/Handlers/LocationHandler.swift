@@ -10,8 +10,6 @@ import Foundation
 import SwiftData
 import SwiftUI
 
-let monitorName = "DontGoThereMonitor"
-
 @MainActor class LocationHandler: NSObject, ObservableObject {
 
   static let shared = LocationHandler()
@@ -19,6 +17,7 @@ let monitorName = "DontGoThereMonitor"
   private var manager: CLLocationManager
   private var background: CLBackgroundActivitySession?
   var monitor: CLMonitor?
+  let monitorName = "DontGoThereCLMonitor"
   private var places = [Place]()
 
   @Published var lastLocation = CLLocation()
@@ -81,17 +80,12 @@ let monitorName = "DontGoThereMonitor"
     }
 
     // Remove any conditions we may have that aren't in the active place list
-
     for uuid in await monitor!.identifiers where !activePlaceUUIDs.contains(uuid) {
         await monitor!.remove(uuid)
         print("removed condition for \(uuid)")
     }
   }
 
-
-  // 30.56037
-  // -97.84581
-  
   func startMonitoringPlaceConditions() async {
     guard let monitor else { return }
 
@@ -99,8 +93,10 @@ let monitorName = "DontGoThereMonitor"
       for try await event in await monitor.events {
         switch event.state {
         case .satisfied:
+          // 30.56037
+          // -97.84581
+          // move to and away from here to test
           print("satisfied an event")
-          break
         case .unsatisfied, .unknown, .unmonitored:
           // Don't need to do anything here
           break
@@ -110,7 +106,16 @@ let monitorName = "DontGoThereMonitor"
         }
       }
     }
+  }
 
+  func addConditionToMonitor(condition: CLMonitor.CircularGeographicCondition, id: String) async {
+    await monitor?.add(condition, identifier: id, assuming: .unsatisfied)
+    print("created condition for \(id)")
+  }
+
+  func removeConditionFromMonitor(id: String) async {
+    await monitor?.remove(id)
+    print("removed condition for \(id)")
   }
 
   func stopLocationUpdates() {

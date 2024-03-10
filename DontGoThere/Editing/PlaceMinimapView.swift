@@ -17,6 +17,7 @@ extension CLLocationCoordinate2D: Equatable {
 struct PlaceMinimapView: View {
 
   @Bindable var place: Place
+  @EnvironmentObject var locationHandler: LocationHandler
   @State var position: MapCameraPosition = .automatic
 
   var body: some View {
@@ -52,6 +53,7 @@ struct PlaceMinimapView: View {
         place.address = address
       }
     }
+    Task { await locationHandler.addConditionToMonitor(condition: place.region, id: place.id.uuidString) }
   }
 }
 
