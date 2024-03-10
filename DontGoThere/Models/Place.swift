@@ -41,7 +41,7 @@ class Place: Identifiable {
 
   var shouldExpire: Bool
   var isArchived: Bool
-  
+
   var notificationCount = 0
   var maxNotificationCount: Int
 
@@ -58,7 +58,7 @@ class Place: Identifiable {
 
   @Attribute(.externalStorage) var imageData: [Data]?
 
-  init(name: String, 
+  init(name: String,
        review: String,
        latitude: Double,
        longitude: Double,
