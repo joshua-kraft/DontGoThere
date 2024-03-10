@@ -40,6 +40,7 @@ import SwiftUI
     super.init()
     
     self.manager.delegate = self
+    self.manager.desiredAccuracy = kCLLocationAccuracyBest
   }
   
   func startLocationUpdates() {
