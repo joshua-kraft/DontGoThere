@@ -36,6 +36,8 @@ class LocationServicesController: NSObject, CLLocationManagerDelegate, Observabl
       locationManager = CLLocationManager()
       locationManager!.desiredAccuracy = kCLLocationAccuracyBest
       locationManager!.distanceFilter = kCLDistanceFilterNone
+      locationManager!.allowsBackgroundLocationUpdates = true
+      locationManager!.pausesLocationUpdatesAutomatically = false
       locationManager!.delegate = self
       return
     }
@@ -49,12 +51,15 @@ class LocationServicesController: NSObject, CLLocationManagerDelegate, Observabl
     case .denied:
       NotificationCenter.default.post(name: .locationPermissionsDenied, object: nil)
     case .authorizedAlways:
-      // this is the status we want - we don't need to do anything else
+      // this is the status we want
+      locationManager.startUpdatingLocation()
       break
     case .authorizedWhenInUse:
+      // Won't work for notifications, but okay for adding and map
+      locationManager.startUpdatingLocation()
       NotificationCenter.default.post(name: .locationPermissionsAuthorizedWhenInUse, object: nil)
     case .authorized:
-      // this is a deprecated status replaced by authorizedAlways
+      // this is a deprecated status, we shouldn't get here
       break
     @unknown default:
       // Could be reached if Apple adds values to CLAuthorizationStatus
@@ -121,7 +126,3 @@ extension LocationServicesController {
   }
 }
 
-// MARK: - Regions
-extension LocationServicesController {
-  
-}
