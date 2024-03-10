@@ -18,7 +18,6 @@ struct PlaceMinimapView: View {
   
   @Bindable var place: Place
   @State var position: MapCameraPosition = .automatic
-  @EnvironmentObject var locationServicesController: LocationServicesController
   
   var body: some View {
     MapReader { mapProxy in
@@ -63,7 +62,7 @@ struct PlaceMinimapView: View {
     
     return PlaceMinimapView(place: previewer.activePlace)
       .modelContainer(previewer.container)
-      .environmentObject(LocationServicesController())
+      .environmentObject(LocationController.shared)
     
   } catch {
     return Text("Failed to create preview: \(error.localizedDescription)")

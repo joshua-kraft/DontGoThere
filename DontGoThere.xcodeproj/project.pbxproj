@@ -34,7 +34,8 @@
 		426E96F62B9C3EF00078E13E /* ArchivalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426E96F52B9C3EF00078E13E /* ArchivalController.swift */; };
 		426E96F92B9D40A60078E13E /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426E96F82B9D40A60078E13E /* NotificationController.swift */; };
 		426E96FB2B9D4D760078E13E /* GeocodingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426E96FA2B9D4D760078E13E /* GeocodingController.swift */; };
-		42F0ED462B92344100105CB1 /* LocationServicesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F0ED452B92344100105CB1 /* LocationServicesController.swift */; };
+		426E96FD2B9D55B10078E13E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426E96FC2B9D55B10078E13E /* AppDelegate.swift */; };
+		42F0ED462B92344100105CB1 /* LocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F0ED452B92344100105CB1 /* LocationController.swift */; };
 		42FD8B6C2B967411009DFAE8 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FD8B6B2B967411009DFAE8 /* Address.swift */; };
 /* End PBXBuildFile section */
 
@@ -68,7 +69,8 @@
 		426E96F72B9D39210078E13E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		426E96F82B9D40A60078E13E /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
 		426E96FA2B9D4D760078E13E /* GeocodingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeocodingController.swift; sourceTree = "<group>"; };
-		42F0ED452B92344100105CB1 /* LocationServicesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServicesController.swift; sourceTree = "<group>"; };
+		426E96FC2B9D55B10078E13E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		42F0ED452B92344100105CB1 /* LocationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationController.swift; sourceTree = "<group>"; };
 		42FD8B6B2B967411009DFAE8 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -114,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				426E96F72B9D39210078E13E /* Info.plist */,
+				426E96FC2B9D55B10078E13E /* AppDelegate.swift */,
 				42560A0A2B74292B0013FCF4 /* DontGoThereApp.swift */,
 				42560A0C2B74292B0013FCF4 /* ContentView.swift */,
 				42FD8B6D2B96D379009DFAE8 /* Controllers */,
@@ -200,7 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				4238EFC22B893C5900597B4A /* MapSearchController.swift */,
-				42F0ED452B92344100105CB1 /* LocationServicesController.swift */,
+				42F0ED452B92344100105CB1 /* LocationController.swift */,
 				426E96F52B9C3EF00078E13E /* ArchivalController.swift */,
 				426E96F82B9D40A60078E13E /* NotificationController.swift */,
 				426E96FA2B9D4D760078E13E /* GeocodingController.swift */,
@@ -282,11 +285,12 @@
 				42560A362B81843F0013FCF4 /* AppSettings.swift in Sources */,
 				426BB6B52B87CFFC00CBDA71 /* PhotoSheetView.swift in Sources */,
 				4238EFC72B8FCAE400597B4A /* AccessCameraView.swift in Sources */,
+				426E96FD2B9D55B10078E13E /* AppDelegate.swift in Sources */,
 				42560A272B7F1F210013FCF4 /* PlacesList.swift in Sources */,
 				42560A252B7D3D170013FCF4 /* SettingsView.swift in Sources */,
 				42FD8B6C2B967411009DFAE8 /* Address.swift in Sources */,
 				4238EFBD2B891E2200597B4A /* PhotoSectionView.swift in Sources */,
-				42F0ED462B92344100105CB1 /* LocationServicesController.swift in Sources */,
+				42F0ED462B92344100105CB1 /* LocationController.swift in Sources */,
 				426BB6AC2B868DFF00CBDA71 /* DontGoThereIconView.swift in Sources */,
 				4238EFB52B89161900597B4A /* PhotoCardScrollerView.swift in Sources */,
 				42560A1D2B74298F0013FCF4 /* PlacesListView.swift in Sources */,

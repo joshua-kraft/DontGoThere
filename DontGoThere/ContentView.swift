@@ -11,9 +11,7 @@ import SwiftUI
 struct ContentView: View {
   
   @Environment(\.openURL) var openURL
-  
-  @EnvironmentObject var locationServicesController: LocationServicesController
-  
+    
   @State private var isShowingLocationServicesDeniedAlert = false
   @State private var isShowingLocationServicesAllowedInUseAlert = false
   @State private var isShowingLocationServicesRestrictedAlert = false
@@ -89,7 +87,7 @@ struct ContentView: View {
     
     return ContentView()
       .modelContainer(previewer.container)
-      .environmentObject(LocationServicesController())
+      .environmentObject(LocationController.shared)
       .environmentObject(AppSettings.defaultSettings)
       
   } catch {

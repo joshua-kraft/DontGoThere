@@ -11,7 +11,6 @@ struct DetailSectionView: View {
   
   @Bindable var place: Place
   @EnvironmentObject var appSettings: AppSettings
-  @EnvironmentObject var locationServicesController: LocationServicesController
   
   @State var enteredAddress = ""
   
@@ -130,7 +129,7 @@ struct DetailSectionView: View {
     return DetailSectionView(place: previewer.activePlace)
       .modelContainer(previewer.container)
       .environmentObject(AppSettings.defaultSettings)
-      .environmentObject(LocationServicesController())
+      .environmentObject(LocationController.shared)
     
   } catch {
     return Text("Failed to create preview: \(error.localizedDescription)")

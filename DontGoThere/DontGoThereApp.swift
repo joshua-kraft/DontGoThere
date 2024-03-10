@@ -11,19 +11,20 @@ import SwiftUI
 @main
 struct DontGoThereApp: App {
   
+  @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
+  
   let container: ModelContainer
   var archivalController: ArchivalController
-  var locationServicesController: LocationServicesController
   
+  @StateObject var locationController = LocationController.shared
   @StateObject var appSettings = AppSettings.loadSettings()
 
   var body: some Scene {
     WindowGroup {
       ContentView()
         .environmentObject(appSettings)
-        .environmentObject(locationServicesController)
+        .environmentObject(locationController)
         .onAppear {
-          locationServicesController.checkLocationAuth()
           archivalController.archiveExpiredPlaces()
           archivalController.deleteOldArchivedPlaces()
         }
@@ -36,7 +37,6 @@ struct DontGoThereApp: App {
     do {
       container = try ModelContainer(for: Place.self)
       archivalController = ArchivalController(modelContext: container.mainContext, appSettings: AppSettings.loadSettings())
-      locationServicesController = LocationServicesController()
     } catch {
       fatalError("Could not create container: \(error.localizedDescription)")
     }

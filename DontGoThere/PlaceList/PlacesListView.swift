@@ -16,7 +16,7 @@ struct PlacesListView: View {
   
   @Environment(\.modelContext) var modelContext
   @EnvironmentObject var appSettings: AppSettings
-  @EnvironmentObject var locationServicesController: LocationServicesController
+  @EnvironmentObject var locationController: LocationController
   
   @State private var path = [Place]()
   @State private var searchText = ""
@@ -32,12 +32,9 @@ struct PlacesListView: View {
           ContentUnavailableView {
             DontGoThereUnavailableLabel("No Places Added")
           } description: {
-            var text: String {
-              "You haven't added any places yet. \(locationServicesController.locationAuthorized ? "" : "Go to the PlaceMap to add your first Place.")"
-            }
-            Text(text)
+            Text(emptyDescriptionText())
           } actions: {
-            if locationServicesController.locationAuthorized {
+            if locationController.locationAuthorized {
               Button("Add First Place", action: addPlace)
             }
           }
@@ -95,7 +92,7 @@ struct PlacesListView: View {
             }
             
             if listType == .active {
-              if locationServicesController.locationAuthorized {
+              if locationController.locationAuthorized {
                 Button("Add Place", systemImage: "plus", action: addPlace)
               }
             }
@@ -105,34 +102,34 @@ struct PlacesListView: View {
     }
   }
   
-  func addPlace() {
-    if let coordinate = locationServicesController.locationManager?.location?.coordinate {
-      let newPlace = Place(
-        name: locationServicesController.getNameForCurrentLocation(),
-        review: "",
-        latitude: coordinate.latitude,
-        longitude: coordinate.longitude,
-        address: Address.emptyAddress,
-        addDate: Date.now,
-        expirationDate: appSettings.neverExpire ? Date.distantFuture : appSettings.getExpiryDate(from: Date.now),
-        shouldExpire: !appSettings.neverExpire,
-        imageData: []
-      )
-      modelContext.insert(newPlace)
-      path.append(newPlace)
-      
-      Geocoder.getAddressFromCoordinate(coordinate: coordinate) { placemark in
-        if let address = Address(fromPlacemark: placemark) {
-          newPlace.address = address
-        }
-      }
-      
-    } else {
-      print("could not get location to add")
-    }
+  func emptyDescriptionText() -> String {
+    "You haven't added any places yet. \(locationController.locationAuthorized ? "" : "Go to the PlaceMap to add your first Place.")"
   }
+  
+  func addPlace() {
+    let newPlace = Place(
+      name: "",
+      review: "",
+      latitude: locationController.lastLocation.coordinate.latitude,
+      longitude: locationController.lastLocation.coordinate.longitude,
+      address: Address.emptyAddress,
+      addDate: Date.now,
+      expirationDate: appSettings.neverExpire ? Date.distantFuture : appSettings.getExpiryDate(from: Date.now),
+      shouldExpire: !appSettings.neverExpire,
+      imageData: []
+    )
+    modelContext.insert(newPlace)
+    path.append(newPlace)
     
+    Geocoder.getAddressFromCoordinate(coordinate: locationController.lastLocation.coordinate) { placemark in
+      if let address = Address(fromPlacemark: placemark) {
+        newPlace.address = address
+      }
+    }
+    
+  }
 }
+
 
 #Preview {
   do {
@@ -141,7 +138,7 @@ struct PlacesListView: View {
     return PlacesListView()
       .modelContainer(previewer.container)
       .environmentObject(AppSettings.defaultSettings)
-      .environmentObject(LocationServicesController())
+      .environmentObject(LocationController.shared)
   } catch {
     return Text("Failed to create preview: \(error.localizedDescription)")
   }

@@ -14,7 +14,9 @@ struct PlacesMapView: View {
   @Query var places: [Place]
   @Environment(\.modelContext) var modelContext
   @EnvironmentObject var appSettings: AppSettings
-  @EnvironmentObject var locationServicesController: LocationServicesController
+  @EnvironmentObject var locationController: LocationController
+  
+  var locationAuthorized: Bool { locationController.locationAuthorized }
   
   @State private var showExistingPlaces = true
   @State private var path = [Place]()
@@ -39,7 +41,7 @@ struct PlacesMapView: View {
           ZStack(alignment: .bottomTrailing) {
             Map(position: $position, scope: mapScope) {
               
-              if locationServicesController.locationAuthorized {
+              if locationAuthorized {
                 UserAnnotation()
               }
               
@@ -88,7 +90,7 @@ struct PlacesMapView: View {
                 .multilineTextAlignment(.center)
             }
             
-            if locationServicesController.locationAuthorized {
+            if locationAuthorized {
               VStack {
                 MapUserLocationButton(scope: mapScope)
               }
@@ -137,9 +139,9 @@ struct PlacesMapView: View {
             }
           }
           
-          if locationServicesController.locationAuthorized {
+          if locationAuthorized {
             Button("Add Place", systemImage: "plus") {
-              addPlace(forCurrentLocation: true, at: locationServicesController.locationManager?.location?.coordinate)
+              addPlace(forCurrentLocation: true, at: locationController.lastLocation.coordinate)
             }
           }
         }
@@ -159,10 +161,11 @@ struct PlacesMapView: View {
     }
   }
   
+  
   func addPlace(forCurrentLocation: Bool = false, at coordinate: CLLocationCoordinate2D? = nil, with result: MapSearchResult? = nil) {
     if let coordinate {
       let newPlace = Place(
-        name: result?.name ?? (forCurrentLocation ? locationServicesController.getNameForCurrentLocation() : "Unknown Name"),
+        name: result?.name ?? "",
         review: "",
         latitude: coordinate.latitude,
         longitude: coordinate.longitude,
@@ -195,7 +198,7 @@ struct PlacesMapView: View {
     return PlacesMapView()
       .modelContainer(previewer.container)
       .environmentObject(AppSettings.defaultSettings)
-      .environmentObject(LocationServicesController())
+      .environmentObject(LocationController.shared)
   } catch {
     return Text("Could not create preview: \(error.localizedDescription)")
   }
