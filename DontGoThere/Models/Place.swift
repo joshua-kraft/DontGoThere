@@ -11,6 +11,7 @@ import SwiftData
 
 @Model
 class Place: Identifiable {
+  let id = UUID()
   var name: String
   var review: String
 
@@ -38,9 +39,14 @@ class Place: Identifiable {
 
   var address: Address
 
+  var shouldExpire: Bool
+  var isArchived: Bool
+  
+  var notificationCount = 0
+  var maxNotificationCount: Int
+
   var addDate: Date
   var expirationDate: Date
-  var shouldExpire: Bool
 
   var formattedAddDate: String {
     formattedDate(addDate)
@@ -52,32 +58,32 @@ class Place: Identifiable {
 
   @Attribute(.externalStorage) var imageData: [Data]?
 
-  var isArchived: Bool
-
-  var notificationCount = 0
-
-  init(name: String,
+  init(name: String, 
        review: String,
        latitude: Double,
        longitude: Double,
        radius: Double,
        address: Address,
+       shouldExpire: Bool = true,
+       isArchived: Bool = false,
+       notificationCount: Int = 0,
+       maxNotificationCount: Int,
        addDate: Date,
        expirationDate: Date,
-       shouldExpire: Bool = true,
-       imageData: [Data]? = nil,
-       isArchived: Bool = false) {
+       imageData: [Data]? = nil) {
     self.name = name
     self.review = review
     self.latitude = latitude
     self.longitude = longitude
     self.radius = radius
     self.address = address
+    self.shouldExpire = shouldExpire
+    self.isArchived = isArchived
+    self.notificationCount = notificationCount
+    self.maxNotificationCount = maxNotificationCount
     self.addDate = addDate
     self.expirationDate = expirationDate
-    self.shouldExpire = shouldExpire
     self.imageData = imageData
-    self.isArchived = isArchived
   }
 
   func formattedDate(_ date: Date) -> String {

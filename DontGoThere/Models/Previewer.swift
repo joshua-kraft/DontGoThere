@@ -23,12 +23,13 @@ struct Previewer {
                         review: "A little bit longer text so that we can see what wrapping looks like in"
                         + "the multi-line text field when writing a particularly long or multi-lined review.\n\n"
                         + "Maybe there are two paragraphs. Who knows what people could write when they're upset.",
-                        latitude: 30.5532, longitude: -97.8422,
+                        latitude: 30.5532, longitude: -97.8422, radius: settings.regionRadius,
                         address: Address(streetNumber: "123",
                                          streetName: "Example Esp",
                                          city: "Example",
                                          state: "ZZ",
                                          zip: "12345"),
+                        maxNotificationCount: settings.maxNotificationCount,
                         addDate: Date.now,
                         expirationDate: settings.getExpiryDate(from: Date.now),
                         imageData: []
@@ -37,29 +38,31 @@ struct Previewer {
                           review: "A little bit longer text so that we can see what wrapping looks like in"
                           + "the multi-line text field when writing a particularly long or multi-lined review.\n\n"
                           + "Maybe there are two paragraphs. Who knows what people could write when they're upset.",
-                          latitude: 30.5788, longitude: -97.8531,
+                          latitude: 30.5788, longitude: -97.8531, radius: settings.regionRadius,
                           address: Address(streetNumber: "999",
                                            streetName: "Archived Ave",
                                            city: "Archives",
                                            state: "ZZ",
                                            zip: "12345"),
+                          isArchived: true,
+                          maxNotificationCount: settings.maxNotificationCount,
                           addDate: Date.now.addingTimeInterval(-30 * 86400),
                           expirationDate: Date.now.addingTimeInterval(-1 * 86400),
-                          imageData: [],
-                          isArchived: true
+                          imageData: []
     )
     neverExpiresPlace = Place(name: "TraPac",
                               review: "A little bit longer text so that we can see what wrapping looks like in"
                               + "the multi-line text field when writing a particularly long or multi-lined review.\n\n"
                               + "Maybe there are two paragraphs. Who knows what people could write when they're upset.",
-                              latitude: 30.392660, longitude: -97.850010,
+                              latitude: 30.392660, longitude: -97.850010, radius: settings.regionRadius,
                               address: Address(streetNumber: "6500",
                                                streetName: "River Place Blvd",
                                                city: "Austin",
                                                state: "TX",
                                                zip: "78730"),
-                              addDate: Date.now, expirationDate: Date.distantFuture,
                               shouldExpire: false,
+                              maxNotificationCount: settings.maxNotificationCount,
+                              addDate: Date.now, expirationDate: Date.distantFuture,
                               imageData: []
     )
     container.mainContext.insert(activePlace)

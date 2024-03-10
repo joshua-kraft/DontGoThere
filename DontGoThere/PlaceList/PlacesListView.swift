@@ -113,10 +113,12 @@ struct PlacesListView: View {
       review: "",
       latitude: locationHandler.lastLocation.coordinate.latitude,
       longitude: locationHandler.lastLocation.coordinate.longitude,
+      radius: appSettings.regionRadius,
       address: Address.emptyAddress,
+      shouldExpire: !appSettings.neverExpire,
+      maxNotificationCount: appSettings.maxNotificationCount,
       addDate: Date.now,
       expirationDate: appSettings.neverExpire ? Date.distantFuture : appSettings.getExpiryDate(from: Date.now),
-      shouldExpire: !appSettings.neverExpire,
       imageData: []
     )
     modelContext.insert(newPlace)
