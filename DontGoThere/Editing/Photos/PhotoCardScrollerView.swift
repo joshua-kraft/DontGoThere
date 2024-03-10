@@ -11,25 +11,32 @@ struct PhotoCardScrollerView: View {
   @Bindable var place: Place
 
   var body: some View {
-    ScrollView(.horizontal, showsIndicators: false) {
-      HStack {
-        if let imageData = place.imageData {
-          ForEach(imageData, id: \.self) { imageData in
-            PlaceImageCardView(imageData: imageData, place: place)
-              .frame(width: 120, height: 120)
-              .clipShape(.rect(cornerRadius: 5))
-              .contextMenu {
-                Button("Delete", systemImage: "trash", role: .destructive) {
-                  withAnimation {
-                    deletePhoto(imageData: imageData)
+    if let imageData = place.imageData {
+      if imageData.isEmpty {
+        Text("No Photos Added")
+          .font(.title3.bold())
+          .foregroundStyle(.secondary)
+          .frame(height: 120)
+      } else {
+        ScrollView(.horizontal, showsIndicators: false) {
+          HStack {
+            ForEach(imageData, id: \.self) { imageData in
+              PlaceImageCardView(imageData: imageData, place: place)
+                .frame(width: 120, height: 120)
+                .clipShape(.rect(cornerRadius: 5))
+                .contextMenu {
+                  Button("Delete", systemImage: "trash", role: .destructive) {
+                    withAnimation {
+                      deletePhoto(imageData: imageData)
+                    }
                   }
                 }
-              }
+            }
           }
+          .padding([.leading, .trailing])
+          .padding(.bottom, 4)
         }
       }
-      .padding([.leading, .trailing])
-      .padding(.bottom, 4)
     }
   }
 
