@@ -10,7 +10,7 @@ import SwiftUI
 
 struct PlaceMapSearchView: View {
 
-  @State private var mapSearchController = MapSearchController(completer: .init())
+  @State private var mapSearchHandler = MapSearchHandler(completer: .init())
   @State private var searchText = ""
   @FocusState private var isSearchFieldFocused: Bool
   @State private var presentationDetent: PresentationDetent = .fraction(0.20)
@@ -25,9 +25,9 @@ struct PlaceMapSearchView: View {
           .focused($isSearchFieldFocused)
           .autocorrectionDisabled()
           .onSubmit {
-            if mapSearchController.searchCompletions.isEmpty == false {
+            if mapSearchHandler.searchCompletions.isEmpty == false {
               Task {
-                let results = (try? await mapSearchController.performSearch(with: searchText, in: visibleRegion)) ?? []
+                let results = (try? await mapSearchHandler.performSearch(with: searchText, in: visibleRegion)) ?? []
                 withAnimation {
                   searchResults = results
                 }
@@ -37,13 +37,13 @@ struct PlaceMapSearchView: View {
       }
       .modifier(SearchBarModifier())
       .onChange(of: searchText) {
-        mapSearchController.updateSearchResults(with: searchText, in: visibleRegion)
+        mapSearchHandler.updateSearchResults(with: searchText, in: visibleRegion)
       }
       .padding(.bottom)
       
       
       List {
-        ForEach(mapSearchController.searchCompletions) { completion in
+        ForEach(mapSearchHandler.searchCompletions) { completion in
           VStack(alignment: .leading) {
             Text(completion.name)
               .font(.headline)
@@ -71,7 +71,7 @@ struct PlaceMapSearchView: View {
   
   func rowTapped(completion: MapSearchCompletion) {
     Task {
-      if let tappedResult = try? await mapSearchController.performSearch(with: "\(completion.name) \(completion.address)", in: visibleRegion).first {
+      if let tappedResult = try? await mapSearchHandler.performSearch(with: "\(completion.name) \(completion.address)", in: visibleRegion).first {
         searchResults = [tappedResult]
       }
     }
