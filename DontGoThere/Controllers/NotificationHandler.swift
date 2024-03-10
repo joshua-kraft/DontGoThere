@@ -9,6 +9,6 @@ import CoreLocation
 import Foundation
 import SwiftUI
 
-class NotificationController: ObservableObject {
+class NotificationHandler: ObservableObject {
   
 }
