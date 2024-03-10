@@ -44,7 +44,6 @@ import SwiftUI
   }
   
   func startLocationUpdates() {
-    print("starting location updates")
     Task {
       do {
         self.updatesStarted = true
@@ -56,8 +55,6 @@ import SwiftUI
           if let loc = update.location {
             self.lastLocation = loc
             self.isStationary = update.isStationary
-            self.count += 1
-            print("Location: \(self.count): \(self.lastLocation)")
           }
         }
       } catch {
@@ -68,7 +65,6 @@ import SwiftUI
   }
   
   func stopLocationUpdates() {
-    print("Stopping location updates")
     self.updatesStarted = false
     self.backgroundActivity = false
   }
@@ -84,14 +80,17 @@ extension Notification.Name {
 extension LocationController: CLLocationManagerDelegate {
   func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
     switch manager.authorizationStatus {
+      
     case .notDetermined:
       UserDefaults.standard.setValue(false, forKey: "locationAuthorized")
       self.locationAuthorized = false
       self.manager.requestAlwaysAuthorization()
+      
     case .restricted:
       UserDefaults.standard.setValue(false, forKey: "locationAuthorized")
       self.locationAuthorized = false
       NotificationCenter.default.post(name: .locationPermissionsRestricted, object: nil)
+      
     case .denied:
       UserDefaults.standard.setValue(false, forKey: "locationAuthorized")
       self.backgroundActivity = false
@@ -99,6 +98,7 @@ extension LocationController: CLLocationManagerDelegate {
       self.locationAuthorized = false
       self.stopLocationUpdates()
       NotificationCenter.default.post(name: .locationPermissionsDenied, object: nil)
+      
     case .authorizedAlways, .authorizedWhenInUse:
       // This is what we want
       UserDefaults.standard.setValue(true, forKey: "locationAuthorized")
@@ -108,6 +108,7 @@ extension LocationController: CLLocationManagerDelegate {
       
       // Start the background activity if we're allowed, otherwise display the alert that we're not
       manager.authorizationStatus == .authorizedAlways ? self.backgroundActivity = true : NotificationCenter.default.post(name: .locationPermissionsAuthorizedWhenInUse, object: nil)
+      
     @unknown default:
       // Could be reached if Apple adds to CLAuthorizationStatus
       break
