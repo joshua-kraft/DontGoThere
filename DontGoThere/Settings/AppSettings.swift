@@ -17,7 +17,7 @@ enum TimeUnit: String, CaseIterable, Codable {
 
 class AppSettings: ObservableObject, Codable {
   
-  static let defaultSettings = AppSettings(neverExpire: false, autoExpiryValue: 3, autoExpiryUnit: .months, neverDelete: false, autoDeletionValue: 1, autoDeletionUnit: .months, noNotificationLimit: false, maxNotificationCount: 10)
+  static let defaultSettings = AppSettings(neverExpire: false, autoExpiryValue: 3, autoExpiryUnit: .months, neverDelete: false, autoDeletionValue: 1, autoDeletionUnit: .months, regionRadius: 100, noNotificationLimit: false, maxNotificationCount: 10)
   
   let calendar = Calendar.autoupdatingCurrent
   
@@ -29,17 +29,20 @@ class AppSettings: ObservableObject, Codable {
   @Published var autoDeletionValue: Int { didSet { saveSettings() } }
   @Published var autoDeletionUnit: TimeUnit { didSet { saveSettings() } }
   
+  @Published var regionRadius: Int { didSet { saveSettings() } }
+  
   @Published var noNotificationLimit: Bool { didSet { saveSettings() } }
   @Published var maxNotificationCount: Int { didSet { saveSettings() } }
   
     
-  init(neverExpire: Bool, autoExpiryValue: Int, autoExpiryUnit: TimeUnit, neverDelete: Bool, autoDeletionValue: Int, autoDeletionUnit: TimeUnit, noNotificationLimit: Bool, maxNotificationCount: Int) {
+  init(neverExpire: Bool, autoExpiryValue: Int, autoExpiryUnit: TimeUnit, neverDelete: Bool, autoDeletionValue: Int, autoDeletionUnit: TimeUnit, regionRadius: Int, noNotificationLimit: Bool, maxNotificationCount: Int) {
     self.neverExpire = neverExpire
     self.autoExpiryValue = autoExpiryValue
     self.autoExpiryUnit = autoExpiryUnit
     self.neverDelete = neverDelete
     self.autoDeletionValue = autoDeletionValue
     self.autoDeletionUnit = autoDeletionUnit
+    self.regionRadius = regionRadius
     self.noNotificationLimit = noNotificationLimit
     self.maxNotificationCount = maxNotificationCount
   }
@@ -106,6 +109,7 @@ class AppSettings: ObservableObject, Codable {
     case neverDelete
     case autoDeletionValue
     case autoDeletionUnit
+    case regionRadius
     case noNotificationLimit
     case maxNotificationCount
   }
@@ -120,6 +124,8 @@ class AppSettings: ObservableObject, Codable {
     neverDelete = try container.decode(Bool.self, forKey: .neverDelete)
     autoDeletionValue = try container.decode(Int.self, forKey: .autoDeletionValue)
     autoDeletionUnit = try container.decode(TimeUnit.self, forKey: .autoDeletionUnit)
+    
+    regionRadius = try container.decode(Int.self, forKey: .regionRadius)
     
     noNotificationLimit = try container.decode(Bool.self, forKey: .noNotificationLimit)
     maxNotificationCount = try container.decode(Int.self, forKey: .maxNotificationCount)
@@ -136,6 +142,8 @@ class AppSettings: ObservableObject, Codable {
     try container.encode(autoDeletionValue, forKey: .autoDeletionValue)
     try container.encode(autoDeletionUnit, forKey: .autoDeletionUnit)
 
+    try container.encode(regionRadius, forKey: .regionRadius)
+    
     try container.encode(noNotificationLimit, forKey: .noNotificationLimit)
     try container.encode(maxNotificationCount, forKey: .maxNotificationCount)
   }
