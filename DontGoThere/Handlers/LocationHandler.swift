@@ -7,7 +7,10 @@
 
 import CoreLocation
 import Foundation
+import SwiftData
 import SwiftUI
+
+let monitorName = "DontGoThereMonitor"
 
 @MainActor class LocationHandler: NSObject, ObservableObject {
 
@@ -15,6 +18,8 @@ import SwiftUI
 
   private var manager: CLLocationManager
   private var background: CLBackgroundActivitySession?
+  var monitor: CLMonitor?
+  private var places = [Place]()
 
   @Published var lastLocation = CLLocation()
   @Published var isStationary = false
@@ -64,7 +69,48 @@ import SwiftUI
     }
   }
 
-  func startMonitoringPlaceRegions() {
+  func updateMonitorConditions() async {
+    monitor = await CLMonitor(monitorName)
+    let activePlaceUUIDs = places.filter({ !$0.isArchived }).compactMap({ $0.id.uuidString })
+
+    // Add conditions for all active places
+    // Conditions get the same UUID as the place
+    for place in places where !place.isArchived {
+      await monitor!.add(place.region, identifier: place.id.uuidString, assuming: .unsatisfied)
+      print("created condition for \(place.name)")
+    }
+
+    // Remove any conditions we may have that aren't in the active place list
+
+    for uuid in await monitor!.identifiers where !activePlaceUUIDs.contains(uuid) {
+        await monitor!.remove(uuid)
+        print("removed condition for \(uuid)")
+    }
+  }
+
+
+  // 30.56037
+  // -97.84581
+  
+  func startMonitoringPlaceConditions() async {
+    guard let monitor else { return }
+
+    Task {
+      for try await event in await monitor.events {
+        switch event.state {
+        case .satisfied:
+          print("satisfied an event")
+          break
+        case .unsatisfied, .unknown, .unmonitored:
+          // Don't need to do anything here
+          break
+        @unknown default:
+          // Could be exercised on API updates
+          break
+        }
+      }
+    }
+
   }
 
   func stopLocationUpdates() {
@@ -79,6 +125,7 @@ extension Notification.Name {
   static let locationPermissionsRestricted = Notification.Name("locationPermissionsRestricted")
 }
 
+// MARK: CLLocationManagerDelegate Conformance
 extension LocationHandler: CLLocationManagerDelegate {
   func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
     switch manager.authorizationStatus {
@@ -106,7 +153,10 @@ extension LocationHandler: CLLocationManagerDelegate {
       UserDefaults.standard.setValue(true, forKey: "locationAuthorized")
       self.locationAuthorized = true
       self.startLocationUpdates()
-
+      Task {
+        await self.updateMonitorConditions()
+        await self.startMonitoringPlaceConditions()
+      }
       // Start the background activity if we're allowed, otherwise display the alert that we're not
       manager.authorizationStatus == .authorizedAlways ?
       self.backgroundActivity = true :
@@ -115,6 +165,18 @@ extension LocationHandler: CLLocationManagerDelegate {
     @unknown default:
       // Could be reached if Apple adds to CLAuthorizationStatus
       break
+    }
+  }
+}
+
+// MARK: - Fetching SwiftData objects
+extension LocationHandler {
+  func fetchData(modelContext: ModelContext) {
+    do {
+      let descriptor = FetchDescriptor<Place>()
+      places = try modelContext.fetch(descriptor)
+    } catch {
+      print("Fetch failed: \(error.localizedDescription)")
     }
   }
 }
