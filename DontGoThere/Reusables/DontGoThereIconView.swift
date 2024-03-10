@@ -8,12 +8,11 @@
 import SwiftUI
 
 struct DontGoThereIconView: View {
-  
+
   let width: CGFloat
   let height: CGFloat
-  
   let borderColor = Color(red: 0.15, green: 0.15, blue: 0.15, opacity: 1.0)
-  
+
   struct InvertedTriangle: Shape {
     func path(in rect: CGRect) -> Path {
       var path = Path()
@@ -24,36 +23,32 @@ struct DontGoThereIconView: View {
       return path
     }
   }
-  
+
   var body: some View {
     ZStack(alignment: .top) {
       InvertedTriangle()
         .stroke(borderColor.gradient, style: StrokeStyle(lineWidth: 10, lineCap: .round, lineJoin: .round))
         .fill(.yellow.gradient.shadow(.drop(radius: 15)))
         .frame(width: width, height: height)
-      
-      
+
       Image(.turnAroundIcon)
         .resizable()
         .foregroundStyle(.black.gradient)
         .frame(width: width / 2.5, height: width / 2.5)
         .padding(.top, height / 10)
         .padding(.leading, width / 25)
-      
     }
   }
-  
+
   init(width: CGFloat, height: CGFloat) {
     self.width = width
     self.height = height
   }
-  
 }
 
 struct DontGoThereUnavailableLabel: View {
-  
   let titleText: String
-  
+
   var body: some View {
     Label(
       title: { Text(titleText) },

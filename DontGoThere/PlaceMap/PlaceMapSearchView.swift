@@ -16,7 +16,7 @@ struct PlaceMapSearchView: View {
   @State private var presentationDetent: PresentationDetent = .fraction(0.20)
   @Binding var searchResults: [MapSearchResult]
   @Binding var visibleRegion: MKCoordinateRegion?
-  
+
   var body: some View {
     VStack {
       HStack {
@@ -40,8 +40,7 @@ struct PlaceMapSearchView: View {
         mapSearchHandler.updateSearchResults(with: searchText, in: visibleRegion)
       }
       .padding(.bottom)
-      
-      
+
       List {
         ForEach(mapSearchHandler.searchCompletions) { completion in
           VStack(alignment: .leading) {
@@ -68,10 +67,12 @@ struct PlaceMapSearchView: View {
     }
     .scrollDismissesKeyboard(.interactively)
   }
-  
+
   func rowTapped(completion: MapSearchCompletion) {
     Task {
-      if let tappedResult = try? await mapSearchHandler.performSearch(with: "\(completion.name) \(completion.address)", in: visibleRegion).first {
+      if let tappedResult = try? await mapSearchHandler.performSearch(
+        with: "\(completion.name) \(completion.address)",
+        in: visibleRegion).first {
         searchResults = [tappedResult]
       }
     }

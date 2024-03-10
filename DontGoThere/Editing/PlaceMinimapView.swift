@@ -15,10 +15,10 @@ extension CLLocationCoordinate2D: Equatable {
 }
 
 struct PlaceMinimapView: View {
-  
+
   @Bindable var place: Place
   @State var position: MapCameraPosition = .automatic
-  
+
   var body: some View {
     MapReader { mapProxy in
       Map(position: $position, interactionModes: [.pan, .zoom, .rotate]) {
@@ -43,7 +43,7 @@ struct PlaceMinimapView: View {
       }
     }
   }
-    
+
   func updatePosition(with tappedCoordinate: CLLocationCoordinate2D) {
     place.latitude = tappedCoordinate.latitude
     place.longitude = tappedCoordinate.longitude
@@ -53,17 +53,14 @@ struct PlaceMinimapView: View {
       }
     }
   }
-  
 }
 
 #Preview {
   do {
     let previewer = try Previewer()
-    
     return PlaceMinimapView(place: previewer.activePlace)
       .modelContainer(previewer.container)
       .environmentObject(LocationHandler.shared)
-    
   } catch {
     return Text("Failed to create preview: \(error.localizedDescription)")
   }

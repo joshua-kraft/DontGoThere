@@ -10,41 +10,46 @@ import SwiftData
 import SwiftUI
 
 struct PlacesMapView: View {
-  
+
   @Query var places: [Place]
   @Environment(\.modelContext) var modelContext
   @EnvironmentObject var appSettings: AppSettings
   @EnvironmentObject var locationHandler: LocationHandler
-  
+
   var locationAuthorized: Bool { locationHandler.locationAuthorized }
-  
+
   @State private var showExistingPlaces = true
   @State private var path = [Place]()
-  
+
   @State private var isShowingDeleteAlert = false
   @State private var deletedPlace: Place?
-  
+
   @State private var isShowingSearchSheet = false
   @State private var searchResults = [MapSearchResult]()
-  
+
   @State private var position: MapCameraPosition = .userLocation(fallback: .automatic)
   @State private var visibleRegion: MKCoordinateRegion?
   @Namespace var mapScope
-  
-  let notSearchingOverlayText = "Tap on the map to add a place at that location. Tap and hold on a place to view details, share, or delete."
-  let searchingOverlayText = "Tap on a seach result or marker to add a place at that location. End searching to show your current places."
-  
+
+  let notSearchingOverlayText =
+  "Tap on the map to add a place at that location. "
+  + "Tap and hold on a place to view details, share, or delete."
+
+  let searchingOverlayText =
+  "Tap on a seach result or marker to add a place at that location. "
+  + "End searching to show your current places."
+
   var body: some View {
     NavigationStack(path: $path) {
       VStack {
         MapReader { proxy in
           ZStack(alignment: .bottomTrailing) {
             Map(position: $position, scope: mapScope) {
-              
+
               if locationAuthorized {
                 UserAnnotation()
               }
-              
+
               if showExistingPlaces {
                 ForEach(places.filter { !$0.isArchived }) { place in
                   Annotation(place.name, coordinate: place.coordinate) {
@@ -59,7 +64,7 @@ struct PlacesMapView: View {
                   }
                 }
               }
-              
+
               ForEach(searchResults) { result in
                 Annotation(result.name, coordinate: result.coordinate) {
                   DontGoThereSearchIconView(width: 40, height: 40)
@@ -72,7 +77,6 @@ struct PlacesMapView: View {
                     }
                 }
               }
-              
             }
             .onTapGesture { position in
               if let tappedCoordinate = proxy.convert(position, from: .local) {
@@ -89,7 +93,7 @@ struct PlacesMapView: View {
                 .background(.thinMaterial.opacity(0.8))
                 .multilineTextAlignment(.center)
             }
-            
+
             if locationAuthorized {
               VStack {
                 MapUserLocationButton(scope: mapScope)
@@ -126,7 +130,7 @@ struct PlacesMapView: View {
             }
           }
         }
-        
+
         ToolbarItemGroup(placement: .topBarTrailing) {
           Button("Search", systemImage: "magnifyingglass") {
             withAnimation {
@@ -138,7 +142,7 @@ struct PlacesMapView: View {
               showExistingPlaces = !isShowingSearchSheet
             }
           }
-          
+
           if locationAuthorized {
             Button("Add Place", systemImage: "plus") {
               addPlace(forCurrentLocation: true, at: locationHandler.lastLocation.coordinate)
@@ -156,13 +160,12 @@ struct PlacesMapView: View {
       } message: {
         Text("Are you sure?")
       }
-      
-      
     }
   }
-  
-  
-  func addPlace(forCurrentLocation: Bool = false, at coordinate: CLLocationCoordinate2D? = nil, with result: MapSearchResult? = nil) {
+
+  func addPlace(forCurrentLocation: Bool = false,
+                at coordinate: CLLocationCoordinate2D? = nil,
+                with result: MapSearchResult? = nil) {
     if let coordinate {
       let newPlace = Place(
         name: result?.name ?? "",
@@ -177,24 +180,21 @@ struct PlacesMapView: View {
       )
       modelContext.insert(newPlace)
       path.append(newPlace)
-      
+
       GeocodingHandler.getAddressFromCoordinate(coordinate: coordinate) { placemark in
-        if let address = Address(fromPlacemark: placemark){
+        if let address = Address(fromPlacemark: placemark) {
           newPlace.address = address
         }
       }
-
     } else {
       print("could not get location to add")
     }
   }
-  
 }
 
 #Preview {
   do {
     let previewer = try Previewer()
-    
     return PlacesMapView()
       .modelContainer(previewer.container)
       .environmentObject(AppSettings.defaultSettings)

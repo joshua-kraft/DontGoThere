@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct PhotoCardScrollerView: View {
-  
   @Bindable var place: Place
-  
+
   var body: some View {
     ScrollView(.horizontal, showsIndicators: false) {
       HStack {
@@ -26,7 +25,6 @@ struct PhotoCardScrollerView: View {
                   }
                 }
               }
-            
           }
         }
       }
@@ -34,7 +32,7 @@ struct PhotoCardScrollerView: View {
       .padding(.bottom, 4)
     }
   }
-  
+
   func deletePhoto(imageData: Data) {
     if let index = place.imageData?.firstIndex(of: imageData) {
       place.imageData?.remove(at: index)
@@ -43,11 +41,10 @@ struct PhotoCardScrollerView: View {
 }
 
 struct PlaceImageCardView: View {
-  
   let imageData: Data
   @Bindable var place: Place
   @State private var isShowingPhotoSheet = false
-  
+
   var body: some View {
     if let uiImage = UIImage(data: imageData) {
       Image(uiImage: uiImage)
@@ -63,14 +60,11 @@ struct PlaceImageCardView: View {
   }
 }
 
-
 #Preview {
   do {
     let previewer = try Previewer()
-    
     return PhotoCardScrollerView(place: previewer.activePlace)
       .modelContainer(previewer.container)
-    
   } catch {
     return Text("Failed to create preview: \(error.localizedDescription)")
   }

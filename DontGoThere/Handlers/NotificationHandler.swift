@@ -10,5 +10,4 @@ import Foundation
 import SwiftUI
 
 class NotificationHandler: ObservableObject {
-  
 }

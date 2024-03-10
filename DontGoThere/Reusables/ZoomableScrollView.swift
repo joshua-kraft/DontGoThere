@@ -9,11 +9,11 @@ import SwiftUI
 
 struct ZoomableScrollView<Content: View>: UIViewRepresentable {
   private var content: Content
-  
+
   init(@ViewBuilder content: () -> Content) {
     self.content = content()
   }
-  
+
   func makeUIView(context: Context) -> some UIView {
     // set up the UIScrollView
     let scrollView = UIScrollView()
@@ -31,23 +31,23 @@ struct ZoomableScrollView<Content: View>: UIViewRepresentable {
 
     return scrollView
   }
-  
+
   func makeCoordinator() -> Coordinator {
     return Coordinator(hostingController: UIHostingController(rootView: self.content))
   }
-  
+
   func updateUIView(_ uiView: UIViewType, context: Context) {
     context.coordinator.hostingController.rootView = self.content
     assert(context.coordinator.hostingController.view.superview == uiView)
   }
-  
+
   class Coordinator: NSObject, UIScrollViewDelegate {
     var hostingController: UIHostingController<Content>
-    
+
     init(hostingController: UIHostingController<Content>) {
       self.hostingController = hostingController
     }
-    
+
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
       return hostingController.view
     }

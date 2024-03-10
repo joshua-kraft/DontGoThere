@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct PhotoSheetView: View {
-  
+
   @Environment(\.dismiss) var dismiss
-  
+
   let imageData: Data
   @Bindable var place: Place
   @State private var isShowingDeleteAlert = false
-  
+
   var body: some View {
     NavigationStack {
       VStack {
@@ -44,23 +44,21 @@ struct PhotoSheetView: View {
       Text("Are you sure you want to delete this photo?")
     }
   }
-  
+
   func deletePhoto() {
     if let index = place.imageData?.firstIndex(of: imageData) {
       place.imageData?.remove(at: index)
     }
     dismiss()
   }
-  
+
 }
 
 #Preview {
   do {
     let previewer = try Previewer()
-    
     return PhotoSheetView(imageData: Data(), place: previewer.activePlace)
       .modelContainer(previewer.container)
-    
   } catch {
     return Text("Failed to create preview: \(error.localizedDescription)")
   }

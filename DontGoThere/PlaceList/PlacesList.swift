@@ -9,13 +9,12 @@ import SwiftData
 import SwiftUI
 
 struct PlacesList: View {
-  
   @Environment(\.modelContext) var modelContext
   @Query(sort: \Place.name) var places: [Place]
-  
+
   let listTyoe: String
   let searchString: String
-  
+
   var body: some View {
     if places.isEmpty {
       if searchString.isEmpty {
@@ -23,9 +22,13 @@ struct PlacesList: View {
           DontGoThereUnavailableLabel("No \(listTyoe) Places")
         } description: {
           if listTyoe == "Active" {
-            Text("You don't have any active places. Add a new one by tapping the add icon in the toolbar or going to the PlaceMap.")
+            Text("You don't have any active places. ")
+            + Text("Add a new one by tapping the add icon in the toolbar or going to the PlaceMap.")
           } else {
-            Text("You don't have any archived places. Places archive themselves after their expiration date or after the max notification count that you've specified is reached, or you can archive them yourself.")
+            Text("You don't have any archived places. ")
+            + Text("Places archive themselves after their expiration date. ")
+            + Text("They also archive themselves after the max notification count you set is reached. ")
+            + Text("Or, you can archive them yourself.")
           }
         }
       } else {
@@ -43,9 +46,9 @@ struct PlacesList: View {
                 Text(place.displayNotes)
                   .font(.subheadline)
               }
-              
+
               Spacer()
-              
+
               VStack(alignment: .trailing) {
                 Text("Added: \(place.formattedAddDate)")
                   .font(.footnote)
@@ -54,7 +57,7 @@ struct PlacesList: View {
               }
             }
           }
-          .swipeActions() {
+          .swipeActions {
             if place.isArchived {
               Button("Delete", systemImage: "trash", role: .destructive) {
                 modelContext.delete(place)
@@ -72,7 +75,7 @@ struct PlacesList: View {
                 }
               }
               .tint(.orange)
-              
+
               Button("Delete", systemImage: "trash", role: .destructive) {
                 modelContext.delete(place)
               }
@@ -84,14 +87,14 @@ struct PlacesList: View {
       }
     }
   }
-  
+
   func deletePlaces(at offsets: IndexSet) {
     for offset in offsets {
       let place = places[offset]
       modelContext.delete(place)
     }
   }
-  
+
   init(filteredBy searchString: String = "", sortedBy sortOrder: [SortDescriptor<Place>] = [], archived: Bool = false) {
     _places = Query(filter: #Predicate { place in
       if archived == place.isArchived {
@@ -105,7 +108,7 @@ struct PlacesList: View {
         return false
       }
     }, sort: sortOrder)
-    
+
     self.listTyoe = archived ? "Archived" : "Active"
     self.searchString = searchString
   }

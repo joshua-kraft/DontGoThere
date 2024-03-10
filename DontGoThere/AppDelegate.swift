@@ -9,22 +9,22 @@ import Foundation
 import UIKit
 
 class AppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
-  
-  func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-    
+
+  func application(_ application: UIApplication,
+                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+
     let locationsController = LocationHandler.shared
-    
+
     // restart if they were previously active
     if locationsController.updatesStarted {
       locationsController.startLocationUpdates()
     }
-    
+
     // restart background activity after launch
     if locationsController.backgroundActivity {
       locationsController.backgroundActivity = true
     }
-    
+
     return true
   }
-  
 }

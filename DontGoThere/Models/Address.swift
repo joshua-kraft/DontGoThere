@@ -15,9 +15,11 @@ struct Address: Codable, Equatable {
   let state: String
   let zip: String
   var printableAddress: String {
-    if streetNumber.isEmpty && streetName.isEmpty && city.isEmpty && state.isEmpty && zip.isEmpty { // empty addresses are unknown
+    if streetNumber.isEmpty && streetName.isEmpty && city.isEmpty && state.isEmpty && zip.isEmpty {
+      // empty addresses are unknown
       return "Unknown"
-    } else if streetNumber.isEmpty && streetName.isEmpty { // don't include the new line prior to city if there's no street address
+    } else if streetNumber.isEmpty && streetName.isEmpty {
+      // don't include the new line prior to city if there's no street address
       return "\(city), \(state) \(zip)"
     } else {
       return "\(streetNumber) \(streetName)\n\(city), \(state) \(zip)"
@@ -31,7 +33,7 @@ struct Address: Codable, Equatable {
     self.state = state
     self.zip = zip
   }
-  
+
   init?(fromPlacemark placemark: MKPlacemark) {
     guard let city = placemark.locality else { return nil }
     guard let state = placemark.administrativeArea else { return nil }
@@ -42,6 +44,6 @@ struct Address: Codable, Equatable {
     self.state = state
     self.zip = zip
   }
-  
+
   static let emptyAddress = Address(streetNumber: "", streetName: "", city: "", state: "", zip: "")
 }

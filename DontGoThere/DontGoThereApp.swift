@@ -10,12 +10,11 @@ import SwiftUI
 
 @main
 struct DontGoThereApp: App {
-  
   @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
-  
+
   let container: ModelContainer
   var archiveHandler: ArchiveHandler
-  
+
   @StateObject var locationHandler = LocationHandler.shared
   @StateObject var appSettings = AppSettings.loadSettings()
 
@@ -28,11 +27,10 @@ struct DontGoThereApp: App {
           archiveHandler.archiveExpiredPlaces()
           archiveHandler.deleteOldArchivedPlaces()
         }
-      
     }
     .modelContainer(container)
   }
-  
+
   init() {
     do {
       container = try ModelContainer(for: Place.self)

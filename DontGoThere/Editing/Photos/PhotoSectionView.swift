@@ -9,51 +9,51 @@ import SwiftUI
 import PhotosUI
 
 struct PhotoSectionView: View {
-  
+
   @Bindable var place: Place
   @State private var isShowingPhotoPicker = false
   @State private var selectedPhotoItems = [PhotosPickerItem]()
-  
+
   @State private var isShowingCamera = false
   @State private var takenPhotoData: Data?
-  
+
   var body: some View {
     VStack {
       HStack(alignment: .bottom) {
         HeaderLabel("Photos")
-        
+
         Spacer()
-        
+
         Menu("Add Photos", systemImage: "photo.badge.plus") {
-          
+
           Button("Take Photo...", systemImage: "camera") {
             isShowingCamera.toggle()
           }
-          
+
           Button("Choose Photos...", systemImage: "photo.on.rectangle.angled") {
             isShowingPhotoPicker.toggle()
           }
-          
+
         }
       }
       .padding([.leading, .trailing])
       .onChange(of: selectedPhotoItems) {
         loadPhotos()
       }
-      
+
       PhotoCardScrollerView(place: place)
     }
-    .photosPicker(isPresented: $isShowingPhotoPicker, selection: $selectedPhotoItems, matching: .any(of: [.images, .not(.screenshots)]))
-    .fullScreenCover(isPresented: $isShowingCamera, onDismiss: {
-      addTakenPhoto()
-    }) {
+    .photosPicker(isPresented: $isShowingPhotoPicker,
+                  selection: $selectedPhotoItems,
+                  matching: .any(of: [.images, .not(.screenshots)]))
+    .fullScreenCover(isPresented: $isShowingCamera, onDismiss: addTakenPhoto) {
       AccessCameraView(takenPhotoData: $takenPhotoData)
         .ignoresSafeArea()
     }
-    
+
     .padding(.bottom)
   }
-  
+
   func loadPhotos() {
     Task { @MainActor in
       for selectedItem in selectedPhotoItems {
@@ -68,7 +68,7 @@ struct PhotoSectionView: View {
       }
     }
   }
-  
+
   func addTakenPhoto() {
     if let takenPhotoData {
       place.imageData?.append(takenPhotoData)
@@ -79,10 +79,8 @@ struct PhotoSectionView: View {
 #Preview {
   do {
     let previewer = try Previewer()
-    
     return PhotoSectionView(place: previewer.activePlace)
       .modelContainer(previewer.container)
-    
   } catch {
     return Text("Could not create preview: \(error.localizedDescription)")
   }
