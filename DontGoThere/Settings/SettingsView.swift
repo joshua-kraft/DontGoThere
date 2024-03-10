@@ -33,6 +33,8 @@ struct SettingsView: View {
   
   @EnvironmentObject var appSettings: AppSettings
   
+  @FocusState var isDistanceFieldFocused
+  
   var body: some View {
     NavigationStack {
       Form {
@@ -49,7 +51,7 @@ struct SettingsView: View {
           
           if !appSettings.neverExpire {
             HStack {
-              Text("SET TO EXPIRE IN:")
+              Text("Set to Expire in:")
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
                 .padding(.leading)
@@ -98,7 +100,7 @@ struct SettingsView: View {
           
           if !appSettings.neverDelete {
             HStack {
-              Text("SET TO DELETE IN:")
+              Text("Set to Delete In:")
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
                 .padding(.leading)
@@ -146,7 +148,7 @@ struct SettingsView: View {
           
           if !appSettings.noNotificationLimit {
             HStack {
-              Text("NOTIFICATION LIMIT:")
+              Text("Notification Limit:")
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
               Picker("Notification Limit:", selection: $appSettings.maxNotificationCount) {
@@ -158,8 +160,29 @@ struct SettingsView: View {
               .frame(height: 85)
             }
           }
+          
+          HStack {
+            Text("Distance: ")
+              .font(.subheadline)
+              .foregroundStyle(.secondary)
+            Spacer()
+            TextField("Distance in Meters", value: $appSettings.regionRadius, format: .number)
+              .keyboardType(.numberPad)
+              .textFieldStyle(.roundedBorder)
+              .multilineTextAlignment(.trailing)
+              .focused($isDistanceFieldFocused)
+              .onChange(of: isDistanceFieldFocused) {
+                if isDistanceFieldFocused {
+                  Task {
+                    UIApplication.shared.sendAction(#selector(UIResponder.selectAll(_:)), to: nil, from: nil, for: nil)
+                  }
+                }
+              }
+            Text("Meters")
+          }
+          
         } header: {
-          SettingsHeader(headerTitle: "Notification Settings", headerNote: "Set the max amount of times DontGoThere will remind you not to go to a place before archiving the place automatically.")
+          SettingsHeader(headerTitle: "Notification Settings", headerNote: "Set the max amount of times DontGoThere will remind you not to go to a place before archiving the place automatically, as well as how close you need to be before DontGoThere will send you a notification.")
         }
 
       }

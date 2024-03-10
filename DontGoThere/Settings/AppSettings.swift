@@ -29,13 +29,13 @@ class AppSettings: ObservableObject, Codable {
   @Published var autoDeletionValue: Int { didSet { saveSettings() } }
   @Published var autoDeletionUnit: TimeUnit { didSet { saveSettings() } }
   
-  @Published var regionRadius: Int { didSet { saveSettings() } }
+  @Published var regionRadius: Double { didSet { saveSettings() } }
   
   @Published var noNotificationLimit: Bool { didSet { saveSettings() } }
   @Published var maxNotificationCount: Int { didSet { saveSettings() } }
   
     
-  init(neverExpire: Bool, autoExpiryValue: Int, autoExpiryUnit: TimeUnit, neverDelete: Bool, autoDeletionValue: Int, autoDeletionUnit: TimeUnit, regionRadius: Int, noNotificationLimit: Bool, maxNotificationCount: Int) {
+  init(neverExpire: Bool, autoExpiryValue: Int, autoExpiryUnit: TimeUnit, neverDelete: Bool, autoDeletionValue: Int, autoDeletionUnit: TimeUnit, regionRadius: Double, noNotificationLimit: Bool, maxNotificationCount: Int) {
     self.neverExpire = neverExpire
     self.autoExpiryValue = autoExpiryValue
     self.autoExpiryUnit = autoExpiryUnit
@@ -125,7 +125,7 @@ class AppSettings: ObservableObject, Codable {
     autoDeletionValue = try container.decode(Int.self, forKey: .autoDeletionValue)
     autoDeletionUnit = try container.decode(TimeUnit.self, forKey: .autoDeletionUnit)
     
-    regionRadius = try container.decode(Int.self, forKey: .regionRadius)
+    regionRadius = try container.decode(Double.self, forKey: .regionRadius)
     
     noNotificationLimit = try container.decode(Bool.self, forKey: .noNotificationLimit)
     maxNotificationCount = try container.decode(Int.self, forKey: .maxNotificationCount)
