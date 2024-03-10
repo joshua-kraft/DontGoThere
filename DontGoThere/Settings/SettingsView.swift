@@ -167,9 +167,10 @@ struct SettingsView: View {
               .foregroundStyle(.secondary)
             Spacer()
             TextField("Distance in Meters", value: $appSettings.regionRadius, format: .number)
+              .frame(width: 75)
+              .multilineTextAlignment(.trailing)
               .keyboardType(.numberPad)
               .textFieldStyle(.roundedBorder)
-              .multilineTextAlignment(.trailing)
               .focused($isDistanceFieldFocused)
               .onChange(of: isDistanceFieldFocused) {
                 if isDistanceFieldFocused {

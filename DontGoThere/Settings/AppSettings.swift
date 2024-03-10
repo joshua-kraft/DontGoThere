@@ -23,7 +23,7 @@ class AppSettings: ObservableObject, Codable {
                                            neverDelete: false,
                                            autoDeletionValue: 1,
                                            autoDeletionUnit: .months,
-                                           regionRadius: 100,
+                                           regionRadius: 30,
                                            noNotificationLimit: false,
                                            maxNotificationCount: 10)
 
