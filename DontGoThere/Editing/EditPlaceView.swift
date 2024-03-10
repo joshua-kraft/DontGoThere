@@ -38,7 +38,7 @@ struct EditPlaceView: View {
 
           Divider()
             .padding(.bottom, 4)
-          // review
+
           VStack(alignment: .leading) {
             HeaderLabel("Review")
               .padding(.leading)
