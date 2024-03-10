@@ -12,7 +12,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
     
-    let locationsController = LocationController.shared
+    let locationsController = LocationHandler.shared
     
     // restart if they were previously active
     if locationsController.updatesStarted {

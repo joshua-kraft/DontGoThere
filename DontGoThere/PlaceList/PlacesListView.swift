@@ -16,7 +16,7 @@ struct PlacesListView: View {
   
   @Environment(\.modelContext) var modelContext
   @EnvironmentObject var appSettings: AppSettings
-  @EnvironmentObject var locationController: LocationController
+  @EnvironmentObject var locationHandler: LocationHandler
   
   @State private var path = [Place]()
   @State private var searchText = ""
@@ -34,7 +34,7 @@ struct PlacesListView: View {
           } description: {
             Text(emptyDescriptionText())
           } actions: {
-            if locationController.locationAuthorized {
+            if locationHandler.locationAuthorized {
               Button("Add First Place", action: addPlace)
             }
           }
@@ -92,7 +92,7 @@ struct PlacesListView: View {
             }
             
             if listType == .active {
-              if locationController.locationAuthorized {
+              if locationHandler.locationAuthorized {
                 Button("Add Place", systemImage: "plus", action: addPlace)
               }
             }
@@ -103,15 +103,15 @@ struct PlacesListView: View {
   }
   
   func emptyDescriptionText() -> String {
-    "You haven't added any places yet. \(locationController.locationAuthorized ? "" : "Go to the PlaceMap to add your first Place.")"
+    "You haven't added any places yet. \(locationHandler.locationAuthorized ? "" : "Go to the PlaceMap to add your first Place.")"
   }
   
   func addPlace() {
     let newPlace = Place(
       name: "",
       review: "",
-      latitude: locationController.lastLocation.coordinate.latitude,
-      longitude: locationController.lastLocation.coordinate.longitude,
+      latitude: locationHandler.lastLocation.coordinate.latitude,
+      longitude: locationHandler.lastLocation.coordinate.longitude,
       address: Address.emptyAddress,
       addDate: Date.now,
       expirationDate: appSettings.neverExpire ? Date.distantFuture : appSettings.getExpiryDate(from: Date.now),
@@ -121,7 +121,7 @@ struct PlacesListView: View {
     modelContext.insert(newPlace)
     path.append(newPlace)
     
-    GeocodingHandler.getAddressFromCoordinate(coordinate: locationController.lastLocation.coordinate) { placemark in
+    GeocodingHandler.getAddressFromCoordinate(coordinate: locationHandler.lastLocation.coordinate) { placemark in
       if let address = Address(fromPlacemark: placemark) {
         newPlace.address = address
       }
@@ -138,7 +138,7 @@ struct PlacesListView: View {
     return PlacesListView()
       .modelContainer(previewer.container)
       .environmentObject(AppSettings.defaultSettings)
-      .environmentObject(LocationController.shared)
+      .environmentObject(LocationHandler.shared)
   } catch {
     return Text("Failed to create preview: \(error.localizedDescription)")
   }

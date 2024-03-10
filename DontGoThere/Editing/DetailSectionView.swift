@@ -129,7 +129,7 @@ struct DetailSectionView: View {
     return DetailSectionView(place: previewer.activePlace)
       .modelContainer(previewer.container)
       .environmentObject(AppSettings.defaultSettings)
-      .environmentObject(LocationController.shared)
+      .environmentObject(LocationHandler.shared)
     
   } catch {
     return Text("Failed to create preview: \(error.localizedDescription)")

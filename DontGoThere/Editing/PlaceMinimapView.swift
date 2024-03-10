@@ -62,7 +62,7 @@ struct PlaceMinimapView: View {
     
     return PlaceMinimapView(place: previewer.activePlace)
       .modelContainer(previewer.container)
-      .environmentObject(LocationController.shared)
+      .environmentObject(LocationHandler.shared)
     
   } catch {
     return Text("Failed to create preview: \(error.localizedDescription)")

@@ -16,14 +16,14 @@ struct DontGoThereApp: App {
   let container: ModelContainer
   var archiveHandler: ArchiveHandler
   
-  @StateObject var locationController = LocationController.shared
+  @StateObject var locationHandler = LocationHandler.shared
   @StateObject var appSettings = AppSettings.loadSettings()
 
   var body: some Scene {
     WindowGroup {
       ContentView()
         .environmentObject(appSettings)
-        .environmentObject(locationController)
+        .environmentObject(locationHandler)
         .onAppear {
           archiveHandler.archiveExpiredPlaces()
           archiveHandler.deleteOldArchivedPlaces()

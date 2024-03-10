@@ -87,7 +87,7 @@ struct ContentView: View {
     
     return ContentView()
       .modelContainer(previewer.container)
-      .environmentObject(LocationController.shared)
+      .environmentObject(LocationHandler.shared)
       .environmentObject(AppSettings.defaultSettings)
       
   } catch {

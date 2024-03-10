@@ -14,9 +14,9 @@ struct PlacesMapView: View {
   @Query var places: [Place]
   @Environment(\.modelContext) var modelContext
   @EnvironmentObject var appSettings: AppSettings
-  @EnvironmentObject var locationController: LocationController
+  @EnvironmentObject var locationHandler: LocationHandler
   
-  var locationAuthorized: Bool { locationController.locationAuthorized }
+  var locationAuthorized: Bool { locationHandler.locationAuthorized }
   
   @State private var showExistingPlaces = true
   @State private var path = [Place]()
@@ -141,7 +141,7 @@ struct PlacesMapView: View {
           
           if locationAuthorized {
             Button("Add Place", systemImage: "plus") {
-              addPlace(forCurrentLocation: true, at: locationController.lastLocation.coordinate)
+              addPlace(forCurrentLocation: true, at: locationHandler.lastLocation.coordinate)
             }
           }
         }
@@ -198,7 +198,7 @@ struct PlacesMapView: View {
     return PlacesMapView()
       .modelContainer(previewer.container)
       .environmentObject(AppSettings.defaultSettings)
-      .environmentObject(LocationController.shared)
+      .environmentObject(LocationHandler.shared)
   } catch {
     return Text("Could not create preview: \(error.localizedDescription)")
   }

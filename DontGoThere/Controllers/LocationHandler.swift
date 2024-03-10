@@ -1,5 +1,5 @@
 //
-//  LocationController.swift
+//  LocationHandler.swift
 //  DontGoThere
 //
 //  Created by Joshua Kraft on 3/1/24.
@@ -9,9 +9,9 @@ import CoreLocation
 import Foundation
 import SwiftUI
 
-@MainActor class LocationController: NSObject, ObservableObject {
+@MainActor class LocationHandler: NSObject, ObservableObject {
   
-  static let shared = LocationController()
+  static let shared = LocationHandler()
   
   private var manager: CLLocationManager
   private var background: CLBackgroundActivitySession?
@@ -81,7 +81,7 @@ extension Notification.Name {
   static let locationPermissionsRestricted = Notification.Name("locationPermissionsRestricted")
 }
 
-extension LocationController: CLLocationManagerDelegate {
+extension LocationHandler: CLLocationManagerDelegate {
   func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
     switch manager.authorizationStatus {
       
