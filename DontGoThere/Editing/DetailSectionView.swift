@@ -15,7 +15,7 @@ struct DetailSectionView: View {
   @FocusState private var focusedField: Field?
 
   enum Field: Equatable {
-    case addressField, distanceField
+    case addressField
   }
 
   var body: some View {
@@ -103,30 +103,6 @@ struct DetailSectionView: View {
             .labelsHidden()
         }
         .padding(.bottom, 4)
-      }
-
-      HStack {
-        DetailLabel("Notification Distance:")
-          .padding([.leading])
-
-        Spacer()
-
-        TextField("NotificationDistance", value: .constant(0), format: .number)
-          .multilineTextAlignment(.trailing)
-          .textFieldStyle(.roundedBorder)
-          .keyboardType(.numberPad)
-          .frame(width: 75)
-          .focused($focusedField, equals: .distanceField)
-          .onChange(of: focusedField) {
-            if focusedField == .distanceField {
-              Task {
-                UIApplication.shared.sendAction(#selector(UIResponder.selectAll(_:)), to: nil, from: nil, for: nil)
-              }
-            }
-          }
-
-        Text("Meters")
-          .padding([.trailing])
       }
     }
   }
