@@ -115,10 +115,12 @@ import SwiftUI
   }
 
   func addConditionToMonitor(condition: CLMonitor.CircularGeographicCondition, id: String) async {
+    try? fetchData()
     await monitor?.add(condition, identifier: id, assuming: .unsatisfied)
   }
 
   func removeConditionFromMonitor(id: String) async {
+    try? fetchData()
     await monitor?.remove(id)
   }
 
