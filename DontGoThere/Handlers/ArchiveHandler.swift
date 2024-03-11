@@ -34,8 +34,7 @@ class ArchiveHandler: ObservableObject {
     let activePlaces = places.filter({ !$0.isArchived })
     for place in activePlaces {
       if place.expirationDate < Date.now
-          || (!appSettings.noNotificationLimit
-              && place.notificationCount > appSettings.maxNotificationCount) {
+          || (!appSettings.noNotificationLimit && place.notificationCount > appSettings.maxNotificationCount) {
         place.isArchived = true
       }
     }
