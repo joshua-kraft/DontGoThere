@@ -71,6 +71,7 @@ import SwiftUI
   }
 
   func updateMonitorConditions() async {
+    try? fetchData()
     monitor = await CLMonitor(monitorName)
     let activePlaceUUIDs = places.filter({ !$0.isArchived }).compactMap({ $0.id.uuidString })
 
