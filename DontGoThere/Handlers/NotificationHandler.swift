@@ -10,4 +10,12 @@ import Foundation
 import SwiftUI
 
 class NotificationHandler: ObservableObject {
+
+  static let shared = NotificationHandler()
+
+  func sendNotification(for place: Place, with event: CLMonitor.Event) {
+    let eventTime = event.date.description
+    print("firing a notification for \(place.name) at \(event.date.description)")
+  }
+
 }

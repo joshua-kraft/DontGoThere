@@ -20,6 +20,8 @@ import SwiftUI
   let monitorName = "DontGoThereCLMonitor"
   private var places = [Place]()
 
+  let notificationHandler = NotificationHandler.shared
+
   @Published var lastLocation = CLLocation()
   @Published var isStationary = false
   @Published var count = 0
@@ -76,13 +78,11 @@ import SwiftUI
     // Conditions get the same UUID as the place
     for place in places where !place.isArchived {
       await monitor!.add(place.region, identifier: place.id.uuidString, assuming: .unsatisfied)
-      print("created condition for \(place.name)")
     }
 
     // Remove any conditions we may have that aren't in the active place list
     for uuid in await monitor!.identifiers where !activePlaceUUIDs.contains(uuid) {
         await monitor!.remove(uuid)
-        print("removed condition for \(uuid)")
     }
   }
 
@@ -97,6 +97,11 @@ import SwiftUI
           // -97.84581
           // move to and away from here to test
           print("satisfied an event")
+          try? self.fetchData()
+          if let place = places.filter({ $0.id.uuidString == event.identifier }).first {
+            print("found a place for this event")
+            notificationHandler.sendNotification(for: place, with: event)
+          }
         case .unsatisfied, .unknown, .unmonitored:
           // Don't need to do anything here
           break
@@ -110,12 +115,10 @@ import SwiftUI
 
   func addConditionToMonitor(condition: CLMonitor.CircularGeographicCondition, id: String) async {
     await monitor?.add(condition, identifier: id, assuming: .unsatisfied)
-    print("created condition for \(id)")
   }
 
   func removeConditionFromMonitor(id: String) async {
     await monitor?.remove(id)
-    print("removed condition for \(id)")
   }
 
   func stopLocationUpdates() {
@@ -176,10 +179,14 @@ extension LocationHandler: CLLocationManagerDelegate {
 
 // MARK: - Fetching SwiftData objects
 extension LocationHandler {
-  func fetchData(modelContext: ModelContext) {
+  func fetchData() throws {
+    let container = try ModelContainer(for: Place.self)
+    let context = container.mainContext
+
     do {
       let descriptor = FetchDescriptor<Place>()
-      places = try modelContext.fetch(descriptor)
+      places = try context.fetch(descriptor)
+      print("found \(places.count) places")
     } catch {
       print("Fetch failed: \(error.localizedDescription)")
     }
