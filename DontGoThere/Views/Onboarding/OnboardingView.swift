@@ -11,7 +11,6 @@ enum OnboardingPhase: String {
   case intro = "Intro"
   case locationPermission = "Location Permission"
   case notificationPermission = "Notification Permission"
-  case backgroundLocation = "Background Location"
   case finished = "Finished"
 }
 
@@ -28,8 +27,6 @@ struct OnboardingView: View {
       OnboardingLocationPermissionsView(phase: $phase)
     case .notificationPermission:
       Text("NotificationPermissionsView")
-    case .backgroundLocation:
-      Text("OnboardingLocation")
     case .finished:
       Text("OnboardingFinishedView")
     }
