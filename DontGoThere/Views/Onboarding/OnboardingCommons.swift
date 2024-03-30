@@ -65,11 +65,14 @@ struct OnboardingTitleModifier: ViewModifier {
 }
 
 struct OnboardingTextModifier: ViewModifier {
+
+  var smaller = false
+
   func body(content: Content) -> some View {
     content
       .multilineTextAlignment(.center)
       .foregroundStyle(.white)
-      .font(.title3)
+      .font(smaller ? .headline : .title3)
       .padding()
   }
 }
