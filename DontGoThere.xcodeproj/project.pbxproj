@@ -41,6 +41,7 @@
 		4284CB1A2BB7F06E000550C4 /* OnboardingLocationPermissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4284CB192BB7F06E000550C4 /* OnboardingLocationPermissionsView.swift */; };
 		4284CB1C2BB7FD37000550C4 /* OnboardingCommons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4284CB1B2BB7FD37000550C4 /* OnboardingCommons.swift */; };
 		4284CB1E2BB8006F000550C4 /* OnboardingIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4284CB1D2BB8006F000550C4 /* OnboardingIntroView.swift */; };
+		4284CB202BB8133F000550C4 /* OnboardingNotificationPermissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4284CB1F2BB8133F000550C4 /* OnboardingNotificationPermissionView.swift */; };
 		42F0ED462B92344100105CB1 /* LocationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F0ED452B92344100105CB1 /* LocationHandler.swift */; };
 		42FD8B6C2B967411009DFAE8 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FD8B6B2B967411009DFAE8 /* Address.swift */; };
 /* End PBXBuildFile section */
@@ -82,6 +83,7 @@
 		4284CB192BB7F06E000550C4 /* OnboardingLocationPermissionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingLocationPermissionsView.swift; sourceTree = "<group>"; };
 		4284CB1B2BB7FD37000550C4 /* OnboardingCommons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCommons.swift; sourceTree = "<group>"; };
 		4284CB1D2BB8006F000550C4 /* OnboardingIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingIntroView.swift; sourceTree = "<group>"; };
+		4284CB1F2BB8133F000550C4 /* OnboardingNotificationPermissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingNotificationPermissionView.swift; sourceTree = "<group>"; };
 		42F0ED452B92344100105CB1 /* LocationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationHandler.swift; sourceTree = "<group>"; };
 		42FD8B6B2B967411009DFAE8 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -114,6 +116,7 @@
 				4212879F2BB7D7990033F62E /* OnboardingView.swift */,
 				4284CB1D2BB8006F000550C4 /* OnboardingIntroView.swift */,
 				4284CB192BB7F06E000550C4 /* OnboardingLocationPermissionsView.swift */,
+				4284CB1F2BB8133F000550C4 /* OnboardingNotificationPermissionView.swift */,
 				4284CB1B2BB7FD37000550C4 /* OnboardingCommons.swift */,
 			);
 			path = Onboarding;
@@ -328,6 +331,7 @@
 				42150CC22BB7D9C900181870 /* ApplicationTabsView.swift in Sources */,
 				42560A362B81843F0013FCF4 /* AppSettings.swift in Sources */,
 				426BB6B52B87CFFC00CBDA71 /* PhotoSheetView.swift in Sources */,
+				4284CB202BB8133F000550C4 /* OnboardingNotificationPermissionView.swift in Sources */,
 				421287A02BB7D7990033F62E /* OnboardingView.swift in Sources */,
 				4284CB1E2BB8006F000550C4 /* OnboardingIntroView.swift in Sources */,
 				4238EFC72B8FCAE400597B4A /* AccessCameraView.swift in Sources */,
