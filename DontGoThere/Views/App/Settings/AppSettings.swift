@@ -29,6 +29,10 @@ class AppSettings: ObservableObject, Codable {
 
   let calendar = Calendar.autoupdatingCurrent
 
+  lazy var privacyStatement: String = {
+    return try! String(contentsOf: Bundle.main.url(forResource: "privacyStatement", withExtension: "txt")!, encoding: .utf8)
+  }()
+
   @Published var neverExpire: Bool { didSet { saveSettings() } }
   @Published var autoExpiryValue: Int { didSet { saveSettings() } }
   @Published var autoExpiryUnit: TimeUnit { didSet { saveSettings() } }
