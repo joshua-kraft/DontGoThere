@@ -13,57 +13,59 @@ struct OnboardingLocationPermissionsView: View {
   @AppStorage("didRequestLocationAuth") private var didRequestLocationAuth = false
 
   var body: some View {
-    VStack {
-      HStack {
-        Button("Back") {
-          withAnimation {
-            phase = .intro
+    ScrollView(.vertical) {
+      VStack {
+        HStack {
+          Button("Back") {
+            withAnimation {
+              phase = .intro
+            }
           }
+          .modifier(OnboardingBackButtonModifier())
+
+          Spacer()
         }
-        .modifier(OnboardingBackButtonModifier())
+
+        Text("Location Permissions")
+          .modifier(OnboardingTitleModifier())
 
         Spacer()
-      }
 
-      Text("Location Permissions")
-        .modifier(OnboardingTitleModifier())
+        Text("DontGoThere shows you your current location on the PlaceMap.")
+          .modifier(OnboardingTextModifier())
 
-      Spacer()
+        Text("When you add a new place, it is added at your current location by default.")
+          .modifier(OnboardingTextModifier())
 
-      Text("DontGoThere shows you your current location on the PlaceMap.")
-        .modifier(OnboardingTextModifier())
+        Text("DontGoThere also watches your location to notify you if you approach a place.")
+          .modifier(OnboardingTextModifier())
 
-      Text("When you add a new place, it is added at your current location by default.")
-        .modifier(OnboardingTextModifier())
+        Text("To do this, DontGoThere needs permission to access your location data through Location Services.")
+          .modifier(OnboardingTextModifier())
 
-      Text("DontGoThere also watches your location in the background to notify you as you approach an added place.")
-        .modifier(OnboardingTextModifier())
+        Text("DontGoThere never keeps any data related to your location.")
+          .modifier(OnboardingTextModifier())
 
-      Text("To do this, DontGoThere needs permission to access your location data through Location Services.")
-        .modifier(OnboardingTextModifier(smaller: true))
+        Spacer()
 
-      Text("DontGoThere never keeps any data related to your location.")
-        .modifier(OnboardingTextModifier(smaller: true))
-
-      Spacer()
-
-      Button("Grant Location Permission") {
-        LocationHandler.shared.startup()
-        didRequestLocationAuth = true
-      }
-      .modifier(OnboardingForwardButtonModifier())
-      .disabled(didRequestLocationAuth)
-
-      Button("Next: Notification Permission") {
-        withAnimation {
-          phase = .notificationPermission
+        Button("Grant Location Permission") {
+          LocationHandler.shared.startup()
+          didRequestLocationAuth = true
         }
-      }
-      .modifier(OnboardingForwardButtonModifier())
-      .disabled(!didRequestLocationAuth)
+        .modifier(OnboardingForwardButtonModifier())
+        .disabled(didRequestLocationAuth)
 
+        Button("Next: Notification Permission") {
+          withAnimation {
+            phase = .notificationPermission
+          }
+        }
+        .modifier(OnboardingForwardButtonModifier())
+        .disabled(!didRequestLocationAuth)
+
+      }
+      .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
-    .frame(maxWidth: .infinity, maxHeight: .infinity)
     .background(OnboardingBackgroundGradient())
   }
 }

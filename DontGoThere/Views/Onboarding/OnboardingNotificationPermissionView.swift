@@ -13,57 +13,59 @@ struct OnboardingNotificationPermissionView: View {
   @AppStorage("didRequestNotificationAuth") private var didRequestNotificationAuth = false
 
   var body: some View {
-    VStack {
-      HStack {
-        Button("Back") {
-          withAnimation {
-            phase = .locationPermission
+    ScrollView(.vertical) {
+      VStack {
+        HStack {
+          Button("Back") {
+            withAnimation {
+              phase = .locationPermission
+            }
           }
+          .modifier(OnboardingBackButtonModifier())
+
+          Spacer()
         }
-        .modifier(OnboardingBackButtonModifier())
+
+        Text("Notification Permission")
+          .modifier(OnboardingTitleModifier())
 
         Spacer()
-      }
 
-      Text("Notification Permission")
-        .modifier(OnboardingTitleModifier())
+        Text("DontGoThere will send you notifications if you get close enough to a place you added.")
+          .modifier(OnboardingTextModifier())
 
-      Spacer()
+        Text("You set the radius to be notified within when you create the place.")
+          .modifier(OnboardingTextModifier())
 
-      Text("DontGoThere will send you notifications if you get close enough to a place you added.")
-        .modifier(OnboardingTextModifier())
+        Text("It will only send one notification per place visited per day.")
+          .modifier(OnboardingTextModifier())
 
-      Text("You set the radius to be notified within when you create the place.")
-        .modifier(OnboardingTextModifier())
+        Text("You can set the maximum amount of notifications allowed for a place.")
+          .modifier(OnboardingTextModifier())
 
-      Text("It will only send one notification per place visited per day.")
-        .modifier(OnboardingTextModifier())
+        Text("To do this, DontGoThere needs your permission to send notifications.")
+          .modifier(OnboardingTextModifier())
 
-      Text("You can set the maximum amount of notifications allowed for a place.")
-        .modifier(OnboardingTextModifier())
+        Spacer()
 
-      Text("To do this, DontGoThere needs your permission to send notifications.")
-        .modifier(OnboardingTextModifier())
-
-      Spacer()
-
-      Button("Grant Notification Permission") {
-        NotificationHandler.shared.requestNotificationPermissions()
-        didRequestNotificationAuth = true
-      }
-      .modifier(OnboardingForwardButtonModifier())
-      .disabled(didRequestNotificationAuth)
-
-      Button("Next: Wrap-Up") {
-        withAnimation {
-          phase = .finished
+        Button("Grant Notification Permission") {
+          NotificationHandler.shared.requestNotificationPermissions()
+          didRequestNotificationAuth = true
         }
-      }
-      .modifier(OnboardingForwardButtonModifier())
-      .disabled(!didRequestNotificationAuth)
+        .modifier(OnboardingForwardButtonModifier())
+        .disabled(didRequestNotificationAuth)
 
+        Button("Next: Wrap-Up") {
+          withAnimation {
+            phase = .finished
+          }
+        }
+        .modifier(OnboardingForwardButtonModifier())
+        .disabled(!didRequestNotificationAuth)
+
+      }
+      .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
-    .frame(maxWidth: .infinity, maxHeight: .infinity)
     .background(OnboardingBackgroundGradient())
   }
 }

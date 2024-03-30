@@ -12,34 +12,36 @@ struct OnboardingIntroView: View {
   @Binding var phase: OnboardingPhase
 
   var body: some View {
-    VStack {
-      Text("Welcome to DontGoThere!")
-        .modifier(OnboardingTitleModifier(bigger: true))
+    ScrollView(.vertical) {
+      VStack {
+        Text("Welcome to DontGoThere!")
+          .modifier(OnboardingTitleModifier(bigger: true))
 
-      Spacer()
+        Spacer()
 
-      Text("DontGoThere helps you keep track of the places you've been where you don't want to be again.")
-        .modifier(OnboardingTextModifier())
+        Text("DontGoThere helps you keep track of the places you've been where you don't want to be again.")
+          .modifier(OnboardingTextModifier())
 
-      Text("You add places where you've had poor experiences. The next time you go, DontGoThere reminds you not to.")
-        .modifier(OnboardingTextModifier())
+        Text("You add places where you've had poor experiences. The next time you go, DontGoThere reminds you not to.")
+          .modifier(OnboardingTextModifier())
 
-      Text("The next screens will go through a series of permission requests for your location and notifications.")
-        .modifier(OnboardingTextModifier())
+        Text("The next screens will go through a series of permission requests for your location and notifications.")
+          .modifier(OnboardingTextModifier())
 
-      Text("DontGoThere does not keep any information about your location or how you use the application.")
-        .modifier(OnboardingTextModifier())
+        Text("DontGoThere does not keep any information about your location or how you use the application.")
+          .modifier(OnboardingTextModifier())
 
-      Spacer()
+        Spacer()
 
-      Button("Next: Location Permission") {
-        withAnimation {
-          phase = .locationPermission
+        Button("Next: Location Permission") {
+          withAnimation {
+            phase = .locationPermission
+          }
         }
+        .modifier(OnboardingForwardButtonModifier())
       }
-      .modifier(OnboardingForwardButtonModifier())
+      .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
-    .frame(maxWidth: .infinity, maxHeight: .infinity)
     .background(OnboardingBackgroundGradient())
   }
 }
