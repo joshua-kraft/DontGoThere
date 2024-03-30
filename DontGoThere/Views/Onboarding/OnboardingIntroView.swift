@@ -32,7 +32,8 @@ struct OnboardingIntroView: View {
 
       Spacer()
 
-      OnboardingNextButton(subtitle: "Location Permission")
+      OnboardingButton(buttonTitle: "Next: Location Permission")
+        .padding()
         .onTapGesture {
           withAnimation {
             phase = .locationPermission
