@@ -96,6 +96,13 @@ struct PlacesMapView: View {
 
             if locationAuthorized {
               VStack {
+                Button {
+                  withAnimation {
+                    position = .automatic
+                  }
+                } label: {
+                  DontGoThereMapButtonLabel()
+                }
                 MapUserLocationButton(scope: mapScope)
               }
               .padding([.bottom, .trailing], 10)
