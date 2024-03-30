@@ -22,7 +22,7 @@ struct OnboardingView: View {
         Text("DontGoThere helps you keep track of the places you've been where you don't want to be again.")
           .modifier(OnboardingTextModifier())
 
-        Text("You add places as you have poor experiences. The next time you approach, DontGoThere reminds you not to.")
+        Text("You add places where you've had poor experiences. The next time you go, DontGoThere reminds you not to.")
           .modifier(OnboardingTextModifier())
 
         Text("The next screens will go through a series of permission requests for your location and notifications.")
@@ -42,55 +42,8 @@ struct OnboardingView: View {
 
       }
       .frame(maxWidth: .infinity, maxHeight: .infinity)
-      .background(LaunchBackgroundGradient())
+      .background(OnboardingBackgroundGradient())
     }
-  }
-}
-
-struct OnboardingContinueButton: View {
-  var body: some View {
-    ZStack {
-      Rectangle()
-        .frame(height: 80)
-        .foregroundStyle(.white)
-        .clipShape(.capsule)
-        .padding()
-
-      Text("Continue")
-        .font(.title2.bold())
-        .foregroundStyle(.launch)
-    }
-  }
-}
-
-struct OnboardingTitleModifier: ViewModifier {
-  func body(content: Content) -> some View {
-    content
-      .multilineTextAlignment(.center)
-      .font(.largeTitle.bold())
-      .foregroundStyle(.white)
-      .padding()
-  }
-}
-
-struct OnboardingTextModifier: ViewModifier {
-  func body(content: Content) -> some View {
-    content
-      .multilineTextAlignment(.center)
-      .foregroundStyle(.white)
-      .font(.title3)
-      .padding()
-  }
-}
-
-struct LaunchBackgroundGradient: View {
-  var body: some View {
-    LinearGradient(stops: [
-      .init(color: .darkenedLaunch, location: 0.20),
-      .init(color: .launch, location: 0.80),
-      .init(color: .darkenedLaunch, location: 1.0)
-    ], startPoint: .top, endPoint: .bottom)
-    .ignoresSafeArea()
   }
 }
 

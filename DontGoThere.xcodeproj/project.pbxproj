@@ -39,6 +39,7 @@
 		426E96FD2B9D55B10078E13E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426E96FC2B9D55B10078E13E /* AppDelegate.swift */; };
 		426E96FF2B9DB4020078E13E /* NotificationSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426E96FE2B9DB4020078E13E /* NotificationSectionView.swift */; };
 		4284CB1A2BB7F06E000550C4 /* OnboardingLocationPermissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4284CB192BB7F06E000550C4 /* OnboardingLocationPermissionsView.swift */; };
+		4284CB1C2BB7FD37000550C4 /* OnboardingCommons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4284CB1B2BB7FD37000550C4 /* OnboardingCommons.swift */; };
 		42F0ED462B92344100105CB1 /* LocationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F0ED452B92344100105CB1 /* LocationHandler.swift */; };
 		42FD8B6C2B967411009DFAE8 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FD8B6B2B967411009DFAE8 /* Address.swift */; };
 /* End PBXBuildFile section */
@@ -78,6 +79,7 @@
 		426E96FC2B9D55B10078E13E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		426E96FE2B9DB4020078E13E /* NotificationSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSectionView.swift; sourceTree = "<group>"; };
 		4284CB192BB7F06E000550C4 /* OnboardingLocationPermissionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingLocationPermissionsView.swift; sourceTree = "<group>"; };
+		4284CB1B2BB7FD37000550C4 /* OnboardingCommons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCommons.swift; sourceTree = "<group>"; };
 		42F0ED452B92344100105CB1 /* LocationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationHandler.swift; sourceTree = "<group>"; };
 		42FD8B6B2B967411009DFAE8 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -109,6 +111,7 @@
 			children = (
 				4212879F2BB7D7990033F62E /* OnboardingView.swift */,
 				4284CB192BB7F06E000550C4 /* OnboardingLocationPermissionsView.swift */,
+				4284CB1B2BB7FD37000550C4 /* OnboardingCommons.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -317,6 +320,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4284CB1C2BB7FD37000550C4 /* OnboardingCommons.swift in Sources */,
 				4238EFBB2B891CC100597B4A /* PlaceMinimapView.swift in Sources */,
 				42150CC22BB7D9C900181870 /* ApplicationTabsView.swift in Sources */,
 				42560A362B81843F0013FCF4 /* AppSettings.swift in Sources */,
