@@ -36,11 +36,14 @@ struct OnboardingLocationPermissionsView: View {
       Text("When you add a new place, it is added at your current location by default.")
         .modifier(OnboardingTextModifier())
 
-      Text("To do this, DontGoThere needs permission to access your location data through Location Services.")
+      Text("DontGoThere also watches your location in the background in order to notify you as you approach a place you've added.")
         .modifier(OnboardingTextModifier())
 
+      Text("To do this, DontGoThere needs permission to access your location data through Location Services.")
+        .modifier(OnboardingTextModifier(smaller: true))
+
       Text("DontGoThere never keeps any data related to your location.")
-        .modifier(OnboardingTextModifier())
+        .modifier(OnboardingTextModifier(smaller: true))
 
       Spacer()
 
