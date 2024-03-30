@@ -13,16 +13,16 @@ class AppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
   func application(_ application: UIApplication,
                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
 
-    let locationsController = LocationHandler.shared
+    let locationHandler = LocationHandler.shared
 
     // restart if they were previously active
-    if locationsController.updatesStarted {
-      locationsController.startLocationUpdates()
+    if locationHandler.updatesStarted {
+      locationHandler.startLocationUpdates()
     }
 
     // restart background activity after launch
-    if locationsController.backgroundActivity {
-      locationsController.backgroundActivity = true
+    if locationHandler.backgroundActivity {
+      locationHandler.backgroundActivity = true
     }
 
     return true
