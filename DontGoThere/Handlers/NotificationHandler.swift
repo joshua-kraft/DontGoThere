@@ -17,6 +17,8 @@ class NotificationHandler: ObservableObject {
   let calendar = Calendar.autoupdatingCurrent
 
   func sendNotification(for place: Place, with event: CLMonitor.Event) {
+    // Don't send notifications if the place was added today or if we already sent one today.
+    
     guard !calendar.isDateInToday(place.addDate) else {
       print("Not sending a notification because place was added today")
       return
