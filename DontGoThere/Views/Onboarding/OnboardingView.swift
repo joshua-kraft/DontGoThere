@@ -25,7 +25,7 @@ struct OnboardingView: View {
     case .intro:
       OnboardingIntroView(phase: $phase)
     case .locationPermission:
-      OnboardingLocationPermissionsView()
+      OnboardingLocationPermissionsView(phase: $phase)
     case .notificationPermission:
       Text("NotificationPermissionsView")
     case .backgroundLocation:
