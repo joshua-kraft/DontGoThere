@@ -38,6 +38,7 @@
 		426E96FB2B9D4D760078E13E /* GeocodingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426E96FA2B9D4D760078E13E /* GeocodingHandler.swift */; };
 		426E96FD2B9D55B10078E13E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426E96FC2B9D55B10078E13E /* AppDelegate.swift */; };
 		426E96FF2B9DB4020078E13E /* NotificationSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426E96FE2B9DB4020078E13E /* NotificationSectionView.swift */; };
+		4284CB1A2BB7F06E000550C4 /* OnboardingLocationPermissionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4284CB192BB7F06E000550C4 /* OnboardingLocationPermissionsView.swift */; };
 		42F0ED462B92344100105CB1 /* LocationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F0ED452B92344100105CB1 /* LocationHandler.swift */; };
 		42FD8B6C2B967411009DFAE8 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FD8B6B2B967411009DFAE8 /* Address.swift */; };
 /* End PBXBuildFile section */
@@ -76,6 +77,7 @@
 		426E96FA2B9D4D760078E13E /* GeocodingHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeocodingHandler.swift; sourceTree = "<group>"; };
 		426E96FC2B9D55B10078E13E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		426E96FE2B9DB4020078E13E /* NotificationSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSectionView.swift; sourceTree = "<group>"; };
+		4284CB192BB7F06E000550C4 /* OnboardingLocationPermissionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingLocationPermissionsView.swift; sourceTree = "<group>"; };
 		42F0ED452B92344100105CB1 /* LocationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationHandler.swift; sourceTree = "<group>"; };
 		42FD8B6B2B967411009DFAE8 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -106,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				4212879F2BB7D7990033F62E /* OnboardingView.swift */,
+				4284CB192BB7F06E000550C4 /* OnboardingLocationPermissionsView.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -335,6 +338,7 @@
 				426BB6B72B87D41200CBDA71 /* ZoomableScrollView.swift in Sources */,
 				426E96FB2B9D4D760078E13E /* GeocodingHandler.swift in Sources */,
 				42560A1B2B7429410013FCF4 /* Place.swift in Sources */,
+				4284CB1A2BB7F06E000550C4 /* OnboardingLocationPermissionsView.swift in Sources */,
 				4238EFB92B891B9A00597B4A /* Labels.swift in Sources */,
 				42560A0D2B74292B0013FCF4 /* ContentView.swift in Sources */,
 				42560A1F2B7429960013FCF4 /* EditPlaceView.swift in Sources */,

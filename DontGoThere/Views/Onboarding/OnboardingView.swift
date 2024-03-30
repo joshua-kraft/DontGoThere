@@ -33,10 +33,12 @@ struct OnboardingView: View {
 
         Spacer()
 
-        OnboardingContinueButton()
-          .onTapGesture {
-            print("Button tapped")
-          }
+        NavigationLink {
+          OnboardingLocationPermissionsView()
+        } label: {
+          OnboardingContinueButton()
+        }
+
 
       }
       .frame(maxWidth: .infinity, maxHeight: .infinity)
