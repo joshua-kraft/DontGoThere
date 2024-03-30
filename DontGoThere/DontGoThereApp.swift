@@ -17,6 +17,7 @@ struct DontGoThereApp: App {
 
   @StateObject var locationHandler = LocationHandler.shared
   @StateObject var appSettings = AppSettings.loadSettings()
+  @StateObject var notificationHandler = NotificationHandler.shared
 
   var body: some Scene {
     WindowGroup {
@@ -26,6 +27,7 @@ struct DontGoThereApp: App {
         .onAppear {
           archiveHandler.archiveExpiredPlaces()
           archiveHandler.deleteOldArchivedPlaces()
+          notificationHandler.requestNotificationPermissions()
           try? locationHandler.fetchData()
         }
     }
