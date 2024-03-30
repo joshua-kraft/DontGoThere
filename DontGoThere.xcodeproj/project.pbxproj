@@ -153,12 +153,12 @@
 			isa = PBXGroup;
 			children = (
 				426E96F72B9D39210078E13E /* Info.plist */,
+				42560A0E2B74292C0013FCF4 /* Assets.xcassets */,
 				426E96FC2B9D55B10078E13E /* AppDelegate.swift */,
 				42560A0A2B74292B0013FCF4 /* DontGoThereApp.swift */,
 				42560A182B7429300013FCF4 /* Models */,
 				42FD8B6D2B96D379009DFAE8 /* Handlers */,
 				4212879D2BB7D6F70033F62E /* Views */,
-				42560A0E2B74292C0013FCF4 /* Assets.xcassets */,
 				42560A102B74292C0013FCF4 /* Preview Content */,
 			);
 			path = DontGoThere;
