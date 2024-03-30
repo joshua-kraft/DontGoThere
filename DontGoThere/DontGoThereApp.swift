@@ -18,15 +18,19 @@ struct DontGoThereApp: App {
   @StateObject var locationHandler = LocationHandler.shared
   @StateObject var appSettings = AppSettings.loadSettings()
 
+  @AppStorage("onboardingComplete") private var onboardingComplete: Bool = false
+
   var body: some Scene {
     WindowGroup {
       ContentView()
         .environmentObject(appSettings)
         .environmentObject(locationHandler)
         .onAppear {
-          archiveHandler.archiveExpiredPlaces()
-          archiveHandler.deleteOldArchivedPlaces()
-          try? locationHandler.fetchData()
+          if onboardingComplete {
+            archiveHandler.archiveExpiredPlaces()
+            archiveHandler.deleteOldArchivedPlaces()
+            try? locationHandler.fetchPlaces()
+          }
         }
     }
     .modelContainer(container)
