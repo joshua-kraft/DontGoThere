@@ -146,7 +146,7 @@ extension LocationHandler: CLLocationManagerDelegate {
     case .notDetermined:
       UserDefaults.standard.setValue(false, forKey: "locationAuthorized")
       self.locationAuthorized = false
-      manager.requestAlwaysAuthorization()
+      manager.requestWhenInUseAuthorization()
 
     case .restricted:
       UserDefaults.standard.setValue(false, forKey: "locationAuthorized")
@@ -179,6 +179,10 @@ extension LocationHandler: CLLocationManagerDelegate {
       // Could be reached if Apple adds to CLAuthorizationStatus
       break
     }
+  }
+
+  func requestAlwaysAuthorizationForLocation() {
+    self.manager?.requestAlwaysAuthorization()
   }
 }
 
