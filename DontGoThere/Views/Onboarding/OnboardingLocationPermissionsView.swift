@@ -10,6 +10,7 @@ import SwiftUI
 struct OnboardingLocationPermissionsView: View {
 
   @Binding var phase: OnboardingPhase
+  @State private var didRequestLocationAuth = false
 
   var body: some View {
     NavigationStack {
@@ -40,12 +41,17 @@ struct OnboardingLocationPermissionsView: View {
         Text("To do this, DontGoThere needs permission to access your location data through Location Services.")
           .modifier(OnboardingTextModifier())
 
+        Text("DontGoThere never keeps any data related to your location.")
+          .modifier(OnboardingTextModifier())
+
         Spacer()
 
         Button("Grant Location Permission") {
           LocationHandler.shared.startup()
+          didRequestLocationAuth = true
         }
         .modifier(OnboardingForwardButtonModifier())
+        .disabled(didRequestLocationAuth)
 
         Button("Next: Notification Permission") {
           withAnimation {
@@ -53,6 +59,7 @@ struct OnboardingLocationPermissionsView: View {
           }
         }
         .modifier(OnboardingForwardButtonModifier())
+        .disabled(!didRequestLocationAuth)
 
       }
       .frame(maxWidth: .infinity, maxHeight: .infinity)
