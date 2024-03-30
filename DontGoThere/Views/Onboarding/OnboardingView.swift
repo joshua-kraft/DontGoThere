@@ -27,7 +27,7 @@ struct OnboardingView: View {
     case .notificationPermission:
       OnboardingNotificationPermissionView(phase: $phase)
     case .finished:
-      Text("OnboardingFinishedView")
+      OnboardingFinishedView(phase: $phase)
     }
   }
 }
