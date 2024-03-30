@@ -23,7 +23,6 @@ struct PlaceMapSearchView: View {
         Image(systemName: "magnifyingglass")
         TextField("Search for a place...", text: $searchText)
           .focused($isSearchFieldFocused)
-          .autocorrectionDisabled()
           .onSubmit {
             if mapSearchHandler.searchCompletions.isEmpty == false {
               Task {

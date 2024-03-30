@@ -43,6 +43,7 @@ struct DetailSectionView: View {
 
         TextField("Address", text: $enteredAddress, axis: .vertical)
           .textFieldStyle(.roundedBorder)
+          .textContentType(.fullStreetAddress)
           .padding(.trailing)
           .submitLabel(.search)
           .focused($focusedField, equals: .addressField)
