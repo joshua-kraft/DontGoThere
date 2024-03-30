@@ -27,6 +27,31 @@ struct OnboardingButton: View {
   }
 }
 
+struct OnboardingBackButtonModifier: ViewModifier {
+  func body(content: Content) -> some View {
+    content
+      .padding()
+      .frame(width: 80, height: 40)
+      .font(.title3.bold())
+      .background(.white)
+      .clipShape(.capsule)
+      .padding(.leading)
+  }
+}
+
+struct OnboardingForwardButtonModifier: ViewModifier {
+  func body(content: Content) -> some View {
+    content
+      .padding([.top, .bottom])
+      .padding(.leading, 40)
+      .padding(.trailing, 40)
+      .frame(height: 80)
+      .font(.title3.bold())
+      .background(.white)
+      .clipShape(.capsule)
+  }
+}
+
 struct OnboardingTitleModifier: ViewModifier {
   func body(content: Content) -> some View {
     content
