@@ -97,6 +97,7 @@
 				42560A0C2B74292B0013FCF4 /* ContentView.swift */,
 				4212879E2BB7D75A0033F62E /* Onboarding */,
 				42150CC02BB7D99D00181870 /* App */,
+				426BB6B32B86AEF600CBDA71 /* Reusables */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -117,7 +118,6 @@
 				426BB6AF2B86AC8E00CBDA71 /* PlaceMap */,
 				426BB6B02B86ACD500CBDA71 /* Settings */,
 				426BB6AE2B86AC7C00CBDA71 /* Editing */,
-				426BB6B32B86AEF600CBDA71 /* Reusables */,
 			);
 			path = App;
 			sourceTree = "<group>";
