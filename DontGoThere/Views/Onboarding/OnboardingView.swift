@@ -16,7 +16,6 @@ enum OnboardingPhase: String {
 
 struct OnboardingView: View {
 
-  @AppStorage("onboardingComplete") private var onboardingComplete: Bool = false
   @State private var phase: OnboardingPhase = .intro
 
   var body: some View {
