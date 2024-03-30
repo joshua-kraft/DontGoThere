@@ -36,14 +36,8 @@ struct AccessCameraView: UIViewControllerRepresentable {
 
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-      guard let takenPhoto = info[.originalImage] as? UIImage else {
-        print("could not get image")
-        return
-      }
-      guard let photoData = takenPhoto.heicData() else {
-        print("could not get photo data")
-        return
-      }
+      guard let takenPhoto = info[.originalImage] as? UIImage else { return }
+      guard let photoData = takenPhoto.heicData() else { return }
       self.camera.takenPhotoData = photoData
       self.camera.dismiss()
     }

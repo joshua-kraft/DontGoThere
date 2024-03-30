@@ -25,7 +25,7 @@ class ArchiveHandler: ObservableObject {
       let descriptor = FetchDescriptor<Place>()
       places = try modelContext.fetch(descriptor)
     } catch {
-      print("Fetch failed: \(error.localizedDescription)")
+      print(error.localizedDescription)
     }
   }
 

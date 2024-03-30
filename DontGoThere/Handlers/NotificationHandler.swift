@@ -19,15 +19,9 @@ class NotificationHandler: NSObject, ObservableObject {
   func sendNotification(for place: Place, with event: CLMonitor.Event) {
     // Don't send notifications if the place was added today or if we already sent one today.
 
-    guard !calendar.isDateInToday(place.addDate) else {
-      print("Not sending a notification because place was added today")
-      return
-    }
+    guard !calendar.isDateInToday(place.addDate) else { return }
 
-    guard !calendar.isDateInToday(place.lastNotificationDate) else {
-      print("Not sending a notification because place has had a notification sent today")
-      return
-    }
+    guard !calendar.isDateInToday(place.lastNotificationDate) else { return }
 
     // If we got here, create a notification
 
@@ -47,14 +41,11 @@ class NotificationHandler: NSObject, ObservableObject {
 
     unc.getNotificationSettings { notificationSettings in
       if notificationSettings.authorizationStatus == .authorized {
-        print("Sending a notification")
         place.lastNotificationDate = event.date
         place.notificationCount += 1
-        print("notification date set to \(event.date)")
-        print("notification count for place is: \(place.notificationCount)")
         addNotificationRequest()
       } else {
-        print("not sending a notification because we are not authorized to do so")
+        // Not authorized to send a notification. Do nothing.
       }
     }
   }
@@ -66,9 +57,7 @@ class NotificationHandler: NSObject, ObservableObject {
       if notificationSettings.authorizationStatus == .notDetermined {
         unc.requestAuthorization(options: [.alert, .sound]) { success, error in
           if success {
-            print("notification settings granted")
           } else if let error {
-            print("ran into an error while requesting permissions")
             print(error.localizedDescription)
           }
         }
@@ -90,17 +79,12 @@ extension NotificationHandler: UNUserNotificationCenterDelegate {
       if let placeIdentifier = userInfo["placeIdentifier"] {
         switch response.actionIdentifier {
         case UNNotificationDefaultActionIdentifier:
-          print("a notification was opened")
           NotificationCenter.default.post(name: .dontGoThereNotificationWasOpened, object: placeIdentifier)
         default:
           // no actions besides the default one yet
           break
         }
-      } else {
-        print("couldn't get the place ID from the notification that was tapped")
       }
-    } else {
-      print("couldn't get the userInfo from the notification that was tapped")
     }
   }
 }

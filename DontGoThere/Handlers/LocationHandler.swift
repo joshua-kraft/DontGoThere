@@ -66,7 +66,7 @@ import SwiftUI
           }
         }
       } catch {
-        print("Could not start location updates")
+        print(error.localizedDescription)
       }
       return
     }
@@ -85,34 +85,24 @@ import SwiftUI
     // Add conditions for all active places
     // Conditions get the same UUID as the place
     for place in places where !place.isArchived {
-      print("adding a place for monitoring")
       await monitor!.add(place.region, identifier: place.id.uuidString, assuming: .unsatisfied)
     }
 
     // Remove any conditions we may have that aren't in the active place list
     for uuid in await monitor!.identifiers where !activePlaceUUIDs.contains(uuid) {
-      print("Removing a place from monitoring")
       await monitor!.remove(uuid)
     }
   }
 
   private func startMonitoringPlaceConditions() async {
-    guard let monitor else {
-      print("no monitor")
-      return
-    }
+    guard let monitor else { return }
 
     Task {
       for try await event in await monitor.events {
         switch event.state {
         case .satisfied:
-          // 30.56037
-          // -97.84581
-          // move to and away from here to test
-          print("satisfied an event")
           try? self.fetchPlaces()
           if let place = places.filter({ $0.id.uuidString == event.identifier }).first {
-            print("found a place for this event")
             notificationHandler.sendNotification(for: place, with: event)
           }
         case .unsatisfied, .unknown, .unmonitored:
@@ -191,9 +181,8 @@ extension LocationHandler {
     do {
       let descriptor = FetchDescriptor<Place>()
       places = try context.fetch(descriptor)
-      print("found \(places.count) places")
     } catch {
-      print("Fetch failed: \(error.localizedDescription)")
+      print(error.localizedDescription)
     }
   }
 }

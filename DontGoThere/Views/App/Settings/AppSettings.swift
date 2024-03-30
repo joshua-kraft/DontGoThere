@@ -74,11 +74,9 @@ class AppSettings: ObservableObject, Codable {
       if let decodedSettings = try? JSONDecoder().decode(AppSettings.self, from: settingsData) {
         return decodedSettings
       } else {
-        print("Failed to decode data")
         return AppSettings.defaultSettings
       }
     } else {
-      print("Could not load data from UserDefaults, saving default settings")
       saveDefaultSettings()
       return AppSettings.defaultSettings
     }

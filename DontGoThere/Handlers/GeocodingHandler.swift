@@ -16,15 +16,15 @@ struct GeocodingHandler {
                                        completionHandler: @escaping (MKPlacemark) -> Void) {
     let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
     geocoder.reverseGeocodeLocation(location) { placemarks, error in
-      if error != nil {
-        print("error in geocoding")
+      if let error {
+        print(error.localizedDescription)
         return
       }
 
       if let placemarks, let placemark = placemarks.first {
         completionHandler(MKPlacemark(placemark: placemark))
       } else {
-        print("error finding placemark")
+        // We couldn't find a placemark. We can't do anything.
         return
       }
     }
@@ -33,15 +33,15 @@ struct GeocodingHandler {
   static func getCoordinateFromAddress(address: String,
                                        completionHandler: @escaping (MKPlacemark) -> Void) {
     geocoder.geocodeAddressString(address) { placemarks, error in
-      if error != nil {
-        print("error in geocoding")
+      if let error {
+        print(error.localizedDescription)
         return
       }
 
       if let placemarks, let placemark = placemarks.first {
         completionHandler(MKPlacemark(placemark: placemark))
       } else {
-        print("error finding plcemark")
+        // We couldn't find a placemark. We can't do anything. 
         return
       }
     }
