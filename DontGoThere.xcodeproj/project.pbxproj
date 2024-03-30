@@ -43,6 +43,10 @@
 		4284CB1E2BB8006F000550C4 /* OnboardingIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4284CB1D2BB8006F000550C4 /* OnboardingIntroView.swift */; };
 		4284CB202BB8133F000550C4 /* OnboardingNotificationPermissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4284CB1F2BB8133F000550C4 /* OnboardingNotificationPermissionView.swift */; };
 		4284CB222BB81611000550C4 /* OnboardingFinishedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4284CB212BB81611000550C4 /* OnboardingFinishedView.swift */; };
+		4284CB242BB8B51B000550C4 /* SettingsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4284CB232BB8B51B000550C4 /* SettingsHeaderView.swift */; };
+		4284CB262BB8B594000550C4 /* SettingsExpirationSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4284CB252BB8B594000550C4 /* SettingsExpirationSectionView.swift */; };
+		4284CB282BB8B622000550C4 /* SettingsDeletionSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4284CB272BB8B622000550C4 /* SettingsDeletionSectionView.swift */; };
+		4284CB2A2BB8B664000550C4 /* SettingsNotificationSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4284CB292BB8B664000550C4 /* SettingsNotificationSectionView.swift */; };
 		42F0ED462B92344100105CB1 /* LocationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F0ED452B92344100105CB1 /* LocationHandler.swift */; };
 		42FD8B6C2B967411009DFAE8 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FD8B6B2B967411009DFAE8 /* Address.swift */; };
 /* End PBXBuildFile section */
@@ -86,6 +90,10 @@
 		4284CB1D2BB8006F000550C4 /* OnboardingIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingIntroView.swift; sourceTree = "<group>"; };
 		4284CB1F2BB8133F000550C4 /* OnboardingNotificationPermissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingNotificationPermissionView.swift; sourceTree = "<group>"; };
 		4284CB212BB81611000550C4 /* OnboardingFinishedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFinishedView.swift; sourceTree = "<group>"; };
+		4284CB232BB8B51B000550C4 /* SettingsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHeaderView.swift; sourceTree = "<group>"; };
+		4284CB252BB8B594000550C4 /* SettingsExpirationSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsExpirationSectionView.swift; sourceTree = "<group>"; };
+		4284CB272BB8B622000550C4 /* SettingsDeletionSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDeletionSectionView.swift; sourceTree = "<group>"; };
+		4284CB292BB8B664000550C4 /* SettingsNotificationSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsNotificationSectionView.swift; sourceTree = "<group>"; };
 		42F0ED452B92344100105CB1 /* LocationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationHandler.swift; sourceTree = "<group>"; };
 		42FD8B6B2B967411009DFAE8 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -232,6 +240,10 @@
 			children = (
 				42560A352B81843F0013FCF4 /* AppSettings.swift */,
 				42560A242B7D3D170013FCF4 /* SettingsView.swift */,
+				4284CB232BB8B51B000550C4 /* SettingsHeaderView.swift */,
+				4284CB252BB8B594000550C4 /* SettingsExpirationSectionView.swift */,
+				4284CB272BB8B622000550C4 /* SettingsDeletionSectionView.swift */,
+				4284CB292BB8B664000550C4 /* SettingsNotificationSectionView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -337,6 +349,7 @@
 				4284CB202BB8133F000550C4 /* OnboardingNotificationPermissionView.swift in Sources */,
 				421287A02BB7D7990033F62E /* OnboardingView.swift in Sources */,
 				4284CB1E2BB8006F000550C4 /* OnboardingIntroView.swift in Sources */,
+				4284CB2A2BB8B664000550C4 /* SettingsNotificationSectionView.swift in Sources */,
 				4238EFC72B8FCAE400597B4A /* AccessCameraView.swift in Sources */,
 				426E96FD2B9D55B10078E13E /* AppDelegate.swift in Sources */,
 				42560A272B7F1F210013FCF4 /* PlacesList.swift in Sources */,
@@ -355,13 +368,16 @@
 				42560A1B2B7429410013FCF4 /* Place.swift in Sources */,
 				4284CB222BB81611000550C4 /* OnboardingFinishedView.swift in Sources */,
 				4284CB1A2BB7F06E000550C4 /* OnboardingLocationPermissionsView.swift in Sources */,
+				4284CB242BB8B51B000550C4 /* SettingsHeaderView.swift in Sources */,
 				4238EFB92B891B9A00597B4A /* Labels.swift in Sources */,
 				42560A0D2B74292B0013FCF4 /* ContentView.swift in Sources */,
 				42560A1F2B7429960013FCF4 /* EditPlaceView.swift in Sources */,
+				4284CB262BB8B594000550C4 /* SettingsExpirationSectionView.swift in Sources */,
 				4238EFC02B89283300597B4A /* PlaceMapSearchView.swift in Sources */,
 				426E96F62B9C3EF00078E13E /* ArchiveHandler.swift in Sources */,
 				4238EFC32B893C5900597B4A /* MapSearchHandler.swift in Sources */,
 				426E96F92B9D40A60078E13E /* NotificationHandler.swift in Sources */,
+				4284CB282BB8B622000550C4 /* SettingsDeletionSectionView.swift in Sources */,
 				4238EFB72B891B2D00597B4A /* DetailSectionView.swift in Sources */,
 				42560A292B8078500013FCF4 /* Previewer.swift in Sources */,
 				42560A0B2B74292B0013FCF4 /* DontGoThereApp.swift in Sources */,
