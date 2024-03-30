@@ -54,7 +54,7 @@ struct OnboardingNotificationPermissionView: View {
       .modifier(OnboardingForwardButtonModifier())
       .disabled(didRequestNotificationAuth)
 
-      Button("Finish") {
+      Button("Next: Wrap-Up") {
         withAnimation {
           phase = .finished
         }
