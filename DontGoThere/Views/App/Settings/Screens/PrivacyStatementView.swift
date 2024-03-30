@@ -14,7 +14,7 @@ struct PrivacyStatementView: View {
   var body: some View {
     ScrollView(.vertical) {
       VStack {
-        Text(appSettings.privacyStatement)
+        Text(appSettings.privacyStatement!)
           .padding([.top, .leading, .trailing])
       }
       .navigationTitle("Privacy Statement")
