@@ -9,6 +9,13 @@ import SwiftData
 import SwiftUI
 
 struct ContentView: View {
+
+  enum DontGoThereTabs: String {
+    case list = "PlacesList"
+    case map = "PlacesMap"
+    case settings = "AppSettings"
+  }
+
   @Environment(\.openURL) var openURL
 
   @State private var showingLocationDeniedAlert = false
@@ -18,22 +25,27 @@ struct ContentView: View {
   @AppStorage("locationAllowedOnlyInUseAlertCount") private var locationAllowedOnlyInUseAlertCount = 0
   @AppStorage("locationRestrictedAlertCount") private var locationRestrictedAlertCount = 0
 
+  @State private var selectedTab: DontGoThereTabs = .list
+
   var body: some View {
-    TabView {
+    TabView(selection: $selectedTab) {
       PlacesListView()
         .tabItem {
           Label("PlaceList", systemImage: "list.triangle")
         }
+        .tag(DontGoThereTabs.list)
 
       PlacesMapView()
         .tabItem {
           Label("PlaceMap", systemImage: "map")
         }
+        .tag(DontGoThereTabs.map)
 
       SettingsView()
         .tabItem {
           Label("Settings", systemImage: "gearshape.2")
         }
+        .tag(DontGoThereTabs.settings)
     }
     .onReceive(NotificationCenter.default.publisher(for: .locationPermissionsDenied)) { _ in
       if locationDeniedAlertCount == 0 {
@@ -76,6 +88,10 @@ struct ContentView: View {
     } message: {
       Text("Your location services are restricted on this device, likely due to parental controls. ")
       + Text("Contact the manager of your device to enable location services for DontGoThere.")
+    }
+    .onReceive(NotificationCenter.default.publisher(for: .dontGoThereNotificationWasOpened)) { _ in
+
+      selectedTab = .list
     }
   }
 }
