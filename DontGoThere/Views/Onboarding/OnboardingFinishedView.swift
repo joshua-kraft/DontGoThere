@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct OnboardingFinished: View {
+struct OnboardingFinishedView: View {
 
   @Binding var phase: OnboardingPhase
   @AppStorage("onboardingComplete") private var onboardingComplete: Bool = false
@@ -59,5 +59,5 @@ struct OnboardingFinished: View {
 }
 
 #Preview {
-  OnboardingFinished(phase: .constant(.finished))
+  OnboardingFinishedView(phase: .constant(.finished))
 }
