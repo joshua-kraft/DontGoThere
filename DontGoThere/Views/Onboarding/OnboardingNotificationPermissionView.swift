@@ -30,7 +30,7 @@ struct OnboardingNotificationPermissionView: View {
 
       Spacer()
 
-      Text("DontGoThere will send you notifications if you get close enough to a place to remind you not to go.")
+      Text("DontGoThere will send you notifications if you get close enough to a place you added.")
         .modifier(OnboardingTextModifier())
 
       Text("You set the radius to be notified within when you create the place.")
@@ -39,11 +39,11 @@ struct OnboardingNotificationPermissionView: View {
       Text("It will only send one notification per place visited per day.")
         .modifier(OnboardingTextModifier())
 
-      Text("You can set the maximum amount of times any one place will generate a notification in the settings.")
-        .modifier(OnboardingTextModifier(smaller: true))
+      Text("You can set the maximum amount of notifications allowed for a place.")
+        .modifier(OnboardingTextModifier())
 
       Text("To do this, DontGoThere needs your permission to send notifications.")
-        .modifier(OnboardingTextModifier(smaller: true))
+        .modifier(OnboardingTextModifier())
 
       Spacer()
 
