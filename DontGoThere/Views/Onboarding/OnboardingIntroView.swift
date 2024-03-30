@@ -14,7 +14,7 @@ struct OnboardingIntroView: View {
   var body: some View {
     VStack {
       Text("Welcome to DontGoThere!")
-        .modifier(OnboardingTitleModifier())
+        .modifier(OnboardingTitleModifier(bigger: true))
 
       Spacer()
 
