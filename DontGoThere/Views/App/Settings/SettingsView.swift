@@ -17,8 +17,6 @@ struct SettingsView: View {
 
         NavigationLink("Privacy Statement") { PrivacyStatementView() }
 
-        NavigationLink("Permissions Check") { }
-
         SettingsExpirationSectionView()
 
         SettingsDeletionSectionView()

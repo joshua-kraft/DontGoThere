@@ -72,9 +72,6 @@ class NotificationHandler: NSObject, ObservableObject {
             print(error.localizedDescription)
           }
         }
-      } else {
-        // Either they have denied permissions or we have been granted, which is handled when sending notifications
-        // Do something here, after permissions are reworked into onboarding
       }
     }
   }
