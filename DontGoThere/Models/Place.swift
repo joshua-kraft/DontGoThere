@@ -47,6 +47,7 @@ class Place: Identifiable {
 
   var addDate: Date
   var expirationDate: Date
+  var lastNotificationDate: Date
 
   var formattedAddDate: String {
     formattedDate(addDate)
@@ -70,6 +71,7 @@ class Place: Identifiable {
        maxNotificationCount: Int,
        addDate: Date,
        expirationDate: Date,
+       lastNotificationDate: Date = Date.distantPast,
        imageData: [Data]? = nil) {
     self.name = name
     self.review = review
@@ -83,6 +85,7 @@ class Place: Identifiable {
     self.maxNotificationCount = maxNotificationCount
     self.addDate = addDate
     self.expirationDate = expirationDate
+    self.lastNotificationDate = lastNotificationDate
     self.imageData = imageData
   }
 
