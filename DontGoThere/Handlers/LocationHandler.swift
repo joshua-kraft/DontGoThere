@@ -72,7 +72,12 @@ import SwiftUI
     }
   }
 
-  func updateMonitorConditions() async {
+  func startMonitoring() async {
+    await self.updateMonitorConditions()
+    await self.startMonitoringPlaceConditions()
+  }
+
+  private func updateMonitorConditions() async {
     try? fetchPlaces()
     monitor = await CLMonitor(monitorName)
     let activePlaceUUIDs = places.filter({ !$0.isArchived }).compactMap({ $0.id.uuidString })
@@ -80,17 +85,22 @@ import SwiftUI
     // Add conditions for all active places
     // Conditions get the same UUID as the place
     for place in places where !place.isArchived {
+      print("adding a place for monitoring")
       await monitor!.add(place.region, identifier: place.id.uuidString, assuming: .unsatisfied)
     }
 
     // Remove any conditions we may have that aren't in the active place list
     for uuid in await monitor!.identifiers where !activePlaceUUIDs.contains(uuid) {
-        await monitor!.remove(uuid)
+      print("Removing a place from monitoring")
+      await monitor!.remove(uuid)
     }
   }
 
-  func startMonitoringPlaceConditions() async {
-    guard let monitor else { return }
+  private func startMonitoringPlaceConditions() async {
+    guard let monitor else {
+      print("no monitor")
+      return
+    }
 
     Task {
       for try await event in await monitor.events {
@@ -132,12 +142,6 @@ import SwiftUI
   }
 }
 
-extension Notification.Name {
-  static let locationPermissionsDenied = Notification.Name("locationPermissionsDenied")
-  static let locationPermissionsAuthorizedWhenInUse = Notification.Name("locationPermissionAuthorizedWhenInUse")
-  static let locationPermissionsRestricted = Notification.Name("locationPermissionsRestricted")
-}
-
 // MARK: CLLocationManagerDelegate Conformance
 extension LocationHandler: CLLocationManagerDelegate {
   func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
@@ -151,7 +155,6 @@ extension LocationHandler: CLLocationManagerDelegate {
     case .restricted:
       UserDefaults.standard.setValue(false, forKey: "locationAuthorized")
       self.locationAuthorized = false
-      NotificationCenter.default.post(name: .locationPermissionsRestricted, object: nil)
 
     case .denied:
       UserDefaults.standard.setValue(false, forKey: "locationAuthorized")
@@ -159,7 +162,6 @@ extension LocationHandler: CLLocationManagerDelegate {
       self.updatesStarted = false
       self.locationAuthorized = false
       self.stopLocationUpdates()
-      NotificationCenter.default.post(name: .locationPermissionsDenied, object: nil)
 
     case .authorizedAlways, .authorizedWhenInUse:
       // This is what we want
@@ -170,10 +172,8 @@ extension LocationHandler: CLLocationManagerDelegate {
         await self.updateMonitorConditions()
         await self.startMonitoringPlaceConditions()
       }
-      // Start the background activity if we're allowed, otherwise display the alert that we're not
-      manager.authorizationStatus == .authorizedAlways ?
-      self.backgroundActivity = true :
-      NotificationCenter.default.post(name: .locationPermissionsAuthorizedWhenInUse, object: nil)
+      // Start the background activity if we're allowed
+      self.backgroundActivity = manager.authorizationStatus == .authorizedAlways
 
     @unknown default:
       // Could be reached if Apple adds to CLAuthorizationStatus

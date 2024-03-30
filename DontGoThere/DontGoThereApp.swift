@@ -30,6 +30,9 @@ struct DontGoThereApp: App {
             archiveHandler.archiveExpiredPlaces()
             archiveHandler.deleteOldArchivedPlaces()
             try? locationHandler.fetchPlaces()
+            Task {
+              await locationHandler.startMonitoring()
+            }
           }
         }
     }
