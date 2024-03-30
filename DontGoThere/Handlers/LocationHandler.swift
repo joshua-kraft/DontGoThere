@@ -14,7 +14,7 @@ import SwiftUI
 
   static let shared = LocationHandler()
 
-  private var manager: CLLocationManager
+  private var manager: CLLocationManager?
   private var background: CLBackgroundActivitySession?
   var monitor: CLMonitor?
   let monitorName = "DontGoThereCLMonitor"
@@ -42,11 +42,13 @@ import SwiftUI
   }
 
   override private init() {
-    self.manager = CLLocationManager()
     super.init()
+  }
 
-    self.manager.delegate = self
-    self.manager.desiredAccuracy = kCLLocationAccuracyBest
+  func startup() {
+    self.manager = CLLocationManager()
+    self.manager?.delegate = self
+    self.manager?.desiredAccuracy = kCLLocationAccuracyBest
   }
 
   func startLocationUpdates() {
@@ -144,7 +146,7 @@ extension LocationHandler: CLLocationManagerDelegate {
     case .notDetermined:
       UserDefaults.standard.setValue(false, forKey: "locationAuthorized")
       self.locationAuthorized = false
-      self.manager.requestAlwaysAuthorization()
+      manager.requestAlwaysAuthorization()
 
     case .restricted:
       UserDefaults.standard.setValue(false, forKey: "locationAuthorized")
