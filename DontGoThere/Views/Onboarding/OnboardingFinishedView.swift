@@ -42,7 +42,7 @@ struct OnboardingFinishedView: View {
         Text("Changes to the map location of a place will update the address, and vice versa.")
           .modifier(OnboardingTextModifier())
 
-        Text("Add a place at your current location with the Add Button (+), tap anywhere on the PlaceMap, or search for a place to add.")
+        Text("Add a place with the Add Button (+), tap anywhere on the PlaceMap, or search for a place to add.")
           .modifier(OnboardingTextModifier())
 
         Spacer()
