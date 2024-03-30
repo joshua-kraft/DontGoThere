@@ -71,7 +71,7 @@ import SwiftUI
   }
 
   func updateMonitorConditions() async {
-    try? fetchData()
+    try? fetchPlaces()
     monitor = await CLMonitor(monitorName)
     let activePlaceUUIDs = places.filter({ !$0.isArchived }).compactMap({ $0.id.uuidString })
 
@@ -98,7 +98,7 @@ import SwiftUI
           // -97.84581
           // move to and away from here to test
           print("satisfied an event")
-          try? self.fetchData()
+          try? self.fetchPlaces()
           if let place = places.filter({ $0.id.uuidString == event.identifier }).first {
             print("found a place for this event")
             notificationHandler.sendNotification(for: place, with: event)
@@ -115,12 +115,12 @@ import SwiftUI
   }
 
   func addConditionToMonitor(condition: CLMonitor.CircularGeographicCondition, id: String) async {
-    try? fetchData()
+    try? fetchPlaces()
     await monitor?.add(condition, identifier: id, assuming: .unsatisfied)
   }
 
   func removeConditionFromMonitor(id: String) async {
-    try? fetchData()
+    try? fetchPlaces()
     await monitor?.remove(id)
   }
 
@@ -182,7 +182,7 @@ extension LocationHandler: CLLocationManagerDelegate {
 
 // MARK: - Fetching SwiftData objects
 extension LocationHandler {
-  func fetchData() throws {
+  func fetchPlaces() throws {
     let container = try ModelContainer(for: Place.self)
     let context = container.mainContext
 
