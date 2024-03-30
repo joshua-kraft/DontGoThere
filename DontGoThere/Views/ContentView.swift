@@ -10,40 +10,8 @@ import SwiftUI
 
 struct ContentView: View {
 
-  enum DontGoThereTabs: String {
-    case list = "PlacesList"
-    case map = "PlacesMap"
-    case settings = "AppSettings"
-  }
-
-  @Environment(\.openURL) var openURL
-
-  @State private var selectedTab: DontGoThereTabs = .list
-
   var body: some View {
-    TabView(selection: $selectedTab) {
-      PlacesListView()
-        .tabItem {
-          Label("PlaceList", systemImage: "list.triangle")
-        }
-        .tag(DontGoThereTabs.list)
-
-      PlacesMapView()
-        .tabItem {
-          Label("PlaceMap", systemImage: "map")
-        }
-        .tag(DontGoThereTabs.map)
-
-      SettingsView()
-        .tabItem {
-          Label("Settings", systemImage: "gearshape.2")
-        }
-        .tag(DontGoThereTabs.settings)
-    }
-    .onReceive(NotificationCenter.default.publisher(for: .dontGoThereNotificationWasOpened)) { _ in
-
-      selectedTab = .list
-    }
+    ApplicationTabsView()
   }
 }
 

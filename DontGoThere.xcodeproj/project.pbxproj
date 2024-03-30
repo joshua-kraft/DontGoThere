@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		421287A02BB7D7990033F62E /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4212879F2BB7D7990033F62E /* OnboardingView.swift */; };
+		42150CC22BB7D9C900181870 /* ApplicationTabsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42150CC12BB7D9C900181870 /* ApplicationTabsView.swift */; };
 		4238EFB52B89161900597B4A /* PhotoCardScrollerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4238EFB42B89161900597B4A /* PhotoCardScrollerView.swift */; };
 		4238EFB72B891B2D00597B4A /* DetailSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4238EFB62B891B2D00597B4A /* DetailSectionView.swift */; };
 		4238EFB92B891B9A00597B4A /* Labels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4238EFB82B891B9A00597B4A /* Labels.swift */; };
@@ -43,6 +44,7 @@
 
 /* Begin PBXFileReference section */
 		4212879F2BB7D7990033F62E /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		42150CC12BB7D9C900181870 /* ApplicationTabsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationTabsView.swift; sourceTree = "<group>"; };
 		4238EFB42B89161900597B4A /* PhotoCardScrollerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCardScrollerView.swift; sourceTree = "<group>"; };
 		4238EFB62B891B2D00597B4A /* DetailSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSectionView.swift; sourceTree = "<group>"; };
 		4238EFB82B891B9A00597B4A /* Labels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Labels.swift; sourceTree = "<group>"; };
@@ -94,11 +96,7 @@
 			children = (
 				42560A0C2B74292B0013FCF4 /* ContentView.swift */,
 				4212879E2BB7D75A0033F62E /* Onboarding */,
-				426BB6AD2B86AC5F00CBDA71 /* PlaceList */,
-				426BB6AF2B86AC8E00CBDA71 /* PlaceMap */,
-				426BB6B02B86ACD500CBDA71 /* Settings */,
-				426BB6AE2B86AC7C00CBDA71 /* Editing */,
-				426BB6B32B86AEF600CBDA71 /* Reusables */,
+				42150CC02BB7D99D00181870 /* App */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -109,6 +107,19 @@
 				4212879F2BB7D7990033F62E /* OnboardingView.swift */,
 			);
 			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		42150CC02BB7D99D00181870 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				42150CC12BB7D9C900181870 /* ApplicationTabsView.swift */,
+				426BB6AD2B86AC5F00CBDA71 /* PlaceList */,
+				426BB6AF2B86AC8E00CBDA71 /* PlaceMap */,
+				426BB6B02B86ACD500CBDA71 /* Settings */,
+				426BB6AE2B86AC7C00CBDA71 /* Editing */,
+				426BB6B32B86AEF600CBDA71 /* Reusables */,
+			);
+			path = App;
 			sourceTree = "<group>";
 		};
 		4238EFBE2B891E2500597B4A /* Photos */ = {
@@ -304,6 +315,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4238EFBB2B891CC100597B4A /* PlaceMinimapView.swift in Sources */,
+				42150CC22BB7D9C900181870 /* ApplicationTabsView.swift in Sources */,
 				42560A362B81843F0013FCF4 /* AppSettings.swift in Sources */,
 				426BB6B52B87CFFC00CBDA71 /* PhotoSheetView.swift in Sources */,
 				421287A02BB7D7990033F62E /* OnboardingView.swift in Sources */,
