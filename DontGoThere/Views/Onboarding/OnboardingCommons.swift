@@ -53,10 +53,12 @@ struct OnboardingForwardButtonModifier: ViewModifier {
 }
 
 struct OnboardingTitleModifier: ViewModifier {
+  var bigger = false
+
   func body(content: Content) -> some View {
     content
       .multilineTextAlignment(.center)
-      .font(.largeTitle.bold())
+      .font(bigger ? .largeTitle.bold() : .title.bold())
       .foregroundStyle(.white)
       .padding([.leading, .trailing, .bottom])
   }
