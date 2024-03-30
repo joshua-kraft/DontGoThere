@@ -8,7 +8,14 @@
 import Foundation
 import SwiftUI
 
-struct OnboardingContinueButton: View {
+struct OnboardingNextButton: View {
+
+  var buttonTitle = "Next"
+
+  init(subtitle: String? = nil) {
+    if let subtitle { buttonTitle += ": \(subtitle)" }
+  }
+
   var body: some View {
     ZStack {
       Rectangle()
@@ -17,8 +24,8 @@ struct OnboardingContinueButton: View {
         .clipShape(.capsule)
         .padding()
 
-      Text("Continue")
-        .font(.title2.bold())
+      Text(buttonTitle)
+        .font(.title3.bold())
         .foregroundStyle(.launch)
     }
   }

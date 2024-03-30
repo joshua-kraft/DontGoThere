@@ -7,42 +7,31 @@
 
 import SwiftUI
 
+enum OnboardingPhase: String {
+  case intro = "Intro"
+  case locationPermission = "Location Permission"
+  case notificationPermission = "Notification Permission"
+  case backgroundLocation = "Background Location"
+  case finished = "Finished"
+}
+
 struct OnboardingView: View {
 
   @AppStorage("onboardingComplete") private var onboardingComplete: Bool = false
+  @State private var phase: OnboardingPhase = .intro
 
   var body: some View {
-    NavigationStack {
-      VStack {
-        Text("Welcome to DontGoThere")
-          .modifier(OnboardingTitleModifier())
-
-        Spacer()
-
-        Text("DontGoThere helps you keep track of the places you've been where you don't want to be again.")
-          .modifier(OnboardingTextModifier())
-
-        Text("You add places where you've had poor experiences. The next time you go, DontGoThere reminds you not to.")
-          .modifier(OnboardingTextModifier())
-
-        Text("The next screens will go through a series of permission requests for your location and notifications.")
-          .modifier(OnboardingTextModifier())
-
-        Text("DontGoThere does not keep any information about your location or how you use the application.")
-          .modifier(OnboardingTextModifier())
-
-        Spacer()
-
-        NavigationLink {
-          OnboardingLocationPermissionsView()
-        } label: {
-          OnboardingContinueButton()
-        }
-
-
-      }
-      .frame(maxWidth: .infinity, maxHeight: .infinity)
-      .background(OnboardingBackgroundGradient())
+    switch phase {
+    case .intro:
+      OnboardingIntroView(phase: $phase)
+    case .locationPermission:
+      OnboardingLocationPermissionsView()
+    case .notificationPermission:
+      Text("NotificationPermissionsView")
+    case .backgroundLocation:
+      Text("OnboardingLocation")
+    case .finished:
+      Text("OnboardingFinishedView")
     }
   }
 }
