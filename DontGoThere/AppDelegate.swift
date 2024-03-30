@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import UserNotifications
 
 class AppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
 
@@ -14,6 +15,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
 
     let locationHandler = LocationHandler.shared
+    let notificationHandler = NotificationHandler.shared
 
     // restart if they were previously active
     if locationHandler.updatesStarted {
@@ -24,6 +26,10 @@ class AppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
     if locationHandler.backgroundActivity {
       locationHandler.backgroundActivity = true
     }
+
+    
+    notificationHandler.requestNotificationPermissions()
+    UNUserNotificationCenter.current().delegate = notificationHandler
 
     return true
   }
