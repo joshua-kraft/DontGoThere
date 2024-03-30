@@ -11,7 +11,6 @@ struct DontGoThereIconView: View {
 
   let width: CGFloat
   let height: CGFloat
-  let borderColor = Color(red: 0.15, green: 0.15, blue: 0.15, opacity: 1.0)
 
   struct InvertedTriangle: Shape {
     func path(in rect: CGRect) -> Path {
@@ -27,13 +26,12 @@ struct DontGoThereIconView: View {
   var body: some View {
     ZStack(alignment: .top) {
       InvertedTriangle()
-        .stroke(borderColor.gradient, style: StrokeStyle(lineWidth: 10, lineCap: .round, lineJoin: .round))
+        .stroke(.iconBorder.gradient, style: StrokeStyle(lineWidth: 10, lineCap: .round, lineJoin: .round))
         .fill(.yellow.gradient.shadow(.drop(radius: 15)))
         .frame(width: width, height: height)
 
       Image(.turnAroundIcon)
         .resizable()
-        .foregroundStyle(.black.gradient)
         .frame(width: width / 2.5, height: width / 2.5)
         .padding(.top, height / 10)
         .padding(.leading, width / 25)
@@ -61,6 +59,19 @@ struct DontGoThereUnavailableLabel: View {
   }
 }
 
+struct DontGoThereMapButtonLabel: View {
+
+  var body: some View {
+    ZStack {
+      Circle()
+        .fill(.iconBackground.gradient)
+      DontGoThereIconView(width: 25, height: 20)
+        .padding(.top, 7)
+    }
+    .frame(width: 45, height: 45)
+  }
+}
+
 #Preview {
-    DontGoThereIconView(width: 180, height: 144)
+  DontGoThereMapButtonLabel()
 }
