@@ -10,7 +10,7 @@ import SwiftUI
 struct OnboardingLocationPermissionsView: View {
 
   @Binding var phase: OnboardingPhase
-  @State private var didRequestLocationAuth = false
+  @AppStorage("didRequestLocationAuth") private var didRequestLocationAuth = false
 
   var body: some View {
     VStack {
