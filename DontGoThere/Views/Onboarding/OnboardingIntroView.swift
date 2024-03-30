@@ -13,7 +13,7 @@ struct OnboardingIntroView: View {
 
   var body: some View {
     VStack {
-      Text("Welcome to DontGoThere")
+      Text("Welcome to DontGoThere!")
         .modifier(OnboardingTitleModifier())
 
       Spacer()
