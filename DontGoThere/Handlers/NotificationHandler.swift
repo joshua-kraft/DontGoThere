@@ -85,7 +85,9 @@ extension Notification.Name {
 }
 
 extension NotificationHandler: UNUserNotificationCenterDelegate {
-  func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+  func userNotificationCenter(_ center: UNUserNotificationCenter,
+                              didReceive response: UNNotificationResponse,
+                              withCompletionHandler completionHandler: @escaping () -> Void) {
     // Get the place ID from the original notification
     if let userInfo = response.notification.request.content.userInfo as? [String: String] {
       if let placeIdentifier = userInfo["placeIdentifier"] {
@@ -93,7 +95,6 @@ extension NotificationHandler: UNUserNotificationCenterDelegate {
         case UNNotificationDefaultActionIdentifier:
           print("a notification was opened")
           NotificationCenter.default.post(name: .dontGoThereNotificationWasOpened, object: placeIdentifier)
-          break
         default:
           // no actions besides the default one yet
           break

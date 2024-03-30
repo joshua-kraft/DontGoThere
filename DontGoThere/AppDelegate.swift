@@ -27,7 +27,6 @@ class AppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
       locationHandler.backgroundActivity = true
     }
 
-    
     notificationHandler.requestNotificationPermissions()
     UNUserNotificationCenter.current().delegate = notificationHandler
 
