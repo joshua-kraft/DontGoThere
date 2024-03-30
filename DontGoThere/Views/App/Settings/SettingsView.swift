@@ -15,6 +15,10 @@ struct SettingsView: View {
     NavigationStack {
       Form {
 
+        NavigationLink("Privacy Statement") { PrivacyStatementView() }
+
+        NavigationLink("Permissions Check") { }
+
         SettingsExpirationSectionView()
 
         SettingsDeletionSectionView()
