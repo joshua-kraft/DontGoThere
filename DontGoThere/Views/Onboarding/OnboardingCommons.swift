@@ -8,21 +8,17 @@
 import Foundation
 import SwiftUI
 
-struct OnboardingNextButton: View {
+struct OnboardingButton: View {
 
-  var buttonTitle = "Next"
-
-  init(subtitle: String? = nil) {
-    if let subtitle { buttonTitle += ": \(subtitle)" }
-  }
+  var buttonTitle: String
+  var adjustedHeight: CGFloat?
 
   var body: some View {
     ZStack {
       Rectangle()
-        .frame(height: 80)
+        .frame(width: adjustedHeight == nil ? nil : adjustedHeight! * 2, height: adjustedHeight ?? 80)
         .foregroundStyle(.white)
         .clipShape(.capsule)
-        .padding()
 
       Text(buttonTitle)
         .font(.title3.bold())
@@ -37,7 +33,7 @@ struct OnboardingTitleModifier: ViewModifier {
       .multilineTextAlignment(.center)
       .font(.largeTitle.bold())
       .foregroundStyle(.white)
-      .padding()
+      .padding([.leading, .trailing, .bottom])
   }
 }
 
