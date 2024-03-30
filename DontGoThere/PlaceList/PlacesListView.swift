@@ -61,6 +61,13 @@ struct PlacesListView: View {
       .navigationDestination(for: Place.self) { place in
         EditPlaceView(place: place)
       }
+      .onReceive(NotificationCenter.default.publisher(for: .dontGoThereNotificationWasOpened)) { notification in
+        if let placeIdentifier = notification.object as? String {
+          if let place = places.filter({ $0.id.uuidString == placeIdentifier }).first {
+            path.append(place)
+          }
+        }
+      }
       .toolbar {
 
         if !places.isEmpty {
