@@ -8,10 +8,10 @@
 	</array>
 	<key>UILaunchScreen</key>
 	<dict>
-		<key>UIImageName</key>
-		<string>LaunchImage</string>
 		<key>UIColorName</key>
 		<string>LaunchColor</string>
+		<key>UIImageName</key>
+		<string>LaunchImage</string>
 	</dict>
 </dict>
 </plist>
