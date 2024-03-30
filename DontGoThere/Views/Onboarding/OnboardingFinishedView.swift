@@ -30,7 +30,7 @@ struct OnboardingFinishedView: View {
 
         Spacer()
 
-        Text("Shortly you'll be able to add your first place.")
+        Text("Add and avoid the places you've been where you don't want to be again.")
           .modifier(OnboardingTextModifier())
 
         Text("Places have a name, location, address, expiration date, review, and photos.")
