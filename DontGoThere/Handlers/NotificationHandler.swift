@@ -10,7 +10,7 @@ import Foundation
 import SwiftUI
 import UserNotifications
 
-class NotificationHandler: ObservableObject {
+class NotificationHandler: NSObject, ObservableObject {
 
   static let shared = NotificationHandler()
 
@@ -18,7 +18,7 @@ class NotificationHandler: ObservableObject {
 
   func sendNotification(for place: Place, with event: CLMonitor.Event) {
     // Don't send notifications if the place was added today or if we already sent one today.
-    
+
     guard !calendar.isDateInToday(place.addDate) else {
       print("Not sending a notification because place was added today")
       return
@@ -38,6 +38,8 @@ class NotificationHandler: ObservableObject {
       content.title = "Going to \(place.name)? DontGoThere!"
       content.subtitle = "You had a bad experience at \(place.name) on \(place.formattedAddDate)."
       content.sound = UNNotificationSound.default
+      let userInfo: [String: String] = ["placeIdentifier": place.id.uuidString]
+      content.userInfo = userInfo
       let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
       let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
       unc.add(request)
@@ -75,7 +77,32 @@ class NotificationHandler: ObservableObject {
         // Do something here, after permissions are reworked into onboarding
       }
     }
-
   }
+}
 
+extension Notification.Name {
+  static let dontGoThereNotificationWasOpened = Notification.Name("dontGoThereNotificationWasOpened")
+}
+
+extension NotificationHandler: UNUserNotificationCenterDelegate {
+  func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+    // Get the place ID from the original notification
+    if let userInfo = response.notification.request.content.userInfo as? [String: String] {
+      if let placeIdentifier = userInfo["placeIdentifier"] {
+        switch response.actionIdentifier {
+        case UNNotificationDefaultActionIdentifier:
+          print("a notification was opened")
+          NotificationCenter.default.post(name: .dontGoThereNotificationWasOpened, object: placeIdentifier)
+          break
+        default:
+          // no actions besides the default one yet
+          break
+        }
+      } else {
+        print("couldn't get the place ID from the notification that was tapped")
+      }
+    } else {
+      print("couldn't get the userInfo from the notification that was tapped")
+    }
+  }
 }
