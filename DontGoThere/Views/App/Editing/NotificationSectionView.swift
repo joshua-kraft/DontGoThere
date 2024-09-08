@@ -52,7 +52,7 @@ struct NotificationSectionView: View {
         DetailLabel("Max Notification Count:")
           .padding([.leading])
         Spacer()
-        Text(String(appSettings.maxNotificationCount))
+        Text(String(place.maxNotificationCount))
           .padding([.trailing])
         Stepper("Notification Count", value: $place.maxNotificationCount, in: 1...30)
           .labelsHidden()
