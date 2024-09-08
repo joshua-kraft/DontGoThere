@@ -24,7 +24,7 @@ struct SettingsView: View {
         SettingsNotificationSectionView()
 
       }
-      .navigationTitle("DontGoThere Settings")
+      .navigationTitle("PlaceSettings")
       .scrollDismissesKeyboard(.interactively)
     }
   }
