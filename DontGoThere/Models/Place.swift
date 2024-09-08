@@ -13,10 +13,16 @@ import SwiftData
 class Place: Identifiable {
   let id = UUID()
   var name: String = ""
+
+  var displayName: String {
+    name.isEmpty ? "No Name" : name
+  }
   var review: String = ""
 
   var displayNotes: String {
-    if review.count < 25 {
+    if review.isEmpty {
+      return "No Review"
+    } else if review.count < 25 {
       return review
     } else {
       let endIndex = review.index(review.startIndex, offsetBy: 25)
