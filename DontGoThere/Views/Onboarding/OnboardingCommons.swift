@@ -42,13 +42,13 @@ struct OnboardingBackButtonModifier: ViewModifier {
 struct OnboardingForwardButtonModifier: ViewModifier {
   func body(content: Content) -> some View {
     content
-      .padding([.top, .bottom])
-      .padding(.leading, 40)
-      .padding(.trailing, 40)
+      .frame(maxWidth: .infinity)
       .frame(height: 80)
       .font(.title3.bold())
       .background(.white)
       .clipShape(.capsule)
+      .padding([.leading, .trailing])
+      .padding(.bottom)
   }
 }
 
@@ -73,7 +73,7 @@ struct OnboardingTextModifier: ViewModifier {
       .multilineTextAlignment(.center)
       .foregroundStyle(.white)
       .font(smaller ? .headline : .title3)
-      .padding()
+      .padding([.leading, .trailing, .bottom])
   }
 }
 
