@@ -42,10 +42,12 @@ struct PlacesList: View {
           NavigationLink(value: place) {
             HStack {
               VStack(alignment: .leading) {
-                Text(place.name)
-                  .font(.headline)
-                Text(place.displayNotes)
-                  .font(.subheadline)
+                Text(place.name.isEmpty ? "No Name" : place.name)
+                  .font(place.name.isEmpty ? .headline.italic() : .headline)
+                  .foregroundStyle(place.name.isEmpty ? .secondary : .primary)
+                Text(place.review.isEmpty ? "No Review" : place.displayNotes)
+                  .font(place.review.isEmpty ? .subheadline.italic() : .subheadline)
+                  .foregroundStyle(place.review.isEmpty ? .secondary : .primary)
               }
 
               Spacer()
