@@ -12,8 +12,8 @@ import SwiftData
 @Model
 class Place: Identifiable {
   let id = UUID()
-  var name: String
-  var review: String
+  var name: String = ""
+  var review: String = ""
 
   var displayNotes: String {
     if review.count < 25 {
@@ -25,9 +25,9 @@ class Place: Identifiable {
     }
   }
 
-  var latitude: Double
-  var longitude: Double
-  var radius: Double
+  var latitude: Double = 0.0
+  var longitude: Double = 0.0
+  var radius: Double = 30.0
 
   var coordinate: CLLocationCoordinate2D {
     .init(latitude: latitude, longitude: longitude)
@@ -37,17 +37,17 @@ class Place: Identifiable {
     .init(center: coordinate, radius: radius)
   }
 
-  var address: Address
+  var address: Address = Address.emptyAddress
 
-  var shouldExpire: Bool
-  var isArchived: Bool
+  var shouldExpire: Bool = true
+  var isArchived: Bool = false
 
   var notificationCount = 0
-  var maxNotificationCount: Int
+  var maxNotificationCount: Int = 10
 
-  var addDate: Date
-  var expirationDate: Date
-  var lastNotificationDate: Date
+  var addDate: Date = Date()
+  var expirationDate: Date = Date() + (60 * 60 * 24 * 90)
+  var lastNotificationDate: Date = Date() + (60 * 60 * 24)
 
   var formattedAddDate: String {
     formattedDate(addDate)
