@@ -545,7 +545,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DontGoThere/Info.plist;
-				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSCameraUsageDescription = "DontGoThere needs to access the camera so you can take photos to add to your places.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "DontGoThere needs your location to show you your current location on the PlaceMap, add places at your current location, and notify you when you approach a place you've added.";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "DontGoThere needs your location to show you your current location on the PlaceMap, add places at your current location, and notify you when you approach a place you've added.";
@@ -582,7 +582,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DontGoThere/Info.plist;
-				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSCameraUsageDescription = "DontGoThere needs to access the camera so you can take photos to add to your places.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "DontGoThere needs your location to show you your current location on the PlaceMap, add places at your current location, and notify you when you approach a place you've added.";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "DontGoThere needs your location to show you your current location on the PlaceMap, add places at your current location, and notify you when you approach a place you've added.";
