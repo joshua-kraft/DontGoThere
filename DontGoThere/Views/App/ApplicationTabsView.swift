@@ -33,7 +33,7 @@ struct ApplicationTabsView: View {
 
       SettingsView()
         .tabItem {
-          Label("Settings", systemImage: "gearshape.2")
+          Label("PlaceSettings", systemImage: "gearshape.2")
         }
         .tag(DontGoThereTabs.settings)
     }

@@ -57,7 +57,7 @@ struct PlacesListView: View {
           }
         }
       }
-      .navigationTitle("Your Places")
+      .navigationTitle("PlaceList")
       .navigationDestination(for: Place.self) { place in
         EditPlaceView(place: place)
       }
