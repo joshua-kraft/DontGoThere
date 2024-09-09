@@ -45,6 +45,9 @@ struct OnboardingFinishedView: View {
 
           Text("Add a place with the Add Button (+), tap anywhere on the PlaceMap, or search for a place to add.")
             .modifier(OnboardingTextModifier())
+
+          Text("Use the PlaceSettings to change default expiry/archival time, notification counts, and alert radius.")
+            .modifier(OnboardingTextModifier())
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
       }
