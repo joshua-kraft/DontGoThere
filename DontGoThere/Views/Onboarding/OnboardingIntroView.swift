@@ -44,7 +44,7 @@ struct OnboardingIntroView: View {
 
       Button("Next: Location Permission") {
         withAnimation(.default.speed(0.33)) {
-          phase = .locationPermission
+          phase = .location
         }
       }
       .modifier(OnboardingForwardButtonModifier())

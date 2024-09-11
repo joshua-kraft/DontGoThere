@@ -1,5 +1,5 @@
 //
-//  OnboardingNotificationPermissionView.swift
+//  OnboardingNotificationView.swift
 //  DontGoThere
 //
 //  Created by Joshua Kraft on 3/30/24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct OnboardingNotificationPermissionView: View {
+struct OnboardingNotificationView: View {
 
   @Binding var phase: OnboardingPhase
   @State private var didRequestNotificationAuth = false
@@ -80,5 +80,5 @@ struct OnboardingNotificationPermissionView: View {
 }
 
 #Preview {
-  OnboardingNotificationPermissionView(phase: .constant(.notificationPermission))
+  OnboardingNotificationView(phase: .constant(.notification))
 }

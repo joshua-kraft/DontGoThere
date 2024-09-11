@@ -1,5 +1,5 @@
 //
-//  OnboardingLocationPermissionsView.swift
+//  OnboardingLocationView.swift
 //  DontGoThere
 //
 //  Created by Joshua Kraft on 3/30/24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct OnboardingLocationPermissionsView: View {
+struct OnboardingLocationView: View {
 
   @Binding var phase: OnboardingPhase
   @State private var didRequestLocationAuth = false
@@ -59,7 +59,7 @@ struct OnboardingLocationPermissionsView: View {
       if didRequestLocationAuth {
         Button("Next: Notification Permission") {
           withAnimation(.default.speed(0.33)) {
-            phase = .notificationPermission
+            phase = .notification
           }
         }
         .modifier(OnboardingForwardButtonModifier())
@@ -78,5 +78,5 @@ struct OnboardingLocationPermissionsView: View {
 }
 
 #Preview {
-  OnboardingLocationPermissionsView(phase: .constant(.locationPermission))
+  OnboardingLocationView(phase: .constant(.location))
 }
