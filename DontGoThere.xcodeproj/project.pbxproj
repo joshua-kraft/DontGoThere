@@ -42,7 +42,7 @@
 		4284CB1C2BB7FD37000550C4 /* OnboardingCommons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4284CB1B2BB7FD37000550C4 /* OnboardingCommons.swift */; };
 		4284CB1E2BB8006F000550C4 /* OnboardingIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4284CB1D2BB8006F000550C4 /* OnboardingIntroView.swift */; };
 		4284CB202BB8133F000550C4 /* OnboardingNotificationPermissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4284CB1F2BB8133F000550C4 /* OnboardingNotificationPermissionView.swift */; };
-		4284CB222BB81611000550C4 /* OnboardingFinishedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4284CB212BB81611000550C4 /* OnboardingFinishedView.swift */; };
+		4284CB222BB81611000550C4 /* OnboardingWrapupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4284CB212BB81611000550C4 /* OnboardingWrapupView.swift */; };
 		4284CB242BB8B51B000550C4 /* SettingsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4284CB232BB8B51B000550C4 /* SettingsHeaderView.swift */; };
 		4284CB262BB8B594000550C4 /* SettingsExpirationSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4284CB252BB8B594000550C4 /* SettingsExpirationSectionView.swift */; };
 		4284CB282BB8B622000550C4 /* SettingsDeletionSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4284CB272BB8B622000550C4 /* SettingsDeletionSectionView.swift */; };
@@ -92,7 +92,7 @@
 		4284CB1B2BB7FD37000550C4 /* OnboardingCommons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCommons.swift; sourceTree = "<group>"; };
 		4284CB1D2BB8006F000550C4 /* OnboardingIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingIntroView.swift; sourceTree = "<group>"; };
 		4284CB1F2BB8133F000550C4 /* OnboardingNotificationPermissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingNotificationPermissionView.swift; sourceTree = "<group>"; };
-		4284CB212BB81611000550C4 /* OnboardingFinishedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFinishedView.swift; sourceTree = "<group>"; };
+		4284CB212BB81611000550C4 /* OnboardingWrapupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingWrapupView.swift; sourceTree = "<group>"; };
 		4284CB232BB8B51B000550C4 /* SettingsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHeaderView.swift; sourceTree = "<group>"; };
 		4284CB252BB8B594000550C4 /* SettingsExpirationSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsExpirationSectionView.swift; sourceTree = "<group>"; };
 		4284CB272BB8B622000550C4 /* SettingsDeletionSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDeletionSectionView.swift; sourceTree = "<group>"; };
@@ -132,7 +132,7 @@
 				4284CB1D2BB8006F000550C4 /* OnboardingIntroView.swift */,
 				4284CB192BB7F06E000550C4 /* OnboardingLocationPermissionsView.swift */,
 				4284CB1F2BB8133F000550C4 /* OnboardingNotificationPermissionView.swift */,
-				4284CB212BB81611000550C4 /* OnboardingFinishedView.swift */,
+				4284CB212BB81611000550C4 /* OnboardingWrapupView.swift */,
 				4284CB1B2BB7FD37000550C4 /* OnboardingCommons.swift */,
 			);
 			path = Onboarding;
@@ -392,7 +392,7 @@
 				426BB6B72B87D41200CBDA71 /* ZoomableScrollView.swift in Sources */,
 				426E96FB2B9D4D760078E13E /* GeocodingHandler.swift in Sources */,
 				42560A1B2B7429410013FCF4 /* Place.swift in Sources */,
-				4284CB222BB81611000550C4 /* OnboardingFinishedView.swift in Sources */,
+				4284CB222BB81611000550C4 /* OnboardingWrapupView.swift in Sources */,
 				4284CB1A2BB7F06E000550C4 /* OnboardingLocationPermissionsView.swift in Sources */,
 				4284CB242BB8B51B000550C4 /* SettingsHeaderView.swift in Sources */,
 				4238EFB92B891B9A00597B4A /* Labels.swift in Sources */,

@@ -1,5 +1,5 @@
 //
-//  OnboardingFinished.swift
+//  OnboardingWrapupView.swift
 //  DontGoThere
 //
 //  Created by Joshua Kraft on 3/30/24.
@@ -7,25 +7,13 @@
 
 import SwiftUI
 
-struct OnboardingFinishedView: View {
+struct OnboardingWrapupView: View {
 
   @Binding var phase: OnboardingPhase
   @AppStorage("onboardingComplete") private var onboardingComplete: Bool = false
 
   var body: some View {
     VStack {
-      HStack {
-        Button("Back") {
-          withAnimation {
-            phase = .notificationPermission
-          }
-        }
-        .modifier(OnboardingBackButtonModifier())
-        .padding(4)
-
-        Spacer()
-      }
-
       Text("You're all set!")
         .modifier(OnboardingTitleModifier(bigger: true))
 
@@ -48,6 +36,9 @@ struct OnboardingFinishedView: View {
 
           Text("Use the PlaceSettings to change default expiry/archival time, notification counts, and alert radius.")
             .modifier(OnboardingTextModifier())
+
+          Text("Tap the button below to go to the PlaceList.")
+            .modifier(OnboardingTextModifier())
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
       }
@@ -55,7 +46,7 @@ struct OnboardingFinishedView: View {
       Spacer()
 
       Button("Finished!") {
-        withAnimation {
+        withAnimation(.default.speed(0.67)) {
           onboardingComplete = true
         }
       }
@@ -66,5 +57,5 @@ struct OnboardingFinishedView: View {
 }
 
 #Preview {
-  OnboardingFinishedView(phase: .constant(.finished))
+  OnboardingWrapupView(phase: .constant(.wrapup))
 }
