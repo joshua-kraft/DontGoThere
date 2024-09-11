@@ -10,6 +10,10 @@ import PhotosUI
 
 struct PhotoSectionView: View {
 
+  var isOnMac: Bool {
+    return ProcessInfo.processInfo.isiOSAppOnMac
+  }
+
   @Bindable var place: Place
   @State private var isShowingPhotoPicker = false
   @State private var selectedPhotoItems = [PhotosPickerItem]()
@@ -26,8 +30,10 @@ struct PhotoSectionView: View {
 
         Menu("Add Photos", systemImage: "photo.badge.plus") {
 
-          Button("Take Photo...", systemImage: "camera") {
-            isShowingCamera.toggle()
+          if !isOnMac {
+            Button("Take Photo...", systemImage: "camera") {
+              isShowingCamera.toggle()
+            }
           }
 
           Button("Choose Photos...", systemImage: "photo.on.rectangle.angled") {
