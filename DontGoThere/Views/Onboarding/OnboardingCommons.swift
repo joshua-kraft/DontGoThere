@@ -60,7 +60,7 @@ struct OnboardingTitleModifier: ViewModifier {
       .multilineTextAlignment(.center)
       .font(bigger ? .largeTitle.bold() : .title.bold())
       .foregroundStyle(.white)
-      .padding([.leading, .trailing, .bottom])
+      .padding()
   }
 }
 

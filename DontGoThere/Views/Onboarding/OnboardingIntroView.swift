@@ -34,6 +34,8 @@ struct OnboardingIntroView: View {
           Text("DontGoThere does not keep any information about your location or how you use the application.")
             .modifier(OnboardingTextModifier())
 
+          Text("Tap the button below to review location permissions.")
+            .modifier(OnboardingTextModifier())
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
       }
@@ -41,7 +43,7 @@ struct OnboardingIntroView: View {
       Spacer()
 
       Button("Next: Location Permission") {
-        withAnimation {
+        withAnimation(.default.speed(0.33)) {
           phase = .locationPermission
         }
       }

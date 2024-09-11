@@ -7,11 +7,8 @@
 
 import SwiftUI
 
-enum OnboardingPhase: String {
-  case intro = "Intro"
-  case locationPermission = "Location Permission"
-  case notificationPermission = "Notification Permission"
-  case finished = "Finished"
+enum OnboardingPhase {
+  case intro, locationPermission, notificationPermission, wrapup
 }
 
 struct OnboardingView: View {
@@ -26,8 +23,8 @@ struct OnboardingView: View {
       OnboardingLocationPermissionsView(phase: $phase)
     case .notificationPermission:
       OnboardingNotificationPermissionView(phase: $phase)
-    case .finished:
-      OnboardingFinishedView(phase: $phase)
+    case .wrapup:
+      OnboardingWrapupView(phase: $phase)
     }
   }
 }
