@@ -77,7 +77,6 @@ struct DetailSectionView: View {
           .padding([.leading])
 
         DatePicker("Added Date", selection: $place.addDate, displayedComponents: .date)
-          .disabled(true)
           .labelsHidden()
 
         Spacer()
