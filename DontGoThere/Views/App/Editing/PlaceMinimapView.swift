@@ -22,8 +22,10 @@ struct PlaceMinimapView: View {
 
   var body: some View {
     MapReader { mapProxy in
-      Map(position: $position, interactionModes: [.pan, .zoom, .rotate]) {
+      Map(position: $position, bounds: MapCameraBounds(minimumDistance: 100.0, maximumDistance: 1000.0), interactionModes: [.pan, .zoom, .rotate]) {
         Marker(place.name, coordinate: place.coordinate)
+        MapCircle(center: place.coordinate, radius: place.radius)
+          .foregroundStyle(.blue.opacity(0.20))
       }
       .frame(height: 250)
       .onChange(of: place.coordinate) {
