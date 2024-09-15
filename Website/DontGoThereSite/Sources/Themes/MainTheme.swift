@@ -7,6 +7,8 @@ struct MyTheme: Theme {
       Head(for: page, in: context)
 
       Body {
+        HeaderBar()
+        
         page.body
 
         IgniteFooter()
