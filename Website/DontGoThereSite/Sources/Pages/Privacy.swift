@@ -30,6 +30,8 @@ struct Privacy: StaticPage {
     Text("DontGoThere allows you to attach photos to the places you add. If you grant permission to use the camera, DontGoThere will allow you to take photos as well. DontGoThere only receives access to the photos you specify. Photos are only ever stored on your devices / in your iCloud data with DontGoThere.")
 
     Text("DontGoThere will only send you one notification per place per day, and will only send as many notifications as you specify in the application settings. You can disable the limit, but DontGoThere will never notify you more than once per place per day.")
+
+    Text("None of your data is ever collected. Everything remains on your device / with your iCloud data.")
   }
 }
 // swiftlint: enable line_length
