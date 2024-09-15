@@ -18,7 +18,7 @@ struct Home: StaticPage {
 
     Text("Ever found yourself back at a place that disappointed you, only to realize too late that you’d been there before and had a bad experience? DontGoThere is here to ensure you never make the same mistake twice!")
 
-    Text("With DontGoThere, you can easily log places where you’ve had less-than-stellar experiences, complete with a name, address, review, and photos. The app will keep track of these places and send you a gentle reminder if you find yourself back in the vicinity.")
+    Text("With DontGoThere, you can easily track places where you’ve had less-than-stellar experiences, complete with a name, address, review, and photos. The app will keep track of these places and send you a gentle reminder if you find yourself back in the vicinity.")
 
     Spacer()
 

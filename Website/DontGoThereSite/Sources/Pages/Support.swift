@@ -19,19 +19,19 @@ struct Support: StaticPage {
       .font(.title1)
       .horizontalAlignment(.center)
 
-    Text("We're sorry to hear you're having problems with DontGoThere.")
+    Text("Sorry to hear you're having problems with DontGoThere.")
       .font(.lead)
       .horizontalAlignment(.center)
 
     Text("Please submit a review on the App Store if you have a suggestion or complaint.")
 
     Text {
-      "If you have a reproducible bug or crash, please email the details and steps to reproduce by emailing us at support@dontgothere.app or "
+      "If you have a reproducible bug or crash, please email the details and steps to reproduce by emailing support@dontgothere.app or "
 
       Link("clicking here.", target: "mailto:support@dontgothere.app")
     }
 
-    Text("Thank you for downloading and using DontGoThere.")
+    Text("Thank you for using DontGoThere.")
 
   }
 }
