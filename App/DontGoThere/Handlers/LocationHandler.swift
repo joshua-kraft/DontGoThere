@@ -140,7 +140,7 @@ extension LocationHandler: CLLocationManagerDelegate {
     case .notDetermined:
       UserDefaults.standard.setValue(false, forKey: "locationAuthorized")
       self.locationAuthorized = false
-      manager.requestAlwaysAuthorization()
+      manager.requestWhenInUseAuthorization()
 
     case .restricted:
       UserDefaults.standard.setValue(false, forKey: "locationAuthorized")
@@ -163,7 +163,7 @@ extension LocationHandler: CLLocationManagerDelegate {
         await self.startMonitoringPlaceConditions()
       }
       // Start the background activity if we're allowed
-      self.backgroundActivity = manager.authorizationStatus == .authorizedAlways
+      self.backgroundActivity = true
 
     @unknown default:
       // Could be reached if Apple adds to CLAuthorizationStatus
