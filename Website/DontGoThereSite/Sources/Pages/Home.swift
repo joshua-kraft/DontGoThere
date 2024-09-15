@@ -6,21 +6,17 @@ struct Home: StaticPage {
   var title = "Home"
 
   func body(context: PublishingContext) -> [BlockElement] {
-    Spacer()
-
-    Text {
+    Group {
       Image("/images/AppIcon.png")
-        .padding(.trailing, 25)
         .frame(width: "max(12.5%, 128px)", height: "max(12.5%, 128px)")
 
-      "DontGoThere"
-    }
-    .font(.title1)
-    .horizontalAlignment(.center)
+      Text("DontGoThere")
+        .font(.title1)
 
-    Text("A Bad Experience Tracker")
-      .font(.title2)
-      .horizontalAlignment(.center)
+      Text("A Bad Experience Tracker")
+        .font(.title2)
+    }
+    .horizontalAlignment(.center)
 
     Text("Never get caught off-guard by a bad experience again — let DontGoThere remind you to steer clear!")
       .font(.lead)
