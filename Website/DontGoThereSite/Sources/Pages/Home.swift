@@ -7,7 +7,7 @@ struct Home: StaticPage {
 
   func body(context: PublishingContext) -> [BlockElement] {
     Spacer()
-    
+
     Text {
       Image("/images/AppIcon.png")
         .padding(.trailing, 25)
