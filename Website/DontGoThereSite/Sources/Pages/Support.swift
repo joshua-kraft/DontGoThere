@@ -13,8 +13,6 @@ struct Support: StaticPage {
   var title = "Support"
 
   func body(context: PublishingContext) async -> [any BlockElement] {
-    navigationBar()
-
     Text("Support")
       .font(.title1)
       .horizontalAlignment(.center)

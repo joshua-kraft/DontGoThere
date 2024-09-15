@@ -6,8 +6,6 @@ struct Home: StaticPage {
   var title = "Home"
 
   func body(context: PublishingContext) -> [BlockElement] {
-    navigationBar()
-
     Text("DontGoThere - A Bad Experience Tracker")
       .font(.title1)
       .horizontalAlignment(.center)

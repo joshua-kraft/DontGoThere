@@ -13,8 +13,6 @@ struct Privacy: StaticPage {
   var title = "Privacy Statement"
 
   func body(context: PublishingContext) async -> [any BlockElement] {
-    navigationBar()
-
     Text("Privacy Statement")
       .font(.title1)
       .horizontalAlignment(.center)
