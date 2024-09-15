@@ -13,6 +13,7 @@ struct MyTheme: Theme {
 
         IgniteFooter()
       }
+      .padding(.vertical, 80)
     }
   }
 }

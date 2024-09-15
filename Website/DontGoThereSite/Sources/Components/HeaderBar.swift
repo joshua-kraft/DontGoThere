@@ -16,5 +16,6 @@ struct HeaderBar: Component {
     }
     .navigationBarStyle(.dark)
     .background(.royalBlue)
+    .position(.fixedTop)
   }
 }
