@@ -3,27 +3,30 @@ import Ignite
 
 @main
 struct IgniteWebsite {
-    static func main() async {
-        let site = ExampleSite()
+  static func main() async {
+    let site = DontGoThereSite()
 
-        do {
-            try await site.publish()
-        } catch {
-            print(error.localizedDescription)
-        }
+    do {
+      try await site.publish()
+    } catch {
+      print(error.localizedDescription)
     }
+  }
 }
 
-struct ExampleSite: Site {    
-    var name = "Hello World"
-    var titleSuffix = " – My Awesome Site"
-    var url = URL("https://www.example.com")
-    var builtInIconsEnabled = true
+struct DontGoThereSite: Site {
+  var name = "Home"
+  var titleSuffix = " - DontGoThere"
+  var url = URL("http://dontgothere.app")
+  var builtInIconsEnabled = true
 
-    var author = "John Appleseed"
+  var author = "Joshua Kraft"
 
-    var homePage = Home()
-    var theme = MyTheme()
+  var homePage = Home()
+  var theme = MyTheme()
+
+  var pages: [any StaticPage] {
+    Privacy()
+    Support()
+  }
 }
-
-
