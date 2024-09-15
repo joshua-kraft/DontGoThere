@@ -53,7 +53,7 @@ class Place: Identifiable {
 
   var addDate: Date = Date()
   var expirationDate: Date = Date() + (60 * 60 * 24 * 90)
-  var lastNotificationDate: Date = Date() + (60 * 60 * 24)
+  var lastNotificationDate: Date = Date.distantPast
 
   var formattedAddDate: String {
     formattedDate(addDate)
