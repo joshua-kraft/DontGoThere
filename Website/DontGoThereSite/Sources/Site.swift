@@ -21,9 +21,9 @@ struct DontGoThereSite: Site {
   var builtInIconsEnabled = true
 
   var author = "Joshua Kraft"
-
   var homePage = Home()
   var theme = MyTheme()
+  var robotsConfiguration = Robots()
 
   var pages: [any StaticPage] {
     Privacy()
