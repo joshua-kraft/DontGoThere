@@ -45,10 +45,13 @@ struct OnboardingWrapupView: View {
 
       Spacer()
 
-      Button("Finished!") {
+      Button {
         withAnimation(.default.speed(0.67)) {
           onboardingComplete = true
         }
+      } label: {
+        Text("Finished!")
+          .frame(maxWidth: .infinity, maxHeight: .infinity)
       }
       .modifier(OnboardingForwardButtonModifier())
     }

@@ -57,22 +57,26 @@ struct OnboardingNotificationView: View {
       }
 
       if didRequestNotificationAuth {
-        Button("Next: Wrap-Up") {
+        Button {
           withAnimation(.default.speed(0.33)) {
             phase = .wrapup
           }
+        } label: {
+          Text("Next: Wrap-up")
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .modifier(OnboardingForwardButtonModifier())
-        .disabled(!didRequestNotificationAuth)
       } else {
-        Button("Grant Notification Permission") {
+        Button {
           NotificationHandler.shared.requestNotificationPermissions()
           withAnimation(.default.speed(0.67)) {
             didRequestNotificationAuth = true
           }
+        } label: {
+          Text("Grant Notification Permission")
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .modifier(OnboardingForwardButtonModifier())
-        .disabled(didRequestNotificationAuth)
       }
     }
     .background(OnboardingBackgroundGradient())

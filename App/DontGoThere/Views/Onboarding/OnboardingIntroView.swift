@@ -42,10 +42,13 @@ struct OnboardingIntroView: View {
 
       Spacer()
 
-      Button("Next: Location Permission") {
+      Button {
         withAnimation(.default.speed(0.33)) {
           phase = .location
         }
+      } label: {
+        Text("Next: Location Permission")
+          .frame(maxWidth: .infinity, maxHeight: .infinity)
       }
       .modifier(OnboardingForwardButtonModifier())
 

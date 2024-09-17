@@ -57,18 +57,24 @@ struct OnboardingLocationView: View {
       }
 
       if didRequestLocationAuth {
-        Button("Next: Notification Permission") {
+        Button {
           withAnimation(.default.speed(0.33)) {
             phase = .notification
           }
+        } label: {
+          Text("Next: Notification Permission")
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .modifier(OnboardingForwardButtonModifier())
       } else {
-        Button("Grant Location Permission") {
+        Button {
           LocationHandler.shared.startup()
           withAnimation(.default.speed(0.67)) {
             didRequestLocationAuth = true
           }
+        } label: {
+          Text("Grant Location Permission")
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .modifier(OnboardingForwardButtonModifier())
       }
