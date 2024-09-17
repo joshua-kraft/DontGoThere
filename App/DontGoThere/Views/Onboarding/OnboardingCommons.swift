@@ -8,37 +8,6 @@
 import Foundation
 import SwiftUI
 
-struct OnboardingButton: View {
-
-  var buttonTitle: String
-  var adjustedHeight: CGFloat?
-
-  var body: some View {
-    ZStack {
-      Rectangle()
-        .frame(width: adjustedHeight == nil ? nil : adjustedHeight! * 2, height: adjustedHeight ?? 80)
-        .foregroundStyle(.white)
-        .clipShape(.capsule)
-
-      Text(buttonTitle)
-        .font(.title3.bold())
-        .foregroundStyle(.launch)
-    }
-  }
-}
-
-struct OnboardingBackButtonModifier: ViewModifier {
-  func body(content: Content) -> some View {
-    content
-      .padding()
-      .frame(width: 80, height: 40)
-      .font(.title3.bold())
-      .background(.white)
-      .clipShape(.capsule)
-      .padding(.leading)
-  }
-}
-
 struct OnboardingForwardButtonModifier: ViewModifier {
   func body(content: Content) -> some View {
     content
