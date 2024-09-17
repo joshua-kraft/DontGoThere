@@ -7,7 +7,7 @@ struct Home: StaticPage {
 
   func body(context: PublishingContext) -> [BlockElement] {
     Group {
-      Image("/images/AppIcon.png")
+      Image("/images/AppIcon.png", description: "DontGoThere App Icon")
         .frame(width: "max(12.5%, 128px)", height: "max(12.5%, 128px)")
 
       Text("DontGoThere")
