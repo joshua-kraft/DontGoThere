@@ -17,7 +17,7 @@ struct IgniteWebsite {
 struct DontGoThereSite: Site {
   var name = "Home"
   var titleSuffix = " - DontGoThere"
-  var url = URL("http://dontgothere.app")
+  var url = URL("https://www.dontgothere.app")
   var builtInIconsEnabled = true
 
   var author = "Joshua Kraft"
