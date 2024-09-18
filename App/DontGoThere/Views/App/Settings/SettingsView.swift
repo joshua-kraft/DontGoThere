@@ -17,6 +17,8 @@ struct SettingsView: View {
 
         NavigationLink("Privacy Statement") { PrivacyStatementView() }
 
+        Link("Support", destination: URL(string: "https://www.dontgothere.app/support/")!)
+
         SettingsExpirationSectionView()
 
         SettingsDeletionSectionView()
