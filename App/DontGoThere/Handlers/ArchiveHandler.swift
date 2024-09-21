@@ -8,7 +8,7 @@
 import Foundation
 import SwiftData
 
-@Observable
+@Observable @MainActor
 class ArchiveHandler: ObservableObject {
   var modelContext: ModelContext
   var appSettings: AppSettings

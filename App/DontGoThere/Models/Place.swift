@@ -11,7 +11,7 @@ import SwiftData
 
 @Model
 class Place: Identifiable {
-  let id = UUID()
+  var id = UUID()
   var name: String = ""
 
   var displayName: String {

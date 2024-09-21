@@ -62,7 +62,11 @@ import SwiftUI
 
           if let loc = update.location {
             self.lastLocation = loc
-            self.isStationary = update.isStationary
+            if #available(iOS 18.0, *) {
+              self.isStationary = update.stationary
+            } else {
+              self.isStationary = update.isStationary
+            }
           }
         }
       } catch {
@@ -133,7 +137,7 @@ import SwiftUI
 }
 
 // MARK: CLLocationManagerDelegate Conformance
-extension LocationHandler: CLLocationManagerDelegate {
+extension LocationHandler: @preconcurrency CLLocationManagerDelegate {
   func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
     switch manager.authorizationStatus {
 
