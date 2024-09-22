@@ -49,6 +49,7 @@ import SwiftUI
     self.manager = CLLocationManager()
     self.manager?.delegate = self
     self.manager?.desiredAccuracy = kCLLocationAccuracyBest
+    self.manager?.distanceFilter = kCLDistanceFilterNone
   }
 
   func startLocationUpdates() {
@@ -68,6 +69,8 @@ import SwiftUI
               self.isStationary = update.isStationary
             }
           }
+
+          self.manager?.distanceFilter = self.isStationary ? AppSettings.shared.regionRadius : kCLDistanceFilterNone
         }
       } catch {
         print(error.localizedDescription)
