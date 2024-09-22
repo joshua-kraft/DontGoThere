@@ -17,6 +17,8 @@ enum TimeUnit: String, CaseIterable, Codable {
 
 class AppSettings: ObservableObject, Codable {
 
+  static let shared = AppSettings()
+
   static let defaultSettings = AppSettings(neverExpire: false,
                                            autoExpiryValue: 3,
                                            autoExpiryUnit: .months,
@@ -31,13 +33,6 @@ class AppSettings: ObservableObject, Codable {
   static let supportURL: URL = .init(string: "https://www.dontgothere.app/support/")!
 
   let calendar = Calendar.autoupdatingCurrent
-
-  lazy var privacyStatement: String? = {
-    return try? String(
-      contentsOf: Bundle.main.url(forResource: "privacyStatement", withExtension: "txt")!,
-      encoding: .utf8
-    )
-  }()
 
   @Published var neverExpire: Bool { didSet { saveSettings() } }
   @Published var autoExpiryValue: Int { didSet { saveSettings() } }
@@ -72,22 +67,41 @@ class AppSettings: ObservableObject, Codable {
     self.maxNotificationCount = maxNotificationCount
   }
 
-  static func loadSettings() -> AppSettings {
+  init() {
+    if let settings = AppSettings.loadSettings() {
+      self.neverExpire = settings.neverExpire
+      self.autoExpiryValue = settings.autoExpiryValue
+      self.autoExpiryUnit = settings.autoExpiryUnit
+      self.neverDelete = settings.neverDelete
+      self.autoDeletionValue = settings.autoDeletionValue
+      self.autoDeletionUnit = settings.autoDeletionUnit
+      self.regionRadius = settings.regionRadius
+      self.noNotificationLimit = settings.noNotificationLimit
+      self.maxNotificationCount = settings.maxNotificationCount
+    } else {
+      self.neverExpire = AppSettings.defaultSettings.neverExpire
+      self.autoExpiryValue = AppSettings.defaultSettings.autoExpiryValue
+      self.autoExpiryUnit = AppSettings.defaultSettings.autoExpiryUnit
+      self.neverDelete = AppSettings.defaultSettings.neverDelete
+      self.autoDeletionValue = AppSettings.defaultSettings.autoDeletionValue
+      self.autoDeletionUnit = AppSettings.defaultSettings.autoDeletionUnit
+      self.regionRadius = AppSettings.defaultSettings.regionRadius
+      self.noNotificationLimit = AppSettings.defaultSettings.noNotificationLimit
+      self.maxNotificationCount = AppSettings.defaultSettings.maxNotificationCount
+    }
+
+    saveSettings()
+  }
+
+  static func loadSettings() -> AppSettings? {
     if let settingsData = UserDefaults.standard.data(forKey: "DontGoThereSettings") {
       if let decodedSettings = try? JSONDecoder().decode(AppSettings.self, from: settingsData) {
         return decodedSettings
       } else {
-        return AppSettings.defaultSettings
+        return nil
       }
     } else {
-      saveDefaultSettings()
-      return AppSettings.defaultSettings
-    }
-  }
-
-  static func saveDefaultSettings() {
-    if let encodedData = try? JSONEncoder().encode(AppSettings.defaultSettings) {
-      UserDefaults.standard.setValue(encodedData, forKey: "DontGoThereSettings")
+      return nil
     }
   }
 
