@@ -47,8 +47,6 @@
 		4284CB262BB8B594000550C4 /* SettingsExpirationSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4284CB252BB8B594000550C4 /* SettingsExpirationSectionView.swift */; };
 		4284CB282BB8B622000550C4 /* SettingsDeletionSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4284CB272BB8B622000550C4 /* SettingsDeletionSectionView.swift */; };
 		4284CB2A2BB8B664000550C4 /* SettingsNotificationSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4284CB292BB8B664000550C4 /* SettingsNotificationSectionView.swift */; };
-		4284CB2C2BB8BE3B000550C4 /* privacyStatement.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4284CB2B2BB8BE3B000550C4 /* privacyStatement.txt */; };
-		4284CB2E2BB8C155000550C4 /* PrivacyStatementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4284CB2D2BB8C155000550C4 /* PrivacyStatementView.swift */; };
 		42F0ED462B92344100105CB1 /* LocationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F0ED452B92344100105CB1 /* LocationHandler.swift */; };
 		42FD8B6C2B967411009DFAE8 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42FD8B6B2B967411009DFAE8 /* Address.swift */; };
 /* End PBXBuildFile section */
@@ -97,8 +95,6 @@
 		4284CB252BB8B594000550C4 /* SettingsExpirationSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsExpirationSectionView.swift; sourceTree = "<group>"; };
 		4284CB272BB8B622000550C4 /* SettingsDeletionSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDeletionSectionView.swift; sourceTree = "<group>"; };
 		4284CB292BB8B664000550C4 /* SettingsNotificationSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsNotificationSectionView.swift; sourceTree = "<group>"; };
-		4284CB2B2BB8BE3B000550C4 /* privacyStatement.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = privacyStatement.txt; sourceTree = "<group>"; };
-		4284CB2D2BB8C155000550C4 /* PrivacyStatementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyStatementView.swift; sourceTree = "<group>"; };
 		42F0ED452B92344100105CB1 /* LocationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationHandler.swift; sourceTree = "<group>"; };
 		42FD8B6B2B967411009DFAE8 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -246,7 +242,6 @@
 			children = (
 				42560A352B81843F0013FCF4 /* AppSettings.swift */,
 				42560A242B7D3D170013FCF4 /* SettingsView.swift */,
-				4284CB2F2BB8C18F000550C4 /* Screens */,
 				4284CB302BB8C199000550C4 /* Sections */,
 			);
 			path = Settings;
@@ -261,15 +256,6 @@
 				4238EFB82B891B9A00597B4A /* Labels.swift */,
 			);
 			path = Reusables;
-			sourceTree = "<group>";
-		};
-		4284CB2F2BB8C18F000550C4 /* Screens */ = {
-			isa = PBXGroup;
-			children = (
-				4284CB2B2BB8BE3B000550C4 /* privacyStatement.txt */,
-				4284CB2D2BB8C155000550C4 /* PrivacyStatementView.swift */,
-			);
-			path = Screens;
 			sourceTree = "<group>";
 		};
 		4284CB302BB8C199000550C4 /* Sections */ = {
@@ -354,7 +340,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				42560A122B74292C0013FCF4 /* Preview Assets.xcassets in Resources */,
-				4284CB2C2BB8BE3B000550C4 /* privacyStatement.txt in Resources */,
 				42560A0F2B74292C0013FCF4 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -374,7 +359,6 @@
 				4284CB202BB8133F000550C4 /* OnboardingNotificationView.swift in Sources */,
 				421287A02BB7D7990033F62E /* OnboardingView.swift in Sources */,
 				4284CB1E2BB8006F000550C4 /* OnboardingIntroView.swift in Sources */,
-				4284CB2E2BB8C155000550C4 /* PrivacyStatementView.swift in Sources */,
 				4284CB2A2BB8B664000550C4 /* SettingsNotificationSectionView.swift in Sources */,
 				4238EFC72B8FCAE400597B4A /* AccessCameraView.swift in Sources */,
 				426E96FD2B9D55B10078E13E /* AppDelegate.swift in Sources */,
