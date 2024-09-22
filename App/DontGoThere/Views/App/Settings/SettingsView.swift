@@ -9,15 +9,15 @@ import SwiftUI
 
 struct SettingsView: View {
 
-  @EnvironmentObject var appSettings: AppSettings
+  @EnvironmentObject var settingsHandler: SettingsHandler
 
   var body: some View {
     NavigationStack {
       Form {
 
-        Link("Privacy Statement", destination: AppSettings.privacyURL)
+        Link("Privacy Statement", destination: SettingsHandler.privacyURL)
 
-        Link("Support", destination: AppSettings.supportURL)
+        Link("Support", destination: SettingsHandler.supportURL)
 
         SettingsExpirationSectionView()
 
@@ -34,5 +34,5 @@ struct SettingsView: View {
 
 #Preview {
   SettingsView()
-    .environmentObject(AppSettings.defaultSettings)
+    .environmentObject(SettingsHandler.defaults)
 }

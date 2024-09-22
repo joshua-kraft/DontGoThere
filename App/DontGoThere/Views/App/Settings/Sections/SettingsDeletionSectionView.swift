@@ -9,20 +9,20 @@ import SwiftUI
 
 struct SettingsDeletionSectionView: View {
 
-  @EnvironmentObject var appSettings: AppSettings
+  @EnvironmentObject var settingsHandler: SettingsHandler
 
   var body: some View {
     // Deletion Settings
     Section {
       HStack {
         Text("Never Delete:")
-          .font(appSettings.neverDelete ? .subheadline.bold() : .subheadline)
+          .font(settingsHandler.neverDelete ? .subheadline.bold() : .subheadline)
         Spacer()
-        Toggle("Never Delete:", isOn: $appSettings.neverDelete.animation())
+        Toggle("Never Delete:", isOn: $settingsHandler.neverDelete.animation())
           .labelsHidden()
       }
 
-      if !appSettings.neverDelete {
+      if !settingsHandler.neverDelete {
         HStack {
           Text("Set to Delete In:")
             .font(.subheadline)
@@ -31,7 +31,7 @@ struct SettingsDeletionSectionView: View {
 
           Spacer()
 
-          Picker("Deletion Value", selection: $appSettings.autoDeletionValue) {
+          Picker("Deletion Value", selection: $settingsHandler.autoDeletionValue) {
             ForEach(1...100, id: \.self) { value in
               Text(String(value))
             }
@@ -42,7 +42,7 @@ struct SettingsDeletionSectionView: View {
 
           Spacer()
 
-          Picker("Deletion Unit", selection: $appSettings.autoDeletionUnit) {
+          Picker("Deletion Unit", selection: $settingsHandler.autoDeletionUnit) {
             ForEach(TimeUnit.allCases, id: \.self) { unit in
               Text(unit.rawValue)
             }
@@ -55,7 +55,7 @@ struct SettingsDeletionSectionView: View {
       SettingsHeaderView(headerTitle: "Deletion Settings",
                          headerNote: "Set the default time before archived places are automatically deleted.")
     } footer: {
-      if appSettings.neverDelete {
+      if settingsHandler.neverDelete {
         Text("Note: never deleting your archived places may cause app storage usage to increase over time.")
           .font(.headline)
       }
@@ -65,5 +65,5 @@ struct SettingsDeletionSectionView: View {
 
 #Preview {
   SettingsDeletionSectionView()
-    .environmentObject(AppSettings.defaultSettings)
+    .environmentObject(SettingsHandler.defaults)
 }

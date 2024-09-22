@@ -10,7 +10,7 @@ import SwiftUI
 struct NotificationSectionView: View {
 
   @Bindable var place: Place
-  @EnvironmentObject var appSettings: AppSettings
+  @EnvironmentObject var settingsHandler: SettingsHandler
   @FocusState private var focusedField: Field?
 
   enum Field {
@@ -67,7 +67,7 @@ struct NotificationSectionView: View {
     let previewer = try Previewer()
     return NotificationSectionView(place: previewer.activePlace)
       .modelContainer(previewer.container)
-      .environmentObject(AppSettings.defaultSettings)
+      .environmentObject(SettingsHandler.defaults)
   } catch {
     return Text("Failed to create preview: \(error.localizedDescription)")
   }

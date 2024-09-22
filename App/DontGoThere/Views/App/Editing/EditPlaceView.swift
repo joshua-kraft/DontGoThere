@@ -14,7 +14,7 @@ struct EditPlaceView: View {
 
   @Environment(\.modelContext) var modelContext
   @Environment(\.dismiss) var dismiss
-  @EnvironmentObject var appSettings: AppSettings
+  @EnvironmentObject var settingsHandler: SettingsHandler
   @EnvironmentObject var locationHandler: LocationHandler
 
   @Bindable var place: Place
@@ -89,7 +89,7 @@ struct EditPlaceView: View {
     let previewer = try Previewer()
     return EditPlaceView(place: previewer.activePlace)
       .modelContainer(previewer.container)
-      .environmentObject(AppSettings.defaultSettings)
+      .environmentObject(SettingsHandler.defaults)
       .environmentObject(LocationHandler.shared)
   } catch {
     return Text("Failed to create preview: \(error.localizedDescription)")

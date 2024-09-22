@@ -11,12 +11,12 @@ import SwiftData
 @Observable @MainActor
 class ArchiveHandler: ObservableObject {
   var modelContext: ModelContext
-  var appSettings: AppSettings
+  var settingsHandler: SettingsHandler
   var places = [Place]()
 
-  init(modelContext: ModelContext, appSettings: AppSettings) {
+  init(modelContext: ModelContext, settingsHandler: SettingsHandler) {
     self.modelContext = modelContext
-    self.appSettings = appSettings
+    self.settingsHandler = settingsHandler
     fetchData()
   }
 
@@ -30,20 +30,20 @@ class ArchiveHandler: ObservableObject {
   }
 
   func archiveExpiredPlaces() {
-    if appSettings.neverExpire { return }
+    if settingsHandler.neverExpire { return }
     let activePlaces = places.filter({ !$0.isArchived })
     for place in activePlaces {
       if place.expirationDate < Date.now
-          || (!appSettings.noNotificationLimit && place.notificationCount > appSettings.maxNotificationCount) {
+          || (!settingsHandler.noNotificationLimit && place.notificationCount > settingsHandler.maxNotificationCount) {
         place.isArchived = true
       }
     }
   }
 
   func deleteOldArchivedPlaces() {
-    if appSettings.neverDelete { return }
+    if settingsHandler.neverDelete { return }
     let archivedPlaces = places.filter({ $0.isArchived })
-    for place in archivedPlaces where appSettings.getDeletionDate(from: place.expirationDate) < Date.now {
+    for place in archivedPlaces where settingsHandler.getDeletionDate(from: place.expirationDate) < Date.now {
       modelContext.delete(place)
     }
   }

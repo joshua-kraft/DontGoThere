@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SettingsNotificationSectionView: View {
 
-  @EnvironmentObject var appSettings: AppSettings
+  @EnvironmentObject var settingsHandler: SettingsHandler
   @FocusState var isDistanceFieldFocused
 
   var body: some View {
@@ -17,18 +17,18 @@ struct SettingsNotificationSectionView: View {
     Section {
       HStack {
         Text("No Limit:")
-          .font(appSettings.noNotificationLimit ? .subheadline.bold() : .subheadline)
+          .font(settingsHandler.noNotificationLimit ? .subheadline.bold() : .subheadline)
         Spacer()
-        Toggle("No Limit:", isOn: $appSettings.noNotificationLimit.animation())
+        Toggle("No Limit:", isOn: $settingsHandler.noNotificationLimit.animation())
           .labelsHidden()
       }
 
-      if !appSettings.noNotificationLimit {
+      if !settingsHandler.noNotificationLimit {
         HStack {
           Text("Notification Limit:")
             .font(.subheadline)
             .foregroundStyle(.secondary)
-          Picker("Notification Limit:", selection: $appSettings.maxNotificationCount) {
+          Picker("Notification Limit:", selection: $settingsHandler.maxNotificationCount) {
             ForEach(1...30, id: \.self) { value in
               Text(String(value))
             }
@@ -43,7 +43,7 @@ struct SettingsNotificationSectionView: View {
           .font(.subheadline)
           .foregroundStyle(.secondary)
         Spacer()
-        TextField("Distance", value: $appSettings.regionRadius, format: .number)
+        TextField("Distance", value: $settingsHandler.regionRadius, format: .number)
           .frame(width: 100)
           .multilineTextAlignment(.trailing)
           .keyboardType(.numberPad)
@@ -69,5 +69,5 @@ struct SettingsNotificationSectionView: View {
 
 #Preview {
   SettingsNotificationSectionView()
-    .environmentObject(AppSettings.defaultSettings)
+    .environmentObject(SettingsHandler.defaults)
 }

@@ -70,7 +70,7 @@ import SwiftUI
             }
           }
 
-          self.manager?.distanceFilter = self.isStationary ? AppSettings.shared.regionRadius : kCLDistanceFilterNone
+          self.manager?.distanceFilter = self.isStationary ? SettingsHandler.shared.regionRadius : kCLDistanceFilterNone
         }
       } catch {
         print(error.localizedDescription)

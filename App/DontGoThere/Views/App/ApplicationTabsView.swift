@@ -10,9 +10,9 @@ import SwiftUI
 struct ApplicationTabsView: View {
 
   enum DontGoThereTabs: String {
-    case list = "PlacesList"
-    case map = "PlacesMap"
-    case settings = "AppSettings"
+    case list = "PlaceList"
+    case map = "PlaceMap"
+    case settings = "PlaceSettings"
   }
 
   @State private var selectedTab: DontGoThereTabs = .list
@@ -49,7 +49,7 @@ struct ApplicationTabsView: View {
     return ApplicationTabsView()
       .modelContainer(previewer.container)
       .environmentObject(LocationHandler.shared)
-      .environmentObject(AppSettings.defaultSettings)
+      .environmentObject(SettingsHandler.defaults)
   } catch {
     return Text("Failed to create preview: \(error.localizedDescription)")
   }

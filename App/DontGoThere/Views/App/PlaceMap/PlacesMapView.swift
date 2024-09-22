@@ -13,7 +13,7 @@ struct PlacesMapView: View {
 
   @Query var places: [Place]
   @Environment(\.modelContext) var modelContext
-  @EnvironmentObject var appSettings: AppSettings
+  @EnvironmentObject var settingsHandler: SettingsHandler
   @EnvironmentObject var locationHandler: LocationHandler
 
   var locationAuthorized: Bool { locationHandler.locationAuthorized }
@@ -180,12 +180,12 @@ struct PlacesMapView: View {
         review: "",
         latitude: coordinate.latitude,
         longitude: coordinate.longitude,
-        radius: appSettings.regionRadius,
+        radius: settingsHandler.regionRadius,
         address: Address.emptyAddress,
-        shouldExpire: !appSettings.neverExpire,
-        maxNotificationCount: appSettings.maxNotificationCount,
+        shouldExpire: !settingsHandler.neverExpire,
+        maxNotificationCount: settingsHandler.maxNotificationCount,
         addDate: Date.now,
-        expirationDate: appSettings.neverExpire ? Date.distantFuture : appSettings.getExpiryDate(from: Date.now),
+        expirationDate: settingsHandler.neverExpire ? Date.distantFuture : settingsHandler.getExpiryDate(from: Date.now),
         imageData: []
       )
       modelContext.insert(newPlace)
@@ -207,7 +207,7 @@ struct PlacesMapView: View {
     let previewer = try Previewer()
     return PlacesMapView()
       .modelContainer(previewer.container)
-      .environmentObject(AppSettings.defaultSettings)
+      .environmentObject(SettingsHandler.defaults)
       .environmentObject(LocationHandler.shared)
   } catch {
     return Text("Could not create preview: \(error.localizedDescription)")

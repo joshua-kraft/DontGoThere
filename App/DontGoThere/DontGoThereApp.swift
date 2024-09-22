@@ -16,14 +16,14 @@ struct DontGoThereApp: App {
   var archiveHandler: ArchiveHandler
 
   @StateObject var locationHandler = LocationHandler.shared
-  @StateObject var appSettings = AppSettings.shared
+  @StateObject var settingsHandler = SettingsHandler.shared
 
   @AppStorage("onboardingComplete") private var onboardingComplete: Bool = false
 
   var body: some Scene {
     WindowGroup {
       ContentView()
-        .environmentObject(appSettings)
+        .environmentObject(settingsHandler)
         .environmentObject(locationHandler)
         .onAppear {
           if onboardingComplete {
@@ -42,7 +42,7 @@ struct DontGoThereApp: App {
   init() {
     do {
       container = try ModelContainer(for: Place.self)
-      archiveHandler = ArchiveHandler(modelContext: container.mainContext, appSettings: AppSettings.shared)
+      archiveHandler = ArchiveHandler(modelContext: container.mainContext, settingsHandler: SettingsHandler.shared)
     } catch {
       fatalError("Could not create container: \(error.localizedDescription)")
     }

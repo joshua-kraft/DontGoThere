@@ -27,7 +27,7 @@ struct ContentView: View {
     return ContentView()
       .modelContainer(previewer.container)
       .environmentObject(LocationHandler.shared)
-      .environmentObject(AppSettings.defaultSettings)
+      .environmentObject(SettingsHandler.defaults)
   } catch {
     return Text("Failed to create preview: \(error.localizedDescription)")
   }

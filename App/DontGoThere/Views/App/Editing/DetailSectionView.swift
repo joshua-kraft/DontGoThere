@@ -10,7 +10,7 @@ import SwiftUI
 struct DetailSectionView: View {
 
   @Bindable var place: Place
-  @EnvironmentObject var appSettings: AppSettings
+  @EnvironmentObject var settingsHandler: SettingsHandler
   @EnvironmentObject var locationHandler: LocationHandler
   @State var enteredAddress = ""
   @FocusState private var focusedField: Field?
@@ -88,7 +88,7 @@ struct DetailSectionView: View {
           .padding(.trailing)
           .onChange(of: place.shouldExpire) {
             place.expirationDate = place.shouldExpire ?
-            appSettings.getExpiryDate(from: place.addDate) :
+            settingsHandler.getExpiryDate(from: place.addDate) :
             Date.distantFuture
           }
       }
@@ -128,7 +128,7 @@ struct DetailSectionView: View {
     let previewer = try Previewer()
     return DetailSectionView(place: previewer.activePlace)
       .modelContainer(previewer.container)
-      .environmentObject(AppSettings.defaultSettings)
+      .environmentObject(SettingsHandler.defaults)
       .environmentObject(LocationHandler.shared)
   } catch {
     return Text("Failed to create preview: \(error.localizedDescription)")

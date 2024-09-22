@@ -17,7 +17,7 @@ struct Previewer {
 
   init() throws {
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
-    let settings = AppSettings.defaultSettings
+    let settings = SettingsHandler.defaults
     container = try ModelContainer(for: Place.self, configurations: config)
     activePlace = Place(name: "Example Place Name",
                         review: "A little bit longer text so that we can see what wrapping looks like in"

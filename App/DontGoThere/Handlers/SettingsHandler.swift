@@ -1,5 +1,5 @@
 //
-//  AppSettings.swift
+//  SettingsHandler.swift
 //  DontGoThere
 //
 //  Created by Joshua Kraft on 2/17/24.
@@ -15,11 +15,11 @@ enum TimeUnit: String, CaseIterable, Codable {
   case years = "Year(s)"
 }
 
-class AppSettings: ObservableObject, Codable {
+class SettingsHandler: ObservableObject, Codable {
 
-  static let shared = AppSettings()
+  static let shared = SettingsHandler()
 
-  static let defaultSettings = AppSettings(neverExpire: false,
+  static let defaults = SettingsHandler(neverExpire: false,
                                            autoExpiryValue: 3,
                                            autoExpiryUnit: .months,
                                            neverDelete: false,
@@ -68,7 +68,7 @@ class AppSettings: ObservableObject, Codable {
   }
 
   init() {
-    if let settings = AppSettings.loadSettings() {
+    if let settings = SettingsHandler.loadSettings() {
       self.neverExpire = settings.neverExpire
       self.autoExpiryValue = settings.autoExpiryValue
       self.autoExpiryUnit = settings.autoExpiryUnit
@@ -79,23 +79,23 @@ class AppSettings: ObservableObject, Codable {
       self.noNotificationLimit = settings.noNotificationLimit
       self.maxNotificationCount = settings.maxNotificationCount
     } else {
-      self.neverExpire = AppSettings.defaultSettings.neverExpire
-      self.autoExpiryValue = AppSettings.defaultSettings.autoExpiryValue
-      self.autoExpiryUnit = AppSettings.defaultSettings.autoExpiryUnit
-      self.neverDelete = AppSettings.defaultSettings.neverDelete
-      self.autoDeletionValue = AppSettings.defaultSettings.autoDeletionValue
-      self.autoDeletionUnit = AppSettings.defaultSettings.autoDeletionUnit
-      self.regionRadius = AppSettings.defaultSettings.regionRadius
-      self.noNotificationLimit = AppSettings.defaultSettings.noNotificationLimit
-      self.maxNotificationCount = AppSettings.defaultSettings.maxNotificationCount
+      self.neverExpire = SettingsHandler.defaults.neverExpire
+      self.autoExpiryValue = SettingsHandler.defaults.autoExpiryValue
+      self.autoExpiryUnit = SettingsHandler.defaults.autoExpiryUnit
+      self.neverDelete = SettingsHandler.defaults.neverDelete
+      self.autoDeletionValue = SettingsHandler.defaults.autoDeletionValue
+      self.autoDeletionUnit = SettingsHandler.defaults.autoDeletionUnit
+      self.regionRadius = SettingsHandler.defaults.regionRadius
+      self.noNotificationLimit = SettingsHandler.defaults.noNotificationLimit
+      self.maxNotificationCount = SettingsHandler.defaults.maxNotificationCount
     }
 
     saveSettings()
   }
 
-  static func loadSettings() -> AppSettings? {
+  static func loadSettings() -> SettingsHandler? {
     if let settingsData = UserDefaults.standard.data(forKey: "DontGoThereSettings") {
-      if let decodedSettings = try? JSONDecoder().decode(AppSettings.self, from: settingsData) {
+      if let decodedSettings = try? JSONDecoder().decode(SettingsHandler.self, from: settingsData) {
         return decodedSettings
       } else {
         return nil

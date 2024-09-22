@@ -9,19 +9,19 @@ import SwiftUI
 
 struct SettingsExpirationSectionView: View {
 
-  @EnvironmentObject var appSettings: AppSettings
+  @EnvironmentObject var settingsHandler: SettingsHandler
 
   var body: some View {
     Section {
       HStack {
         Text("Never Expire:")
-          .font(appSettings.neverExpire ? .subheadline.bold() : .subheadline)
+          .font(settingsHandler.neverExpire ? .subheadline.bold() : .subheadline)
         Spacer()
-        Toggle("Never Expire:", isOn: $appSettings.neverExpire.animation())
+        Toggle("Never Expire:", isOn: $settingsHandler.neverExpire.animation())
           .labelsHidden()
       }
 
-      if !appSettings.neverExpire {
+      if !settingsHandler.neverExpire {
         HStack {
           Text("Set to Expire in:")
             .font(.subheadline)
@@ -30,7 +30,7 @@ struct SettingsExpirationSectionView: View {
 
           Spacer()
 
-          Picker("Expiry Value", selection: $appSettings.autoExpiryValue) {
+          Picker("Expiry Value", selection: $settingsHandler.autoExpiryValue) {
             ForEach(1...100, id: \.self) { value in
               Text(String(value))
             }
@@ -41,7 +41,7 @@ struct SettingsExpirationSectionView: View {
 
           Spacer()
 
-          Picker("Expiry Unit", selection: $appSettings.autoExpiryUnit) {
+          Picker("Expiry Unit", selection: $settingsHandler.autoExpiryUnit) {
             ForEach(TimeUnit.allCases, id: \.self) { unit in
               Text(unit.rawValue)
             }
@@ -55,7 +55,7 @@ struct SettingsExpirationSectionView: View {
       SettingsHeaderView(headerTitle: "Expiration Settings",
                          headerNote: "Set the default times to archive places from your active list.")
     } footer: {
-      if appSettings.neverExpire {
+      if settingsHandler.neverExpire {
         Text("Note: never expiring your active places may cause app storage usage to increase over time.")
           .font(.headline)
       }
@@ -65,5 +65,5 @@ struct SettingsExpirationSectionView: View {
 
 #Preview {
   SettingsExpirationSectionView()
-    .environmentObject(AppSettings.defaultSettings)
+    .environmentObject(SettingsHandler.defaults)
 }
