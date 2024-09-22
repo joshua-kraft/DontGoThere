@@ -29,7 +29,6 @@
 		42560A252B7D3D170013FCF4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42560A242B7D3D170013FCF4 /* SettingsView.swift */; };
 		42560A272B7F1F210013FCF4 /* PlacesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42560A262B7F1F210013FCF4 /* PlacesList.swift */; };
 		42560A292B8078500013FCF4 /* Previewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42560A282B8078500013FCF4 /* Previewer.swift */; };
-		42560A362B81843F0013FCF4 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42560A352B81843F0013FCF4 /* AppSettings.swift */; };
 		426BB6AC2B868DFF00CBDA71 /* DontGoThereIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426BB6AB2B868DFF00CBDA71 /* DontGoThereIconView.swift */; };
 		426BB6B52B87CFFC00CBDA71 /* PhotoSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426BB6B42B87CFFC00CBDA71 /* PhotoSheetView.swift */; };
 		426BB6B72B87D41200CBDA71 /* ZoomableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426BB6B62B87D41200CBDA71 /* ZoomableScrollView.swift */; };
@@ -38,6 +37,7 @@
 		426E96FB2B9D4D760078E13E /* GeocodingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426E96FA2B9D4D760078E13E /* GeocodingHandler.swift */; };
 		426E96FD2B9D55B10078E13E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426E96FC2B9D55B10078E13E /* AppDelegate.swift */; };
 		426E96FF2B9DB4020078E13E /* NotificationSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426E96FE2B9DB4020078E13E /* NotificationSectionView.swift */; };
+		427090A62C9FE9DF00758D74 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427090A52C9FE9DF00758D74 /* AppSettings.swift */; };
 		4284CB1A2BB7F06E000550C4 /* OnboardingLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4284CB192BB7F06E000550C4 /* OnboardingLocationView.swift */; };
 		4284CB1C2BB7FD37000550C4 /* OnboardingCommons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4284CB1B2BB7FD37000550C4 /* OnboardingCommons.swift */; };
 		4284CB1E2BB8006F000550C4 /* OnboardingIntroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4284CB1D2BB8006F000550C4 /* OnboardingIntroView.swift */; };
@@ -76,7 +76,6 @@
 		42560A242B7D3D170013FCF4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		42560A262B7F1F210013FCF4 /* PlacesList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesList.swift; sourceTree = "<group>"; };
 		42560A282B8078500013FCF4 /* Previewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Previewer.swift; sourceTree = "<group>"; };
-		42560A352B81843F0013FCF4 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		426BB6AB2B868DFF00CBDA71 /* DontGoThereIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DontGoThereIconView.swift; sourceTree = "<group>"; };
 		426BB6B42B87CFFC00CBDA71 /* PhotoSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSheetView.swift; sourceTree = "<group>"; };
 		426BB6B62B87D41200CBDA71 /* ZoomableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomableScrollView.swift; sourceTree = "<group>"; };
@@ -86,6 +85,7 @@
 		426E96FA2B9D4D760078E13E /* GeocodingHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeocodingHandler.swift; sourceTree = "<group>"; };
 		426E96FC2B9D55B10078E13E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		426E96FE2B9DB4020078E13E /* NotificationSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSectionView.swift; sourceTree = "<group>"; };
+		427090A52C9FE9DF00758D74 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		4284CB192BB7F06E000550C4 /* OnboardingLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingLocationView.swift; sourceTree = "<group>"; };
 		4284CB1B2BB7FD37000550C4 /* OnboardingCommons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCommons.swift; sourceTree = "<group>"; };
 		4284CB1D2BB8006F000550C4 /* OnboardingIntroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingIntroView.swift; sourceTree = "<group>"; };
@@ -240,7 +240,6 @@
 		426BB6B02B86ACD500CBDA71 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				42560A352B81843F0013FCF4 /* AppSettings.swift */,
 				42560A242B7D3D170013FCF4 /* SettingsView.swift */,
 				4284CB302BB8C199000550C4 /* Sections */,
 			);
@@ -272,6 +271,7 @@
 		42FD8B6D2B96D379009DFAE8 /* Handlers */ = {
 			isa = PBXGroup;
 			children = (
+				427090A52C9FE9DF00758D74 /* AppSettings.swift */,
 				4238EFC22B893C5900597B4A /* MapSearchHandler.swift */,
 				42F0ED452B92344100105CB1 /* LocationHandler.swift */,
 				426E96F52B9C3EF00078E13E /* ArchiveHandler.swift */,
@@ -354,7 +354,6 @@
 				4284CB1C2BB7FD37000550C4 /* OnboardingCommons.swift in Sources */,
 				4238EFBB2B891CC100597B4A /* PlaceMinimapView.swift in Sources */,
 				42150CC22BB7D9C900181870 /* ApplicationTabsView.swift in Sources */,
-				42560A362B81843F0013FCF4 /* AppSettings.swift in Sources */,
 				426BB6B52B87CFFC00CBDA71 /* PhotoSheetView.swift in Sources */,
 				4284CB202BB8133F000550C4 /* OnboardingNotificationView.swift in Sources */,
 				421287A02BB7D7990033F62E /* OnboardingView.swift in Sources */,
@@ -390,6 +389,7 @@
 				4284CB282BB8B622000550C4 /* SettingsDeletionSectionView.swift in Sources */,
 				4238EFB72B891B2D00597B4A /* DetailSectionView.swift in Sources */,
 				42560A292B8078500013FCF4 /* Previewer.swift in Sources */,
+				427090A62C9FE9DF00758D74 /* AppSettings.swift in Sources */,
 				42560A0B2B74292B0013FCF4 /* DontGoThereApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
