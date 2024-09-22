@@ -15,9 +15,9 @@ struct SettingsView: View {
     NavigationStack {
       Form {
 
-        NavigationLink("Privacy Statement") { PrivacyStatementView() }
+        Link("Privacy Statement", destination: AppSettings.privacyURL)
 
-        Link("Support", destination: URL(string: "https://www.dontgothere.app/support/")!)
+        Link("Support", destination: AppSettings.supportURL)
 
         SettingsExpirationSectionView()
 

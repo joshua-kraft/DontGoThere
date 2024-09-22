@@ -27,6 +27,9 @@ class AppSettings: ObservableObject, Codable {
                                            noNotificationLimit: false,
                                            maxNotificationCount: 10)
 
+  static let privacyURL: URL = .init(string: "https://www.dontgothere.app/privacy/")!
+  static let supportURL: URL = .init(string: "https://www.dontgothere.app/support/")!
+
   let calendar = Calendar.autoupdatingCurrent
 
   lazy var privacyStatement: String? = {
