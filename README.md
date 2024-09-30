@@ -1,8 +1,8 @@
 # DontGoThere
 
-Ever found yourself back at a place that disappointed you, only to realize too late that you’d been there before and had a bad experience? **DontGoThere** is here to ensure you never make the same mistake twice!
+## Purpose
 
-## Overview
+Ever found yourself back at a place that disappointed you, only to realize too late that you’d been there before and had a bad experience? **DontGoThere** is here to ensure you never make the same mistake twice!
 
 With **DontGoThere**, you can easily track places where you’ve had less-than-stellar experiences. The app allows you to document each location with a name, address, review, and photos. Plus, it will send you gentle reminders if you find yourself back in the vicinity of those places.
 
