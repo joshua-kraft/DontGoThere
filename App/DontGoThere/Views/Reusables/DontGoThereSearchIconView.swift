@@ -3,7 +3,7 @@
 //  DontGoThere
 //
 //  Created by Joshua Kraft on 2/27/24.
-//
+//  Copyright © 2024 Joshua Kraft. All rights reserved.
 
 import SwiftUI
 

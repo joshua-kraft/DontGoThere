@@ -3,7 +3,7 @@
 //  DontGoThere
 //
 //  Created by Joshua Kraft on 2/7/24.
-//
+//  Copyright © 2024 Joshua Kraft. All rights reserved.
 
 import MapKit
 import SwiftData
@@ -185,7 +185,7 @@ struct PlacesMapView: View {
         shouldExpire: !settingsHandler.neverExpire,
         maxNotificationCount: settingsHandler.maxNotificationCount,
         addDate: Date.now,
-        expirationDate: settingsHandler.neverExpire ? Date.distantFuture : settingsHandler.getExpiryDate(from: Date.now),
+        expirationDate: settingsHandler.neverExpire ? Date.distantFuture : settingsHandler.getExpiryDate(from: .now),
         imageData: []
       )
       modelContext.insert(newPlace)
