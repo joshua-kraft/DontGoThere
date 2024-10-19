@@ -70,7 +70,13 @@ import SwiftUI
             }
           }
 
-          self.manager?.distanceFilter = self.isStationary ? SettingsHandler.shared.regionRadius : kCLDistanceFilterNone
+          // If stationary, reduce our location usage. Wait until the device moves
+          // the user's configured notification radius in meters or 100 meters,
+          // whichever is greater.
+
+          let configuredRadius = SettingsHandler.shared.regionRadius
+          let theRadius = configuredRadius < 100.0 ? 100.0 : configuredRadius
+          self.manager?.distanceFilter = self.isStationary ? theRadius : kCLDistanceFilterNone
         }
       } catch {
         print(error.localizedDescription)
